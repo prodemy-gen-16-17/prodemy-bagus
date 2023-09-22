@@ -1,5 +1,7 @@
 # Apa Itu Github (semua video)
 
+---
+
 ## Apa Itu GitHub (intro)
 
 1. Perbedaan antara GitHub dan Git.
@@ -10,6 +12,8 @@
 6. Tidak membahas Git, hanya membahas fitur-fitur yang ditawarkan oleh GitHub.
 
 Pentingnya Git dalam konteks GitHub.
+
+---
 
 ## Apa Itu GitHub (Repository dan Clone)
 

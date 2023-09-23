@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Kontak</title>
+    <head>
+    <body>
+        <div>
+            Menu
+            <a href="index.html">Home</a>
+            <a href="subfolder/tabel.html">Tabel</a>
+            <a href="subfolder/media.html">Media</a>
+        </div>
+
+        <div>
+            <h1>Kontak h1</h1>
+            <h2>subjudul h2</h2>
+        </div>
+
+        <form action="">
+            <fieldset>
+                <legend>Nama dan pesan</legend>
+                <label for="nama">Nama</label>
+                <input type="text" name="nama" id="nama" placeholder="Nama">
+                <br>
+                <label for="pesan">Pesan</label>
+                <textarea name="pesan" id="pesan" cols="30" rows="10">Pesan saya adalah</textarea>
+            </fieldset>
+
+            <fieldset>
+                <legend>Pilihan data</legend>
+                <label for="hobi">Hobi</label>
+                <input type="checkbox" name="hobi" id="hobi" value="0">Menggambar
+                <input type="checkbox" name="hobi" id="hobi" value="1" checked>Menulis
+                <input type="checkbox" name="hobi" id="hobi" value="2">Menyanyi
+                <br>
+                <label for="gender">Jenis Kelamin</label>
+                <input type="radio" name="gender" id="gender" value="0" checked>Laki-laki
+                <input type="radio" name="gender" id="gender" value="1">Perempuan
+                <br>
+                <label for="pelajaran">Pelajaran</label>
+                <select name="pelajaran" id="pelajaran">
+                    <optgroup label="frontend">
+                        <option value="html">HTML</option>
+                        <option value="css">CSS</option>
+                    </optgroup>
+
+                    <optgroup label="backend">
+                        <option value="database">Database</option>
+                        <option value="js">JavaScript</option>
+                    </optgroup>
+                </select>
+            </fieldset>
+
+            <input type="submit" value="Kirim">
+        </form>
+    </body>
+</html> 

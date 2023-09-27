@@ -1,0 +1,139 @@
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  /* header */
+  .brand {
+    display: none;
+  }
+
+  .categories {
+    display: none;
+  }
+
+  #activity {
+    display: none;
+  }
+
+  #activity-mobile {
+    font-size: 0.7rem;
+    display: block;
+  }
+  
+
+  /* main */
+  .popular-category-container {
+    flex-wrap: wrap;
+  }
+
+  .popular-category-container a {
+    max-width: 33.333%;
+  }
+
+  .popular-category {
+    margin: 0.2rem 0.2rem;
+    border-radius: 0.4rem;
+  }
+
+  .popular-category img {
+    border-radius: 0.4rem 0.4rem 0 0;
+  }
+
+  .popular-category-desc {
+    padding: 0 0.5rem 0.3rem;
+  }
+
+  .popular-category-desc h3 {
+    font-size: 0.9rem;
+  }
+
+  /* footer */
+  footer {
+    display: none;
+  }
+
+  footer#footer-responsive {
+    display: block;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 601px and up) */
+@media only screen and (min-width: 601px) and (max-width: 768px) {
+  /* header */
+  .brand {
+    display: none;
+  }
+
+  .categories {
+    display: none;
+  }
+
+  #activity {
+    display: none;
+  }
+
+  #activity-mobile {
+    display: block;
+  }
+
+  /* footer */
+  footer {
+    display: none;
+  }
+
+  footer#footer-responsive {
+    display: block;
+  }
+}
+
+/* Medium devices (landscape tablets, 769px and up) */
+@media only screen and (min-width: 769px) and (max-width: 992px) {
+  /* header */
+
+  /* footer */
+  footer {
+    display: block;
+  }
+
+  footer#footer-responsive {
+    display: none;
+  }
+
+  #nav-bottom {
+    display: none;
+  }
+}
+
+/* Large devices (laptops/desktops, 993px and up) */
+@media only screen and (min-width: 993px) and (max-width: 1200px) {
+  /* header */
+
+  /* footer */
+  footer {
+    display: block;
+  }
+
+  footer#footer-responsive {
+    display: none;
+  }
+
+  #nav-bottom {
+    display: none;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1201px and up) */
+@media only screen and (min-width: 1201px) {
+  /* header */
+
+  /* footer */
+  footer {
+    display: block;
+  }
+
+  footer#footer-responsive {
+    display: none;
+  }
+
+  #nav-bottom {
+    display: none;
+  }
+}

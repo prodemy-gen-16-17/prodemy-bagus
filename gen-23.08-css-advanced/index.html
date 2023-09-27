@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kaffee</title>
+    <link rel="stylesheet" href="header-style.css" />
+    <link rel="stylesheet" href="nav-bottom-style.css" />
+    <link rel="stylesheet" href="exclusive-products-style.css" />
+    <link rel="stylesheet" href="popular-category-style.css" />
+    <link rel="stylesheet" href="footer-style.css" />
+    <link rel="stylesheet" href="responsive-style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="brand">
+        <a href="#"> Kaffee </a>
+      </div>
+
+      <nav class="categories">
+        <a href="#" style="text-decoration: none; color: inherit">Category</a>
+        <div class="dropdown-content">
+          <div class="main-categories">
+            <ul>
+              <li><a href="#">Category 1</a></li>
+              <li><a href="#">Category 2</a></li>
+              <li><a href="#">Category 3</a></li>
+              <li><a href="#">Category 4</a></li>
+              <li><a href="#">Category 5</a></li>
+              <li><a href="#">Category 6</a></li>
+              <!-- Add more main categories as needed -->
+            </ul>
+          </div>
+          <div class="sub-categories">
+            <ul>
+              <li><a href="#">Subcategory 1</a></li>
+              <li><a href="#">Subcategory 2</a></li>
+              <li><a href="#">Subcategory 3</a></li>
+              <li><a href="#">Subcategory 4</a></li>
+              <li><a href="#">Subcategory 5</a></li>
+              <li><a href="#">Subcategory 6</a></li>
+              <li><a href="#">Subcategory 7</a></li>
+              <li><a href="#">Subcategory 8</a></li>
+              <li><a href="#">Subcategory 9</a></li>
+              <li><a href="#">Subcategory 10</a></li>
+              <!-- Add more subcategories as needed -->
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <form action="/search" method="get" class="search-form">
+        <input
+          class="search-bar"
+          type="search"
+          name="search"
+          placeholder="Search"
+        />
+        <button type="submit" class="search-button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 50 50"
+            width="30px"
+            height="30px"
+          >
+            <path
+              d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"
+            />
+          </svg>
+        </button>
+      </form>
+
+      <div id="activity">
+        <a href="#">Cart</a>
+        <a href="#">Sign Up</a>
+        <a href="#">Sign In</a>
+      </div>
+      <div id="activity-mobile">
+        <a href="#">+</a>
+      </div>
+    </header>
+
+    <!-- Exclusive Products -->
+    <section class="exclusive-products">
+      <div class="exclusive-header">
+        <h2>Exclusive Products</h2>
+        <a href="#" class="see-all-button">See All</a>
+      </div>
+      <div class="product-container">
+        <!-- Product 1 -->
+        <a href="#">
+          <div class="product">
+            <img
+              src="https://s-ecom.ottenstatic.com/thumbnail/63623e2a55335024133293.png"
+              alt="Product 1"
+            />
+            <div class="product-desc">
+              <h3>Product 1</h3>
+              <p>Short Description of Product 1</p>
+              <span>$19.99</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Repeat this block for the remaining products -->
+        <a href="#">
+          <div class="product">
+            <img
+              src="https://s-ecom.ottenstatic.com/thumbnail/623833ae828b2493989332.jpg"
+              alt="Product 2"
+            />
+            <div class="product-desc">
+              <h3>Product 2</h3>
+              <p>Short Description of Product 2</p>
+              <span>$24.99</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="#">
+          <div class="product">
+            <img
+              src="https://s-ecom.ottenstatic.com/thumbnail/623833ae828b2493989332.jpg"
+              alt="Product 3"
+            />
+            <div class="product-desc">
+              <h3>Product 3</h3>
+              <p>Short Description of Product 3</p>
+              <span>$29.99</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="#">
+          <div class="product">
+            <img
+              src="https://s-ecom.ottenstatic.com/thumbnail/623833ae828b2493989332.jpg"
+              alt="Product 4"
+            />
+            <div class="product-desc">
+              <h3>Product 4</h3>
+              <p>Short Description of Product 4</p>
+              <span>$34.99</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="#">
+          <div class="product">
+            <img
+              src="https://s-ecom.ottenstatic.com/thumbnail/623833ae828b2493989332.jpg"
+              alt="Product 5"
+            />
+            <div class="product-desc">
+              <h3>Product 5</h3>
+              <p>Short Description of Product 5</p>
+              <span>$39.99</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="#">
+          <div class="product">
+            <img
+              src="https://s-ecom.ottenstatic.com/thumbnail/623833ae828b2493989332.jpg"
+              alt="Product 6"
+            />
+            <div class="product-desc">
+              <h3>Product 6</h3>
+              <p>Short Description of Product 6</p>
+              <span>$44.99</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Popular Category -->
+    <section class="popular-categories">
+      <div class="popular-categories-header">
+        <h2>Popular Category</h2>
+      </div>
+      <div class="popular-category-container">
+        <!-- Category 1 -->
+        <a href="#">
+          <div class="popular-category">
+            <img
+              src="https://s-ecom.ottenstatic.com/thumbnail/63623e2a55335024133293.png"
+              alt="Category 1"
+            />
+            <div class="popular-category-desc">
+              <h3>Category 1</h3>
+            </div>
+          </div>
+        </a>
+
+        <!-- Repeat this block for the remaining products -->
+        <a href="#">
+          <div class="popular-category">
+            <img
+              src="https://s-ecom.ottenstatic.com/thumbnail/623833ae828b2493989332.jpg"
+              alt="Category 2"
+            />
+            <div class="popular-category-desc">
+              <h3>Category 2</h3>
+            </div>
+          </div>
+        </a>
+
+        <a href="#">
+          <div class="popular-category">
+            <img
+              src="https://s-ecom.ottenstatic.com/thumbnail/623833ae828b2493989332.jpg"
+              alt="Category 3"
+            />
+            <div class="popular-category-desc">
+              <h3>Category 3</h3>
+            </div>
+          </div>
+        </a>
+
+        <a href="#">
+          <div class="popular-category">
+            <img
+              src="https://s-ecom.ottenstatic.com/thumbnail/623833ae828b2493989332.jpg"
+              alt="Category 4"
+            />
+            <div class="popular-category-desc">
+              <h3>Category 4</h3>
+            </div>
+          </div>
+        </a>
+
+        <a href="#">
+          <div class="popular-category">
+            <img
+              src="https://s-ecom.ottenstatic.com/thumbnail/623833ae828b2493989332.jpg"
+              alt="Category 5"
+            />
+            <div class="popular-category-desc">
+              <h3>Category 5</h3>
+            </div>
+          </div>
+        </a>
+
+        <a href="#">
+          <div class="popular-category">
+            <img
+              src="https://s-ecom.ottenstatic.com/thumbnail/623833ae828b2493989332.jpg"
+              alt="Category 6"
+            />
+            <div class="popular-category-desc">
+              <h3>Category 6</h3>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Newest Product -->
+    <section class="exclusive-products">
+      <div class="exclusive-header">
+        <h2>Newest Product</h2>
+        <a href="#" class="see-all-button">See All</a>
+      </div>
+      <div class="product-container">
+        <!-- Product 1 -->
+        <a href="#">
+          <div class="product">
+            <img
+              src="https://s-ecom.ottenstatic.com/thumbnail/63623e2a55335024133293.png"
+              alt="Product 1"
+            />
+            <div class="product-desc">
+              <h3>Product 1</h3>
+              <p>Short Description of Product 1</p>
+              <span>$19.99</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Repeat this block for the remaining products -->
+        <a href="#">
+          <div class="product">
+            <img
+              src="https://s-ecom.ottenstatic.com/thumbnail/623833ae828b2493989332.jpg"
+              alt="Product 2"
+            />
+            <div class="product-desc">
+              <h3>Product 2</h3>
+              <p>Short Description of Product 2</p>
+              <span>$24.99</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="#">
+          <div class="product">
+            <img
+              src="https://s-ecom.ottenstatic.com/thumbnail/623833ae828b2493989332.jpg"
+              alt="Product 3"
+            />
+            <div class="product-desc">
+              <h3>Product 3</h3>
+              <p>Short Description of Product 3</p>
+              <span>$29.99</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="#">
+          <div class="product">
+            <img
+              src="https://s-ecom.ottenstatic.com/thumbnail/623833ae828b2493989332.jpg"
+              alt="Product 4"
+            />
+            <div class="product-desc">
+              <h3>Product 4</h3>
+              <p>Short Description of Product 4</p>
+              <span>$34.99</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="#">
+          <div class="product">
+            <img
+              src="https://s-ecom.ottenstatic.com/thumbnail/623833ae828b2493989332.jpg"
+              alt="Product 5"
+            />
+            <div class="product-desc">
+              <h3>Product 5</h3>
+              <p>Short Description of Product 5</p>
+              <span>$39.99</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="#">
+          <div class="product">
+            <img
+              src="https://s-ecom.ottenstatic.com/thumbnail/623833ae828b2493989332.jpg"
+              alt="Product 6"
+            />
+            <div class="product-desc">
+              <h3>Product 6</h3>
+              <p>Short Description of Product 6</p>
+              <span>$44.99</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <!-- First Row -->
+      <div class="footer-row">
+        <!-- First Column -->
+        <div class="footer-column">
+          <h3>Contact</h3>
+          <p>Mock Phone Number</p>
+          <p>Mock Email</p>
+          <p><i class="fa fa-whatsapp"></i> Mock WhatsApp</p>
+          <div class="social-media">
+            <a href="#"><i class="fa fa-youtube"></i></a>
+            <a href="#"><i class="fa fa-instagram"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-tiktok"></i></a>
+          </div>
+        </div>
+        <!-- Second Column -->
+        <div class="footer-column">
+          <div class="footer-row">
+            <div class="footer-column">
+              <h3>Brand</h3>
+              <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Career</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Partnership</a></li>
+                <li><a href="#">Magazine</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-column">
+              <h3>Help</h3>
+              <ul>
+                <li><a href="#">Shipping</a></li>
+                <li><a href="#">Product Returns</a></li>
+                <li><a href="#">Warranty</a></li>
+                <li><a href="#">Payment Guide</a></li>
+                <li><a href="#">Voucher Guide</a></li>
+                <li><a href="#">Shopping Guide</a></li>
+                <li><a href="#">Terms and Conditions</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-column">
+              <h3>Customer Care</h3>
+              <ul>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Wholesale Prices</a></li>
+                <li><a href="#">Payment Confirmation</a></li>
+                <li><a href="#">FAQ</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Second Row -->
+      <div class="footer-row">
+        <!-- First Column -->
+        <div class="footer-column">
+          <h3>Payment Methods</h3>
+          <p>Stripe, Visa, MasterCard</p>
+        </div>
+        <!-- Second Column -->
+        <div class="footer-column">
+          <h3>Delivery Services</h3>
+          <p>Gojek, Grab, JNE</p>
+        </div>
+      </div>
+      <!-- Third Row -->
+      <div class="footer-row copyright">
+        <p>&copy; 2023 Hak Cipta Terpelihara PT Kaffee Szczynk</p>
+      </div>
+    </footer>
+
+    <footer id="footer-responsive">
+      <div class="footer-row copyright">
+        <p>&copy; 2023 Hak Cipta Terpelihara PT Kaffee Szczynk</p>
+      </div>
+
+      <div
+        class="footer-row"
+        style="
+          justify-content: center;
+          background-color: rgb(109, 191, 103);
+          color: white;
+          margin-bottom: 3rem;
+        "
+      >
+        <a
+          href="#"
+          style="
+            justify-content: center;
+            padding: 0.6rem 0;
+            text-decoration: none;
+            color: inherit;
+          "
+        >
+          Bertanya melalui WhatsApp
+        </a>
+      </div>
+    </footer>
+
+    <!-- Nav Bottom -->
+    <div id="nav-bottom">
+      <a href="#">Home</a>
+      <div class="nav-bot-categories">
+        <a href="#">Category</a>
+        <div class="nav-bot-dropdown-content">
+          <div class="main-categories">
+            <ul>
+              <li><a href="#">Category 1</a></li>
+              <li><a href="#">Category 2</a></li>
+              <li><a href="#">Category 3</a></li>
+              <li><a href="#">Category 4</a></li>
+              <li><a href="#">Category 5</a></li>
+              <li><a href="#">Category 6</a></li>
+              <!-- Add more main categories as needed -->
+            </ul>
+          </div>
+          <div class="sub-categories">
+            <ul>
+              <li><a href="#">Subcategory 1</a></li>
+              <li><a href="#">Subcategory 2</a></li>
+              <li><a href="#">Subcategory 3</a></li>
+              <li><a href="#">Subcategory 4</a></li>
+              <li><a href="#">Subcategory 5</a></li>
+              <li><a href="#">Subcategory 6</a></li>
+              <li><a href="#">Subcategory 7</a></li>
+              <li><a href="#">Subcategory 8</a></li>
+              <li><a href="#">Subcategory 9</a></li>
+              <li><a href="#">Subcategory 10</a></li>
+              <!-- Add more subcategories as needed -->
+            </ul>
+          </div>
+        </div>
+      </div>
+      <a href="#">Cart</a>
+      <a href="#">Account</a>
+    </div>
+  </body>
+</html>

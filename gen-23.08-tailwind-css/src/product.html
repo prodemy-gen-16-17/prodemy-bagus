@@ -4,18 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kaffee : Kopi dan Kafe ada disini</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
   </head>
   <body class="">
     <!-- Header -->
-    <header class="sticky top-0 bg-white shadow">
+    <header class="sticky top-0 z-50 bg-white shadow">
       <div
         class="mx-auto max-w-7xl px-2 sm:px-4 lg:divide-y lg:divide-gray-200 lg:px-8"
       >
         <div class="flex h-16 justify-between">
           <div class="hidden px-2 sm:flex lg:px-0">
             <div class="flex items-center text-2xl text-green-500">
-              <a href="index.html" class="no-underline font-bold">Kaffee</a>
+              <a href="index.html" class="font-bold no-underline">Kaffee</a>
             </div>
           </div>
 
@@ -128,7 +128,7 @@
                   class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
                 >
                   <svg
-                    class="h-5 w-5 text-gray-400"
+                    class="h-5 w-5 fill-gray-400"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                     aria-hidden="true"
@@ -155,10 +155,9 @@
                   onClick="hideDropdown()"
                 >
                   <svg
-                    class="h-5 w-5 text-gray-400"
+                    class="h-5 w-5 fill-gray-400"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512"
-                    style="fill: rgb(156 163 175 / 1)"
                   >
                     <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                     <path
@@ -264,10 +263,639 @@
       </div>
     </header>
 
-    <main class="px-4"></main>
+    <main class="px-4">
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+        <!-- right -->
+        <div class="">
+          <!-- carousel mobile -->
+          <div
+            id="carousel-mobile-indicator"
+            class="relative lg:hidden"
+            data-te-carousel-init
+            data-te-ride="carousel"
+          >
+            <!--Carousel indicators-->
+            <div
+              class="absolute bottom-0 left-0 right-0 z-[2] mx-[15%] mb-4 flex list-none justify-center p-0"
+              data-te-carousel-indicators
+            >
+              <button
+                type="button"
+                data-te-target="#carousel-mobile-indicator"
+                data-te-slide-to="0"
+                data-te-carousel-active
+                class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-green-500 bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
+                aria-current="true"
+                aria-label="Slide 1"
+              ></button>
+              <button
+                type="button"
+                data-te-target="#carousel-mobile-indicator"
+                data-te-slide-to="1"
+                class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-green-500 bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
+                aria-label="Slide 2"
+              ></button>
+              <button
+                type="button"
+                data-te-target="#carousel-mobile-indicator"
+                data-te-slide-to="2"
+                class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-green-500 bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
+                aria-label="Slide 3"
+              ></button>
+            </div>
+
+            <!--Carousel items-->
+            <div
+              class="relative w-full overflow-hidden after:clear-both after:block after:content-['']"
+            >
+              <!--First item-->
+              <div
+                class="relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
+                data-te-carousel-item
+                data-te-carousel-active
+              >
+                <img
+                  src="https://s-ecom.ottenstatic.com/original/64f5950499e0b133674202.jpg"
+                  class="block w-full"
+                  alt="Wild Landscape"
+                />
+              </div>
+              <!--Second item-->
+              <div
+                class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
+                data-te-carousel-item
+              >
+                <img
+                  src="https://s-ecom.ottenstatic.com/original/64f5950495c6c776218984.jpg"
+                  class="block w-full"
+                  alt="Camera"
+                />
+              </div>
+              <!--Third item-->
+              <div
+                class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
+                data-te-carousel-item
+              >
+                <img
+                  src="https://s-ecom.ottenstatic.com/original/64f595049bb65142483082.jpg"
+                  class="block w-full"
+                  alt="Exotic Fruits"
+                />
+              </div>
+            </div>
+
+            <!--Carousel controls - prev item-->
+            <button
+              class="absolute bottom-0 left-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-green-500 opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-green-600 hover:no-underline hover:opacity-90 hover:outline-none focus:text-green-600 focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
+              type="button"
+              data-te-target="#carousel-mobile-indicator"
+              data-te-slide="prev"
+            >
+              <span class="inline-block h-8 w-8">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="h-6 w-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15.75 19.5L8.25 12l7.5-7.5"
+                  />
+                </svg>
+              </span>
+              <span
+                class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+              >
+                Previous
+              </span>
+            </button>
+            <!--Carousel controls - next item-->
+            <button
+              class="absolute bottom-0 right-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-green-500 opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-green-600 hover:no-underline hover:opacity-90 hover:outline-none focus:text-green-600 focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
+              type="button"
+              data-te-target="#carousel-mobile-indicator"
+              data-te-slide="next"
+            >
+              <span class="inline-block h-8 w-8">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="h-6 w-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                  />
+                </svg>
+              </span>
+              <span
+                class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+              >
+                Next
+              </span>
+            </button>
+          </div>
+
+          <!-- carousel desktop -->
+          <div class="hidden lg:block">right desktop</div>
+        </div>
+
+        <!-- left -->
+        <div class="">
+          <h1 class="text-xl font-bold sm:text-2xl">
+            DiFluid - R1 Coffee Refractometer
+          </h1>
+          <div class="mt-1 flex flex-wrap items-center">
+            <div class="m-1 inline-flex items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="mr-1 h-6 fill-yellow-500"
+                viewBox="0 0 576 512"
+              >
+                <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                <path
+                  d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+                />
+              </svg>
+              4.8 (10 Ulasan)
+            </div>
+            <span class="m-1">&bull;</span>
+            <div class="m-1 inline">Brand Contoh Brand</div>
+            <span class="m-1">&bull;</span>
+            <div class="m-1 inline">SKU ASDFGHJKLZXCV</div>
+            <span class="m-1">&bull;</span>
+            <div class="m-1 inline">Tersedia COD</div>
+            <span class="m-1">&bull;</span>
+            <div class="m-1 inline">Gratis Ongkir</div>
+          </div>
+          <div class="mt-2 flex items-center">
+            <div class="w-1/2">
+              <div class="text-xl font-bold text-green-700 sm:text-2xl">
+                Rp 2.250.000
+              </div>
+            </div>
+            <div class="w-1/2">
+              <button class="float-right p-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 fill-green-500"
+                  viewBox="0 0 512 512"
+                >
+                  <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                  <path
+                    d="M225.8 468.2l-2.5-2.3L48.1 303.2C17.4 274.7 0 234.7 0 192.8v-3.3c0-70.4 50-130.8 119.2-144C158.6 37.9 198.9 47 231 69.6c9 6.4 17.4 13.8 25 22.3c4.2-4.8 8.7-9.2 13.5-13.3c3.7-3.2 7.5-6.2 11.5-9c0 0 0 0 0 0C313.1 47 353.4 37.9 392.8 45.4C462 58.6 512 119.1 512 189.5v3.3c0 41.9-17.4 81.9-48.1 110.4L288.7 465.9l-2.5 2.3c-8.2 7.6-19 11.9-30.2 11.9s-22-4.2-30.2-11.9zM239.1 145c-.4-.3-.7-.7-1-1.1l-17.8-20c0 0-.1-.1-.1-.1c0 0 0 0 0 0c-23.1-25.9-58-37.7-92-31.2C81.6 101.5 48 142.1 48 189.5v3.3c0 28.5 11.9 55.8 32.8 75.2L256 430.7 431.2 268c20.9-19.4 32.8-46.7 32.8-75.2v-3.3c0-47.3-33.6-88-80.1-96.9c-34-6.5-69 5.4-92 31.2c0 0 0 0-.1 .1s0 0-.1 .1l-17.8 20c-.3 .4-.7 .7-1 1.1c-4.5 4.5-10.6 7-16.9 7s-12.4-2.5-16.9-7z"
+                  />
+                </svg>
+              </button>
+              <button class="float-right p-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 fill-green-500"
+                  viewBox="0 0 512 512"
+                >
+                  <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                  <path
+                    d="M307 34.8c-11.5 5.1-19 16.6-19 29.2v64H176C78.8 128 0 206.8 0 304C0 417.3 81.5 467.9 100.2 478.1c2.5 1.4 5.3 1.9 8.1 1.9c10.9 0 19.7-8.9 19.7-19.7c0-7.5-4.3-14.4-9.8-19.5C108.8 431.9 96 414.4 96 384c0-53 43-96 96-96h96v64c0 12.6 7.4 24.1 19 29.2s25 3 34.4-5.4l160-144c6.7-6.1 10.6-14.7 10.6-23.8s-3.8-17.7-10.6-23.8l-160-144c-9.4-8.5-22.9-10.6-34.4-5.4z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <hr class="my-2 border" />
+          <div class="flex items-center">
+            <div class="w-1/2">Stok: <span class="ml-2">10</span></div>
+            <div class="flex w-1/2 items-center justify-between">
+              <span class="text-center">Jumlah</span>
+              <div class="float-right flex rounded-md border p-2">
+                <button
+                  class="flex items-center justify-center px-1 py-2 sm:p-2"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 fill-green-500"
+                    viewBox="0 0 448 512"
+                  >
+                    <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                    <path
+                      d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"
+                    />
+                  </svg>
+                </button>
+                <input
+                  class="w-8 border-0 p-0 text-center"
+                  type="tel"
+                  maxlength="4"
+                  pattern="^-?[0-9]\d*\.?\d*$"
+                  value="1"
+                />
+                <button
+                  class="flex items-center justify-center px-1 py-2 sm:p-2"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 fill-green-500"
+                    viewBox="0 0 448 512"
+                  >
+                    <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                    <path
+                      d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <hr class="my-2 border" />
+        </div>
+      </div>
+      <div class="lg:px-6">
+        <h2 class="mb-3 text-xl font-bold sm:text-2xl">Informasi Produk</h2>
+        <div class="mb-3">
+          <h3 class="mb-1 text-lg font-bold sm:text-xl">Spesifikasi</h3>
+          <ul class="list-inside list-disc">
+            <li>Exact - Precision ±0.03%, resolution 0.01%</li>
+            <li>
+              Smart - In-app guidance for Golden Cup extraction and data export
+            </li>
+            <li>Tiny - only 24 grams</li>
+          </ul>
+        </div>
+        <div class="mb-3">
+          <h3 class="mb-1 text-lg font-bold sm:text-xl">Deskripsi</h3>
+          <p class="text-justify">
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries, but also the leap into electronic typesetting,
+            remaining essentially unchanged. It was popularised in the 1960s
+            with the release of Letraset sheets containing Lorem Ipsum passages,
+            and more recently with desktop publishing software like Aldus
+            PageMaker including versions of Lorem Ipsum.
+          </p>
+        </div>
+      </div>
+      <div class="lg:px-6">
+        <h2 class="mb-3 text-xl font-bold sm:text-2xl">Ulasan</h2>
+        <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <div class="flex items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="mr-1 h-6 fill-yellow-500 lg:h-8"
+              viewBox="0 0 576 512"
+            >
+              <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+              <path
+                d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+              />
+            </svg>
+            <div class="lg:text-xl">
+              <span class="font-bold">4.8 / 5</span> (10 Ulasan)
+            </div>
+          </div>
+          <div class="flex lg:justify-between">
+            <button
+              class="rounded border border-white hover:border-green-500 focus:border-green-500"
+            >
+              <div class="m-1 flex justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="mr-1 h-6 fill-yellow-500"
+                  viewBox="0 0 576 512"
+                >
+                  <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                  <path
+                    d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+                  />
+                </svg>
+                <div class="">
+                  <span class="font-bold">5</span>
+                </div>
+              </div>
+              <p class="m-1 text-center text-sm sm:text-base">10 Ulasan</p>
+            </button>
+            <button
+              class="rounded border border-white hover:border-green-500 focus:border-green-500"
+            >
+              <div class="m-1 flex justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="mr-1 h-6 fill-yellow-500"
+                  viewBox="0 0 576 512"
+                >
+                  <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                  <path
+                    d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+                  />
+                </svg>
+                <div class="">
+                  <span class="font-bold">4</span>
+                </div>
+              </div>
+              <p class="m-1 text-center text-sm sm:text-base">0 Ulasan</p>
+            </button>
+            <button
+              class="rounded border border-white hover:border-green-500 focus:border-green-500"
+            >
+              <div class="m-1 flex justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="mr-1 h-6 fill-yellow-500"
+                  viewBox="0 0 576 512"
+                >
+                  <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                  <path
+                    d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+                  />
+                </svg>
+                <div class="">
+                  <span class="font-bold">3</span>
+                </div>
+              </div>
+              <p class="m-1 text-center text-sm sm:text-base">0 Ulasan</p>
+            </button>
+            <button
+              class="rounded border border-white hover:border-green-500 focus:border-green-500"
+            >
+              <div class="m-1 flex justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="mr-1 h-6 fill-yellow-500"
+                  viewBox="0 0 576 512"
+                >
+                  <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                  <path
+                    d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+                  />
+                </svg>
+                <div class="">
+                  <span class="font-bold">2</span>
+                </div>
+              </div>
+              <p class="m-1 text-center text-sm sm:text-base">0 Ulasan</p>
+            </button>
+            <button
+              class="rounded border border-white hover:border-green-500 focus:border-green-500"
+            >
+              <div class="m-1 flex justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="mr-1 h-6 fill-yellow-500"
+                  viewBox="0 0 576 512"
+                >
+                  <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                  <path
+                    d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+                  />
+                </svg>
+                <div class="">
+                  <span class="font-bold">1</span>
+                </div>
+              </div>
+              <p class="m-1 text-center text-sm sm:text-base">0 Ulasan</p>
+            </button>
+          </div>
+        </div>
+        <!-- Ulasan -->
+        <div class="mt-3">
+          <!-- Ulasan Orang -->
+          <div class="mt-3">
+            <div class="m-1 flex">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="mr-1 h-4 fill-yellow-500"
+                viewBox="0 0 576 512"
+              >
+                <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                <path
+                  d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="mr-1 h-4 fill-yellow-500"
+                viewBox="0 0 576 512"
+              >
+                <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                <path
+                  d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="mr-1 h-4 fill-yellow-500"
+                viewBox="0 0 576 512"
+              >
+                <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                <path
+                  d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="mr-1 h-4 fill-yellow-500"
+                viewBox="0 0 576 512"
+              >
+                <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                <path
+                  d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="mr-1 h-4 fill-yellow-500"
+                viewBox="0 0 576 512"
+              >
+                <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                <path
+                  d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+                />
+              </svg>
+            </div>
+            <h3 class="m-1 font-bold">OK</h3>
+            <h4 class="m-1 text-gray-700">Ditulis P*******, 25 Sep 2023</h4>
+            <p class="m-1">
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry's standard dummy text
+              ever since the 1500s, when an unknown printer took a galley of
+              type and scrambled it to make a type specimen book.
+            </p>
+          </div>
+          <!-- Ulasan Orang -->
+          <div class="mt-3">
+            <div class="m-1 flex">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="mr-1 h-4 fill-yellow-500"
+                viewBox="0 0 576 512"
+              >
+                <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                <path
+                  d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="mr-1 h-4 fill-yellow-500"
+                viewBox="0 0 576 512"
+              >
+                <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                <path
+                  d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="mr-1 h-4 fill-yellow-500"
+                viewBox="0 0 576 512"
+              >
+                <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                <path
+                  d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="mr-1 h-4 fill-yellow-500"
+                viewBox="0 0 576 512"
+              >
+                <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                <path
+                  d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="mr-1 h-4 fill-yellow-500"
+                viewBox="0 0 576 512"
+              >
+                <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                <path
+                  d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+                />
+              </svg>
+            </div>
+            <h3 class="m-1 font-bold">OK</h3>
+            <h4 class="m-1 text-gray-700">Ditulis P*******, 25 Sep 2023</h4>
+            <p class="m-1">
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry's standard dummy text
+              ever since the 1500s, when an unknown printer took a galley of
+              type and scrambled it to make a type specimen book.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Produk Terkait -->
+      <section class="mt-4 text-center lg:px-6">
+        <div class="flex items-center justify-between py-2">
+          <h2 class="text-xl font-bold sm:text-2xl">Produk Terkait</h2>
+        </div>
+        <div class="flex flex-nowrap overflow-x-auto">
+          <!-- Product 1 -->
+          <a href="product.html" class="text-decoration-none color-inherit">
+            <div class="m-1 border border-gray-300 bg-gray-100 text-center">
+              <img
+                src="https://s-ecom.ottenstatic.com/thumbnail/63623e2a55335024133293.png"
+                alt="Product 1"
+                class="h-auto max-w-full"
+              />
+              <div class="p-3">
+                <h3 class="text-lg font-bold">Product 1</h3>
+                <p class="my-2 text-sm">Short Description of Product 1</p>
+                <span class="text-base font-bold">$19.99</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="product.html" class="text-decoration-none color-inherit">
+            <div class="m-1 border border-gray-300 bg-gray-100 text-center">
+              <img
+                src="https://s-ecom.ottenstatic.com/thumbnail/63623e2a55335024133293.png"
+                alt="Product 1"
+                class="h-auto max-w-full"
+              />
+              <div class="p-3">
+                <h3 class="text-lg font-bold">Product 1</h3>
+                <p class="my-2 text-sm">Short Description of Product 1</p>
+                <span class="text-base font-bold">$19.99</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="product.html" class="text-decoration-none color-inherit">
+            <div class="m-1 border border-gray-300 bg-gray-100 text-center">
+              <img
+                src="https://s-ecom.ottenstatic.com/thumbnail/63623e2a55335024133293.png"
+                alt="Product 1"
+                class="h-auto max-w-full"
+              />
+              <div class="p-3">
+                <h3 class="text-lg font-bold">Product 1</h3>
+                <p class="my-2 text-sm">Short Description of Product 1</p>
+                <span class="text-base font-bold">$19.99</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="product.html" class="text-decoration-none color-inherit">
+            <div class="m-1 border border-gray-300 bg-gray-100 text-center">
+              <img
+                src="https://s-ecom.ottenstatic.com/thumbnail/63623e2a55335024133293.png"
+                alt="Product 1"
+                class="h-auto max-w-full"
+              />
+              <div class="p-3">
+                <h3 class="text-lg font-bold">Product 1</h3>
+                <p class="my-2 text-sm">Short Description of Product 1</p>
+                <span class="text-base font-bold">$19.99</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="product.html" class="text-decoration-none color-inherit">
+            <div class="m-1 border border-gray-300 bg-gray-100 text-center">
+              <img
+                src="https://s-ecom.ottenstatic.com/thumbnail/63623e2a55335024133293.png"
+                alt="Product 1"
+                class="h-auto max-w-full"
+              />
+              <div class="p-3">
+                <h3 class="text-lg font-bold">Product 1</h3>
+                <p class="my-2 text-sm">Short Description of Product 1</p>
+                <span class="text-base font-bold">$19.99</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="product.html" class="text-decoration-none color-inherit">
+            <div class="m-1 border border-gray-300 bg-gray-100 text-center">
+              <img
+                src="https://s-ecom.ottenstatic.com/thumbnail/63623e2a55335024133293.png"
+                alt="Product 1"
+                class="h-auto max-w-full"
+              />
+              <div class="p-3">
+                <h3 class="text-lg font-bold">Product 1</h3>
+                <p class="my-2 text-sm">Short Description of Product 1</p>
+                <span class="text-base font-bold">$19.99</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="hidden px-4 sm:block">
+    <footer class="hidden px-4 lg:block">
       <!-- First Row -->
       <div class="mb-4 flex justify-between">
         <!-- First Column -->
@@ -303,9 +931,8 @@
             <p class="my-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="mr-1 inline h-8"
+                class="mr-1 inline h-8 fill-green-500"
                 viewBox="0 0 448 512"
-                style="fill: #25d366"
               >
                 <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                 <path
@@ -322,8 +949,7 @@
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 576 512"
-                class="h-8"
-                style="fill: #e01b24"
+                class="fill-red h-8"
               >
                 <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                 <path
@@ -334,9 +960,8 @@
             <a href="#" class="">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-8"
+                class="h-8 fill-[#e4405f]"
                 viewBox="0 0 448 512"
-                style="fill: #e4405f"
               >
                 <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                 <path
@@ -359,9 +984,8 @@
             <a href="#" class="">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-8"
+                class="h-8 fill-[#1877f2]"
                 viewBox="0 0 512 512"
-                style="fill: #1877f2"
               >
                 <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                 <path
@@ -442,7 +1066,7 @@
       </div>
     </footer>
 
-    <footer class="mt-8 sm:hidden">
+    <footer class="mt-8 lg:hidden">
       <div class="flex justify-center py-4">
         <p class="">&copy; 2023 Hak Cipta Terpelihara PT Kaffee Szczynk</p>
       </div>
@@ -450,9 +1074,8 @@
         <a href="#" class="text-decoration-none color-inherit p-3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="mr-1 inline h-8"
+            class="mr-1 inline h-8 fill-white"
             viewBox="0 0 448 512"
-            style="fill: #ffffff"
           >
             <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
             <path
@@ -465,118 +1088,33 @@
     </footer>
 
     <!-- Nav Bottom -->
-    <div class="fixed bottom-0 w-full bg-white sm:hidden">
+    <div class="fixed bottom-0 w-full bg-white lg:hidden">
       <div
         class="mx-auto max-w-7xl px-2 sm:px-4 lg:divide-y lg:divide-gray-200 lg:px-8"
       >
         <div class="flex h-16 items-center justify-evenly">
-          <a
-            href="index.html"
-            class="inline-flex items-center rounded px-2 py-2"
+          <button
+            class="mx-1 flex flex-1 items-center justify-center rounded border border-green-500 fill-green-500 p-2 text-green-500 hover:bg-green-500 hover:fill-white hover:text-white"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-4"
-              viewBox="0 0 576 512"
+              viewBox="0 0 448 512"
             >
               <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
               <path
-                d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"
+                d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"
               />
             </svg>
-            <span class="ml-1 hidden min-[400px]:inline">Home</span>
-          </a>
+            <span class="ml-1">Buy Now</span>
+          </button>
 
-          <div class="">
-            <button
-              id="category-btn-bot"
-              class="inline-flex items-center rounded px-2 py-2"
-            >
-              <svg
-                aria-hidden="true"
-                focusable="false"
-                data-prefix="fas"
-                data-icon="grid-2"
-                role="img"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-                class="h-4"
-              >
-                <path
-                  fill="currentColor"
-                  d="M224 80c0-26.5-21.5-48-48-48H80C53.5 32 32 53.5 32 80v96c0 26.5 21.5 48 48 48h96c26.5 0 48-21.5 48-48V80zm0 256c0-26.5-21.5-48-48-48H80c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48h96c26.5 0 48-21.5 48-48V336zM288 80v96c0 26.5 21.5 48 48 48h96c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48H336c-26.5 0-48 21.5-48 48zM480 336c0-26.5-21.5-48-48-48H336c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48h96c26.5 0 48-21.5 48-48V336z"
-                  class=""
-                ></path>
-              </svg>
-              <span class="ml-1 hidden min-[400px]:inline">Category</span>
-            </button>
-
-            <div
-              id="category-dropdown-bot"
-              class="absolute bottom-full left-0 right-0 flex hidden w-full overflow-auto bg-white text-center"
-            >
-              <div class="w-1/4">
-                <ul class="list-none">
-                  <li class="py-4">
-                    <a href="#" class="text-black no-underline"> Category 1 </a>
-                  </li>
-                  <li class="py-4">
-                    <a href="#" class="text-black no-underline"> Category 2 </a>
-                  </li>
-                  <li class="py-4">
-                    <a href="#" class="text-black no-underline"> Category 3 </a>
-                  </li>
-                  <li class="py-4">
-                    <a href="#" class="text-black no-underline"> Category 4 </a>
-                  </li>
-                  <li class="py-4">
-                    <a href="#" class="text-black no-underline"> Category 5 </a>
-                  </li>
-                  <li class="py-4">
-                    <a href="#" class="text-black no-underline"> Category 6 </a>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="flex flex-wrap">
-                <a href="#" class="mx-2 text-black no-underline">
-                  Subcategory 1
-                </a>
-                <a href="#" class="mx-2 text-black no-underline">
-                  Subcategory 2
-                </a>
-                <a href="#" class="mx-2 text-black no-underline">
-                  Subcategory 3
-                </a>
-                <a href="#" class="mx-2 text-black no-underline">
-                  Subcategory 4
-                </a>
-                <a href="#" class="mx-2 text-black no-underline">
-                  Subcategory 5
-                </a>
-                <a href="#" class="mx-2 text-black no-underline">
-                  Subcategory 6
-                </a>
-                <a href="#" class="mx-2 text-black no-underline">
-                  Subcategory 7
-                </a>
-                <a href="#" class="mx-2 text-black no-underline">
-                  Subcategory 8
-                </a>
-                <a href="#" class="mx-2 text-black no-underline">
-                  Subcategory 9
-                </a>
-                <a href="#" class="mx-2 text-black no-underline">
-                  Subcategory 10
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <button class="inline-flex items-center rounded px-2 py-2">
+          <button
+            class="mx-1 flex flex-1 items-center justify-center rounded border bg-green-500 p-2 text-white hover:bg-green-600"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="h-4"
+              class="h-4 fill-white"
               viewBox="0 0 576 512"
             >
               <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
@@ -584,21 +1122,7 @@
                 d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"
               />
             </svg>
-            <span class="ml-1 hidden min-[400px]:inline">Cart</span>
-          </button>
-
-          <button class="inline-flex items-center rounded px-2 py-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-4"
-              viewBox="0 0 512 512"
-            >
-              <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-              <path
-                d="M217.9 105.9L340.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L217.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1L32 320c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM352 416l64 0c17.7 0 32-14.3 32-32l0-256c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c53 0 96 43 96 96l0 256c0 53-43 96-96 96l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z"
-              />
-            </svg>
-            <span class="ml-1 hidden min-[400px]:inline">Login</span>
+            <span class="ml-1">Cart</span>
           </button>
         </div>
       </div>
@@ -613,22 +1137,25 @@
           dropdownContent.classList.toggle("hidden");
         });
 
-      document
-        .getElementById("category-btn-bot")
-        .addEventListener("click", function () {
-          var dropdownContent = document.getElementById(
-            "category-dropdown-bot",
-          );
-          dropdownContent.classList.toggle("hidden");
-        });
-
       function showDropdown() {
         document.getElementById("search-dropdown").classList.remove("hidden");
+        document
+          .getElementById("close-search-dropdown-btn")
+          .classList.remove("hidden");
       }
 
       function hideDropdown() {
         document.getElementById("search-dropdown").classList.add("hidden");
+        document
+          .getElementById("close-search-dropdown-btn")
+          .classList.add("hidden");
       }
+    </script>
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"
+    >
+      // https://tailwind-elements.com/docs/standard/components/carousel/
     </script>
   </body>
 </html>

@@ -19,6 +19,26 @@
             </div>
           </div>
 
+          <div class="flex px-2 sm:hidden lg:px-0">
+            <div class="flex items-center text-2xl">
+              <a
+                href="index.html"
+                class="inline-flex items-center rounded fill-green-500 px-2 py-2"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4"
+                  viewBox="0 0 576 512"
+                >
+                  <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                  <path
+                    d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+
           <div class="hidden px-2 sm:flex lg:px-0">
             <div class="flex items-center">
               <button
@@ -47,80 +67,199 @@
 
               <div
                 id="category-dropdown"
-                class="absolute left-0 right-0 top-16 flex hidden w-full overflow-auto bg-white text-center"
+                class="absolute left-0 right-0 top-16 hidden w-full overflow-auto bg-transparent sm:px-6 md:px-12 lg:px-24"
               >
-                <div class="w-1/4">
-                  <ul class="list-none">
-                    <li class="py-4">
-                      <a href="#" class="text-black no-underline">
+                <div class="flex bg-white">
+                  <ul
+                    role="tablist"
+                    class="mx-4 max-w-[200px] flex-1 list-none"
+                    data-te-nav-ref
+                  >
+                    <li role="presentation" class="">
+                      <a
+                        role="tab"
+                        href="#tabs-category-1"
+                        data-te-toggle="pill"
+                        data-te-target="#tabs-category-1"
+                        aria-controls="tabs-category-1"
+                        aria-selected="true"
+                        class="flex p-3 font-medium leading-tight text-neutral-600 first-letter:uppercase data-[te-nav-active]:text-black"
+                        data-te-nav-active
+                      >
                         Category 1
                       </a>
                     </li>
-                    <li class="py-4">
-                      <a href="#" class="text-black no-underline">
+                    <li role="presentation" class="">
+                      <a
+                        role="tab"
+                        href="#tabs-category-2"
+                        data-te-toggle="pill"
+                        data-te-target="#tabs-category-2"
+                        aria-controls="tabs-category-2"
+                        aria-selected="false"
+                        class="flex p-3 font-medium leading-tight text-neutral-600 first-letter:uppercase data-[te-nav-active]:text-black"
+                      >
                         Category 2
                       </a>
                     </li>
-                    <li class="py-4">
-                      <a href="#" class="text-black no-underline">
+                    <li role="presentation" class="">
+                      <a
+                        role="tab"
+                        href="#tabs-category-3"
+                        data-te-toggle="pill"
+                        data-te-target="#tabs-category-3"
+                        aria-controls="tabs-category-3"
+                        aria-selected="false"
+                        class="flex p-3 font-medium leading-tight text-neutral-600 first-letter:uppercase data-[te-nav-active]:text-black"
+                      >
                         Category 3
                       </a>
                     </li>
-                    <li class="py-4">
-                      <a href="#" class="text-black no-underline">
+                    <li role="presentation" class="">
+                      <a
+                        role="tab"
+                        href="#tabs-category-4"
+                        data-te-toggle="pill"
+                        data-te-target="#tabs-category-4"
+                        aria-controls="tabs-category-4"
+                        aria-selected="false"
+                        class="flex p-3 font-medium leading-tight text-neutral-600 first-letter:uppercase data-[te-nav-active]:text-black"
+                      >
                         Category 4
                       </a>
                     </li>
-                    <li class="py-4">
-                      <a href="#" class="text-black no-underline">
+                    <li role="presentation" class="">
+                      <a
+                        role="tab"
+                        href="#tabs-category-5"
+                        data-te-toggle="pill"
+                        data-te-target="#tabs-category-5"
+                        aria-controls="tabs-category-5"
+                        aria-selected="false"
+                        class="flex p-3 font-medium leading-tight text-neutral-600 first-letter:uppercase data-[te-nav-active]:text-black"
+                      >
                         Category 5
                       </a>
                     </li>
-                    <li class="py-4">
-                      <a href="#" class="text-black no-underline">
+                    <li role="presentation" class="">
+                      <a
+                        role="tab"
+                        href="#tabs-category-6"
+                        data-te-toggle="pill"
+                        data-te-target="#tabs-category-6"
+                        aria-controls="tabs-category-6"
+                        aria-selected="false"
+                        class="flex p-3 font-medium leading-tight text-neutral-600 first-letter:uppercase data-[te-nav-active]:text-black"
+                      >
                         Category 6
                       </a>
                     </li>
                   </ul>
-                </div>
-
-                <div class="flex flex-wrap">
-                  <a href="#" class="mx-2 text-black no-underline">
-                    Subcategory 1
-                  </a>
-                  <a href="#" class="mx-2 text-black no-underline">
-                    Subcategory 2
-                  </a>
-                  <a href="#" class="mx-2 text-black no-underline">
-                    Subcategory 3
-                  </a>
-                  <a href="#" class="mx-2 text-black no-underline">
-                    Subcategory 4
-                  </a>
-                  <a href="#" class="mx-2 text-black no-underline">
-                    Subcategory 5
-                  </a>
-                  <a href="#" class="mx-2 text-black no-underline">
-                    Subcategory 6
-                  </a>
-                  <a href="#" class="mx-2 text-black no-underline">
-                    Subcategory 7
-                  </a>
-                  <a href="#" class="mx-2 text-black no-underline">
-                    Subcategory 8
-                  </a>
-                  <a href="#" class="mx-2 text-black no-underline">
-                    Subcategory 9
-                  </a>
-                  <a href="#" class="mx-2 text-black no-underline">
-                    Subcategory 10
-                  </a>
+                  <div class="my-2 flex max-h-96 flex-1 flex-wrap">
+                    <div
+                      class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
+                      id="tabs-category-1"
+                      role="tabpanel"
+                      aria-labelledby="tabs-category-1"
+                      data-te-tab-active
+                    >
+                      <div class="flex flex-wrap">
+                        <a href="#" class="m-2"> Subcategory 1 </a>
+                        <a href="#" class="m-2"> Subcategory 2 </a>
+                        <a href="#" class="m-2"> Subcategory 3 </a>
+                        <a href="#" class="m-2"> Subcategory 4 </a>
+                        <a href="#" class="m-2"> Subcategory 5 </a>
+                        <a href="#" class="m-2"> Subcategory 6 </a>
+                        <a href="#" class="m-2"> Subcategory 7 </a>
+                        <a href="#" class="m-2"> Subcategory 8 </a>
+                        <a href="#" class="m-2"> Subcategory 9 </a>
+                        <a href="#" class="m-2"> Subcategory 10 </a>
+                      </div>
+                    </div>
+                    <div
+                      class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
+                      id="tabs-category-2"
+                      role="tabpanel"
+                      aria-labelledby="tabs-category-2"
+                    >
+                      <div class="flex flex-wrap">
+                        <a href="#" class="m-2"> Subcategory 1 </a>
+                        <a href="#" class="m-2"> Subcategory 2 </a>
+                        <a href="#" class="m-2"> Subcategory 3 </a>
+                      </div>
+                    </div>
+                    <div
+                      class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
+                      id="tabs-category-3"
+                      role="tabpanel"
+                      aria-labelledby="tabs-category-3"
+                    >
+                      <div class="flex flex-wrap">
+                        <a href="#" class="m-2"> Subcategory 1 </a>
+                        <a href="#" class="m-2"> Subcategory 2 </a>
+                        <a href="#" class="m-2"> Subcategory 3 </a>
+                        <a href="#" class="m-2"> Subcategory 4 </a>
+                        <a href="#" class="m-2"> Subcategory 5 </a>
+                      </div>
+                    </div>
+                    <div
+                      class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
+                      id="tabs-category-4"
+                      role="tabpanel"
+                      aria-labelledby="tabs-category-4"
+                    >
+                      <div class="flex flex-wrap">
+                        <a href="#" class="m-2"> Subcategory 1 </a>
+                        <a href="#" class="m-2"> Subcategory 2 </a>
+                        <a href="#" class="m-2"> Subcategory 3 </a>
+                        <a href="#" class="m-2"> Subcategory 4 </a>
+                        <a href="#" class="m-2"> Subcategory 5 </a>
+                        <a href="#" class="m-2"> Subcategory 6 </a>
+                        <a href="#" class="m-2"> Subcategory 7 </a>
+                      </div>
+                    </div>
+                    <div
+                      class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
+                      id="tabs-category-5"
+                      role="tabpanel"
+                      aria-labelledby="tabs-category-5"
+                    >
+                      <div class="flex flex-wrap">
+                        <a href="#" class="m-2"> Subcategory 1 </a>
+                        <a href="#" class="m-2"> Subcategory 2 </a>
+                        <a href="#" class="m-2"> Subcategory 3 </a>
+                        <a href="#" class="m-2"> Subcategory 4 </a>
+                        <a href="#" class="m-2"> Subcategory 5 </a>
+                        <a href="#" class="m-2"> Subcategory 6 </a>
+                        <a href="#" class="m-2"> Subcategory 7 </a>
+                        <a href="#" class="m-2"> Subcategory 8 </a>
+                        <a href="#" class="m-2"> Subcategory 9 </a>
+                      </div>
+                    </div>
+                    <div
+                      class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
+                      id="tabs-category-6"
+                      role="tabpanel"
+                      aria-labelledby="tabs-category-6"
+                    >
+                      <div class="flex flex-wrap">
+                        <a href="#" class="m-2 text-black no-underline">
+                          Subcategory 1
+                        </a>
+                        <a href="#" class="m-2 text-black no-underline">
+                          Subcategory 2
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="flex flex-1 items-center justify-center px-2 sm:inset-0">
+          <div
+            class="flex flex-1 items-center justify-center px-2 sm:inset-0 lg:px-0"
+          >
             <div class="w-full">
               <label for="search" class="sr-only">Search</label>
               <div class="relative">
@@ -263,9 +402,38 @@
       </div>
     </header>
 
-    <main class="px-4">
+    <main class="p-4">
+      <!-- breadcrumb -->
+      <nav class="hidden w-full py-3 md:block lg:px-6">
+        <ol class="list-reset flex">
+          <li>
+            <a
+              href="#"
+              class="text-primary hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600 transition duration-150 ease-in-out"
+            >
+              Category 1
+            </a>
+          </li>
+          <li>
+            <span class="mx-2 text-neutral-500">></span>
+          </li>
+          <li>
+            <a
+              href="#"
+              class="text-primary hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600 transition duration-150 ease-in-out"
+            >
+              Sub Category 1
+            </a>
+          </li>
+          <li>
+            <span class="mx-2 text-neutral-500">></span>
+          </li>
+          <li class="text-neutral-500">DiFluid - R1 Coffee Refractometer</li>
+        </ol>
+      </nav>
+
       <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
-        <!-- right -->
+        <!-- right-mobile top-desktop -->
         <div class="">
           <!-- carousel mobile -->
           <div
@@ -316,7 +484,7 @@
               >
                 <img
                   src="https://s-ecom.ottenstatic.com/original/64f5950499e0b133674202.jpg"
-                  class="block w-full"
+                  class="block w-full rounded-xl"
                   alt="Wild Landscape"
                 />
               </div>
@@ -327,7 +495,7 @@
               >
                 <img
                   src="https://s-ecom.ottenstatic.com/original/64f5950495c6c776218984.jpg"
-                  class="block w-full"
+                  class="block w-full rounded-xl"
                   alt="Camera"
                 />
               </div>
@@ -338,7 +506,7 @@
               >
                 <img
                   src="https://s-ecom.ottenstatic.com/original/64f595049bb65142483082.jpg"
-                  class="block w-full"
+                  class="block w-full rounded-xl"
                   alt="Exotic Fruits"
                 />
               </div>
@@ -405,14 +573,169 @@
           </div>
 
           <!-- carousel desktop -->
-          <div class="hidden lg:block">right desktop</div>
+          <div class="hidden lg:block lg:pl-6">
+            <div
+              id="carousel-desktop-indicator"
+              class="relative"
+              data-te-carousel-init
+              data-te-ride="carousel"
+            >
+              <!--Carousel items-->
+              <div
+                class="relative w-full overflow-hidden after:clear-both after:block after:content-['']"
+              >
+                <!--First item-->
+                <div
+                  class="relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
+                  data-te-carousel-item
+                  data-te-carousel-active
+                >
+                  <img
+                    src="https://s-ecom.ottenstatic.com/original/64f5950499e0b133674202.jpg"
+                    class="block w-full rounded-lg"
+                    alt="Wild Landscape"
+                  />
+                </div>
+                <!--Second item-->
+                <div
+                  class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
+                  data-te-carousel-item
+                >
+                  <img
+                    src="https://s-ecom.ottenstatic.com/original/64f5950495c6c776218984.jpg"
+                    class="block w-full rounded-lg"
+                    alt="Camera"
+                  />
+                </div>
+                <!--Third item-->
+                <div
+                  class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
+                  data-te-carousel-item
+                >
+                  <img
+                    src="https://s-ecom.ottenstatic.com/original/64f595049bb65142483082.jpg"
+                    class="block w-full rounded-lg"
+                    alt="Exotic Fruits"
+                  />
+                </div>
+
+                <!--Carousel controls - prev item-->
+                <button
+                  class="absolute bottom-0 left-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-green-500 opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-green-600 hover:no-underline hover:opacity-90 hover:outline-none focus:text-green-600 focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
+                  type="button"
+                  data-te-target="#carousel-desktop-indicator"
+                  data-te-slide="prev"
+                >
+                  <span class="inline-block h-8 w-8">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="h-6 w-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15.75 19.5L8.25 12l7.5-7.5"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+                  >
+                    Previous
+                  </span>
+                </button>
+                <!--Carousel controls - next item-->
+                <button
+                  class="absolute bottom-0 right-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-green-500 opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-green-600 hover:no-underline hover:opacity-90 hover:outline-none focus:text-green-600 focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
+                  type="button"
+                  data-te-target="#carousel-desktop-indicator"
+                  data-te-slide="next"
+                >
+                  <span class="inline-block h-8 w-8">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="h-6 w-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+                  >
+                    Next
+                  </span>
+                </button>
+              </div>
+
+              <!--Carousel indicators-->
+              <div
+                class="flex list-none justify-center p-0"
+                data-te-carousel-indicators
+              >
+                <button
+                  type="button"
+                  data-te-target="#carousel-desktop-indicator"
+                  data-te-slide-to="0"
+                  data-te-carousel-active
+                  class="m-2 w-20 flex-initial cursor-pointer bg-clip-padding -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
+                  aria-current="true"
+                  aria-label="Slide 1"
+                >
+                  <img
+                    src="https://s-ecom.ottenstatic.com/original/64f5950499e0b133674202.jpg"
+                    class="rounded"
+                    alt="Wild Landscape"
+                  />
+                </button>
+                <button
+                  type="button"
+                  data-te-target="#carousel-desktop-indicator"
+                  data-te-slide-to="1"
+                  class="m-2 w-20 flex-initial cursor-pointer bg-clip-padding -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
+                  aria-label="Slide 2"
+                >
+                  <img
+                    src="https://s-ecom.ottenstatic.com/original/64f5950495c6c776218984.jpg"
+                    class="rounded"
+                    alt="Camera"
+                  />
+                </button>
+                <button
+                  type="button"
+                  data-te-target="#carousel-desktop-indicator"
+                  data-te-slide-to="2"
+                  class="m-2 w-20 flex-initial cursor-pointer bg-clip-padding -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
+                  aria-label="Slide 3"
+                >
+                  <img
+                    src="https://s-ecom.ottenstatic.com/original/64f595049bb65142483082.jpg"
+                    class="rounded"
+                    alt="Exotic Fruits"
+                  />
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- left -->
-        <div class="">
+        <!-- left-mobile bottom-desktop -->
+        <div class="mt-4 lg:mt-0 lg:pr-6">
           <h1 class="text-xl font-bold sm:text-2xl">
             DiFluid - R1 Coffee Refractometer
           </h1>
+
           <div class="mt-1 flex flex-wrap items-center">
             <div class="m-1 inline-flex items-center">
               <svg
@@ -436,6 +759,7 @@
             <span class="m-1">&bull;</span>
             <div class="m-1 inline">Gratis Ongkir</div>
           </div>
+
           <div class="mt-2 flex items-center">
             <div class="w-1/2">
               <div class="text-xl font-bold text-green-700 sm:text-2xl">
@@ -469,54 +793,107 @@
               </button>
             </div>
           </div>
+
           <hr class="my-2 border" />
-          <div class="flex items-center">
-            <div class="w-1/2">Stok: <span class="ml-2">10</span></div>
-            <div class="flex w-1/2 items-center justify-between">
-              <span class="text-center">Jumlah</span>
-              <div class="float-right flex rounded-md border p-2">
-                <button
-                  class="flex items-center justify-center px-1 py-2 sm:p-2"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-4 fill-green-500"
-                    viewBox="0 0 448 512"
-                  >
-                    <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                    <path
-                      d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"
-                    />
-                  </svg>
-                </button>
-                <input
-                  class="w-8 border-0 p-0 text-center"
-                  type="tel"
-                  maxlength="4"
-                  pattern="^-?[0-9]\d*\.?\d*$"
-                  value="1"
-                />
-                <button
-                  class="flex items-center justify-center px-1 py-2 sm:p-2"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-4 fill-green-500"
-                    viewBox="0 0 448 512"
-                  >
-                    <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                    <path
-                      d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"
-                    />
-                  </svg>
-                </button>
+
+          <div class="">
+            <div class="">Stok</div>
+            <div class="my-2 grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
+              <div class="rounded border-2 p-3">
+                <h4 class="font-bold first-letter:uppercase">jakarta</h4>
+                <p class="first-letter:uppercase">sisa 10</p>
+              </div>
+
+              <div class="rounded border-2 p-3">
+                <h4 class="font-bold first-letter:uppercase">bandung</h4>
+                <p class="first-letter:uppercase">habis</p>
+              </div>
+
+              <div class="rounded border-2 p-3">
+                <h4 class="font-bold first-letter:uppercase">bogor</h4>
+                <p class="first-letter:uppercase">habis</p>
               </div>
             </div>
           </div>
+
           <hr class="my-2 border" />
+
+          <div class="flex items-center justify-between">
+            <span class="text-center">Jumlah</span>
+            <div class="float-right flex rounded-md border p-2">
+              <button class="flex items-center justify-center px-1 py-2 sm:p-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 fill-green-500"
+                  viewBox="0 0 448 512"
+                >
+                  <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                  <path
+                    d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"
+                  />
+                </svg>
+              </button>
+              <input
+                class="w-8 border-0 p-0 text-center"
+                type="tel"
+                maxlength="4"
+                pattern="^-?[0-9]\d*\.?\d*$"
+                value="1"
+              />
+              <button class="flex items-center justify-center px-1 py-2 sm:p-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 fill-green-500"
+                  viewBox="0 0 448 512"
+                >
+                  <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                  <path
+                    d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <hr class="my-2 border" />
+
+          <div class="hidden h-16 items-center justify-evenly lg:flex">
+            <button
+              class="mx-1 flex flex-1 items-center justify-center rounded border border-green-500 fill-green-500 p-2 text-green-500 hover:bg-green-500 hover:fill-white hover:text-white"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4"
+                viewBox="0 0 448 512"
+              >
+                <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                <path
+                  d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"
+                />
+              </svg>
+              <span class="ml-1">Buy Now</span>
+            </button>
+
+            <button
+              class="mx-1 flex flex-1 items-center justify-center rounded border bg-green-500 p-2 text-white hover:bg-green-600"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4 fill-white"
+                viewBox="0 0 576 512"
+              >
+                <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                <path
+                  d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"
+                />
+              </svg>
+              <span class="ml-1">Cart</span>
+            </button>
+          </div>
         </div>
       </div>
-      <div class="lg:px-6">
+
+      <div class="mt-4 lg:mt-8 lg:px-6">
         <h2 class="mb-3 text-xl font-bold sm:text-2xl">Informasi Produk</h2>
         <div class="mb-3">
           <h3 class="mb-1 text-lg font-bold sm:text-xl">Spesifikasi</h3>
@@ -543,7 +920,8 @@
           </p>
         </div>
       </div>
-      <div class="lg:px-6">
+
+      <div class="mt-4 lg:mt-8 lg:px-6">
         <h2 class="mb-3 text-xl font-bold sm:text-2xl">Ulasan</h2>
         <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
           <div class="flex items-center">
@@ -794,8 +1172,9 @@
           </div>
         </div>
       </div>
+
       <!-- Produk Terkait -->
-      <section class="mt-4 text-center lg:px-6">
+      <section class="mt-4 text-center lg:mt-8 lg:px-6">
         <div class="flex items-center justify-between py-2">
           <h2 class="text-xl font-bold sm:text-2xl">Produk Terkait</h2>
         </div>
@@ -1061,13 +1440,13 @@
         </div>
       </div>
       <!-- Third Row -->
-      <div class="flex justify-center py-4">
+      <div class="flex justify-center py-4 text-center">
         <p class="">&copy; 2023 Hak Cipta Terpelihara PT Kaffee Szczynk</p>
       </div>
     </footer>
 
     <footer class="mt-8 lg:hidden">
-      <div class="flex justify-center py-4">
+      <div class="flex justify-center py-4 text-center">
         <p class="">&copy; 2023 Hak Cipta Terpelihara PT Kaffee Szczynk</p>
       </div>
       <div class="mb-16 flex justify-center bg-green-500 text-white">

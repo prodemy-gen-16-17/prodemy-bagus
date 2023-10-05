@@ -1,0 +1,11 @@
+{
+  "name": "gen-23.08-javascript-object",
+  "version": "0.0.1",
+  "description": "",
+  "main": "filter-product.js",
+  "scripts": {
+    "test": "node filter-product.js"
+  },
+  "author": "szczynk",
+  "license": "ISC"
+}

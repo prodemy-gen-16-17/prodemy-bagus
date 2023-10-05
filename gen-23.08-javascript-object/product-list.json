@@ -1,0 +1,137 @@
+[
+    {
+        "id": 1,
+        "nama": "DiFluid - R1 Coffee Refractometer",
+        "brand": "DiFluid",
+        "rating": 4.8,
+        "jumlahReview": 10,
+        "sku": "ASDFGHJKLZXCV",
+        "promo": [
+            "Tersedia COD", "Gratis Ongkir"
+        ],
+        "harga": "2.250.000",
+        "stok": [
+            { "tempat": "jakarta", "jumlah": 10 },
+            {"tempat":"bandung", "jumlah": 0},
+            {"tempat":"bogor", "jumlah": 0}
+        ], 
+        "gambar": [
+            "https://s-ecom.ottenstatic.com/original/64f5950499e0b133674202.jpg",
+            "https://s-ecom.ottenstatic.com/original/64f5950495c6c776218984.jpg",
+            "https://s-ecom.ottenstatic.com/original/64f595049bb65142483082.jpg"
+        ]
+    },
+    {
+        "id": 2,
+        "nama": "Fellow - Opus Conical Burr Grinder",
+        "brand": "Fellow",
+        "rating": 5,
+        "jumlahReview": 6,
+        "sku": "QWERTYUIOPAS",
+        "promo": [
+            "Tersedia COD"
+        ],
+        "harga": "3.750.000",
+        "stok": [
+            { "tempat": "jakarta", "jumlah": 3 },
+            {"tempat":"bandung", "jumlah": 3},
+            {"tempat":"bogor", "jumlah": 3}
+        ], 
+        "gambar": [
+            "https://s-ecom.ottenstatic.com/original/647024b097b35353051103.jpg",
+            "https://s-ecom.ottenstatic.com/original/647025144ca6f113928749.jpg",
+            "https://s-ecom.ottenstatic.com/original/647024b179fc6308095865.jpg",
+            "https://s-ecom.ottenstatic.com/original/647024b18c7a7270479173.jpg",
+            "https://s-ecom.ottenstatic.com/original/647024b0c1dc9100083764.jpg",
+            "https://s-ecom.ottenstatic.com/original/64c8be08d1578479442395.jpg"
+        ]
+    },
+    {
+        "id": 3,
+        "nama": "PourxOura - Coffee Scale",
+        "brand": "PourxOura",
+        "rating": 4.4,
+        "jumlahReview": 100,
+        "sku": "QWERTYUIOPAS",
+        "promo": [
+        ],
+        "harga": "2.950.000",
+        "stok": [
+            { "tempat": "jakarta", "jumlah": 0 },
+            {"tempat":"bandung", "jumlah": 30},
+            {"tempat":"bogor", "jumlah": 54}
+        ], 
+        "gambar": [
+            "https://s-ecom.ottenstatic.com/original/5fb39a14e68f9013271566.jpg",
+            "https://s-ecom.ottenstatic.com/original/6013d22690945628825167.jpg",
+            "https://s-ecom.ottenstatic.com/original/6013d2ccca14c112305158.jpg",
+            "https://s-ecom.ottenstatic.com/original/6013d226b1776763286782.jpg"
+        ]
+    },
+    {
+        "id": 4,
+        "nama": "Wanoja Kamojang Anaerobic Honey Process 200g Kopi Arabica",
+        "brand": "Otten",
+        "rating": 5,
+        "jumlahReview": 1000,
+        "sku": "KOPIOTTENEX1",
+        "promo": [
+            "Tersedia COD"
+        ],
+        "harga": "185.000",
+        "stok": [
+            { "tempat": "jakarta", "jumlah": 800 },
+            {"tempat":"bandung", "jumlah": 30},
+            {"tempat":"bogor", "jumlah": 54}
+        ], 
+        "gambar": [
+            "https://s-ecom.ottenstatic.com/original/63623e2a73275276583884.png",
+            "https://s-ecom.ottenstatic.com/original/63623e2a55335024133293.png",
+            "https://s-ecom.ottenstatic.com/original/628230f371bae220998203.jpg"
+        ]
+    },
+    {
+        "id": 5,
+        "nama": "Java Trawas Honey Process 200g Kopi Arabica",
+        "brand": "Otten",
+        "rating": 5,
+        "jumlahReview": 80,
+        "sku": "KOPIOTTENEX2",
+        "promo": [
+            "Tersedia COD"
+        ],
+        "harga": "124.000",
+        "stok": [
+            { "tempat": "jakarta", "jumlah": 80 },
+            {"tempat":"bandung", "jumlah": 30},
+            {"tempat":"bogor", "jumlah": 54}
+        ],
+        "gambar": [
+            "https://s-ecom.ottenstatic.com/original/623833ae828b2493989332.jpg",
+            "https://s-ecom.ottenstatic.com/original/623833ae96394704812203.jpg",
+            "https://s-ecom.ottenstatic.com/original/623833ae7db0d843268235.jpg"
+        ]
+    },
+    {
+        "id": 6,
+        "nama": "Sidikalang 200g Kopi Arabica",
+        "brand": "Otten",
+        "rating": 5,
+        "jumlahReview": 1,
+        "sku": "KOPIOTTENEX3",
+        "promo": [
+            "Tersedia COD"
+        ],
+        "harga": "94.000",
+        "stok": [
+            { "tempat": "jakarta", "jumlah": 10 },
+            {"tempat":"bandung", "jumlah": 5},
+            {"tempat":"bogor", "jumlah": 3}
+        ], 
+        "gambar": [
+            "https://s-ecom.ottenstatic.com/original/60b8a014b2b7e545920384.jpg",
+            "https://s-ecom.ottenstatic.com/original/6214be8ea0661911947116.jpg",
+            "https://s-ecom.ottenstatic.com/original/6053114d0396a562126148.jpg"
+        ]
+    }   
+]

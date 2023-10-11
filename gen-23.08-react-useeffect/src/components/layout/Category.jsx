@@ -1,7 +1,8 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import { superCategories, categories } from "../../db.json";
+
+import { categories, superCategories } from "../../db.json";
 
 function CategoryTabNav({
   superCategoryName,
@@ -31,7 +32,9 @@ CategoryTabNav.propTypes = {
 
 function CategoryTabContent({ categoryIds, index, activeTab }) {
   const categoryIdsList = categoryIds.map(function (categoryId) {
-    const categoryIdDetail = categories.find(function (category) { return category.id === categoryId });
+    const categoryIdDetail = categories.find(function (category) {
+      return category.id === categoryId;
+    });
 
     return (
       <Link key={categoryIdDetail.id} className="m-2">

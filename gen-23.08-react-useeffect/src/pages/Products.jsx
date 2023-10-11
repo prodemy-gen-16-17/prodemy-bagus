@@ -1,7 +1,8 @@
 import { Fragment, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+
 import Carousel from "../components/Carousel";
-import { products, categories } from "../db.json";
+import { categories, products } from "../db.json";
 import { idrPriceFormat } from "../utils/price";
 
 function Products() {

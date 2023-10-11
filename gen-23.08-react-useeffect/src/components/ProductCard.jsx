@@ -1,14 +1,19 @@
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+
 import { idrPriceFormat } from "../utils/price";
 
 function ProductCard({ className, product }) {
   return (
     <>
       <Link to={`/products/${product.id}`}>
-        <div className={`card card-compact bg-base-100 shadow-xl ${className}`}>
+        <div className={`card-compact card bg-base-100 shadow-xl ${className}`}>
           <figure>
-            <img src={product.images[0]} alt={product.name} className="hover:scale-110"/>
+            <img
+              src={product.images[0]}
+              alt={product.name}
+              className="hover:scale-110"
+            />
           </figure>
           <div className="card-body items-center text-center">
             <h3 className="card-title line-clamp-2 text-lg">{product.name}</h3>

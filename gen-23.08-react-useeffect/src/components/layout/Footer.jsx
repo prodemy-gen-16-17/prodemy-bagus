@@ -140,7 +140,7 @@ function Footer() {
         </aside>
       </footer>
 
-      <footer className="footer footer-center gap-y-4 bg-base-100 pt-6 pb-16 sm:pb-6 lg:hidden">
+      <footer className="footer footer-center gap-y-4 bg-base-100 pb-16 pt-6 sm:pb-6 lg:hidden">
         <aside>
           <p>Copyright &copy; 2023 - All right reserved by PT Kaffee Szczynk</p>
         </aside>

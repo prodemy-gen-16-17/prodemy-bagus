@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
 
 function CarouselItem({ image, index, active }) {
   const [isActive, setIsActive] = useState(active === index);

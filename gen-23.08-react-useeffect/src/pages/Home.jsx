@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Carousel from "../components/Carousel";
-import ProductCard from "../components/ProductCard";
-import { products, categories, promos } from "../db.json";
 import CategoryCard from "../components/CategoryCard";
+import ProductCard from "../components/ProductCard";
+import { categories, products, promos } from "../db.json";
 
 function Home() {
   const [sortBy, setSortBy] = useState("");

@@ -1,18 +1,17 @@
 import {
-  Route,
   createBrowserRouter,
   createRoutesFromElements,
+  Route,
   RouterProvider,
 } from "react-router-dom";
 
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Default from "./layouts/Default";
 import Cart from "./pages/Cart";
 import Categories from "./pages/Categories";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
 import Products from "./pages/Products";
-
-import Default from "./layouts/Default";
+import Register from "./pages/Register";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

@@ -2,26 +2,19 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 function CarouselItem({ image, index, active }) {
-  const [opacity, setOpacity] = useState(active === index ? 1 : 0);
+  const [isActive, setIsActive] = useState(active === index);
 
   useEffect(() => {
-    setOpacity(active === index ? 1 : 0);
+    setIsActive(active === index);
   }, [active, index]);
 
   return (
     <div
-      className={`delay-600 relative z-0 float-left -mr-[100%] hidden w-full !transform-none opacity-${Math.round(
-        opacity * 100
-      )} transition-opacity duration-[600ms] ease-in-out motion-reduce:transition-none ${
-        active === index ? "!z-[1] !block" : ""
+      className={`relative z-0 float-left -mr-[100%] w-full !transform-none transition-opacity duration-500 ease-in-out motion-reduce:transition-none ${
+        isActive ? `z-[1] opacity-100` : `-z-[1] opacity-0`
       }`}
     >
-      <img
-        src={image}
-        className="block w-full rounded-2xl"
-        style={{ transition: "opacity 600ms ease-in-out" }}
-        onLoad={() => setOpacity(active === index ? 1 : 0)}
-      />
+      <img src={image} className="block w-full rounded-2xl" />
     </div>
   );
 }
@@ -77,18 +70,22 @@ function Carousel({ className, slideList, imageIndicator }) {
     setActive(id);
   }
 
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     const maxSlide = slideList.length - 1;
-  //     const nextSlide = active + 1;
+  useEffect(() => {
+    const interval = setInterval(function () {
+      const maxSlide = slideList.length - 1;
+      const nextSlide = active + 1;
 
-  //     let newCurrentSlide = Math.min(nextSlide, maxSlide);
-  //     const isOnLastSlide = maxSlide === active;
-  //     newCurrentSlide = isOnLastSlide ? 0 : newCurrentSlide;
+      let newCurrentSlide = Math.min(nextSlide, maxSlide);
+      const isOnLastSlide = maxSlide === active;
+      newCurrentSlide = isOnLastSlide ? 0 : newCurrentSlide;
 
-  //     setActive(newCurrentSlide);
-  //   }, 3000);
-  // }, [slideList, active]);
+      setActive(newCurrentSlide);
+    }, 5000);
+
+    return function () {
+      clearInterval(interval);
+    };
+  }, [slideList, active]);
 
   function handleClickNext() {
     const maxSlide = slideList.length - 1;

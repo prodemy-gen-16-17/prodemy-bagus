@@ -70,7 +70,7 @@ function Carousel({ className, slideList, imageIndicator }) {
     setActive(id);
   }
 
-  useEffect(() => {
+  useEffect(function () {
     const interval = setInterval(function () {
       const maxSlide = slideList.length - 1;
       const nextSlide = active + 1;

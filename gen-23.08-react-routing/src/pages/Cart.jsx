@@ -272,11 +272,11 @@ function Cart() {
         <CartEmpty></CartEmpty>
       ) : (
         <div className="flex flex-wrap pt-6">
-          <div className="w-full lg:mr-6 lg:min-w-[67%] lg:max-w-[67%] lg:grow lg:basis-0">
-            <div className="mb-6">
-              <h2 className="text-2xl font-bold">Shopping Cart</h2>
+          <div className="mb-6 w-full rounded-2xl shadow-xl lg:mr-6 lg:min-w-[67%] lg:max-w-[67%] lg:grow lg:basis-0">
+            <div className="">
+              <h2 className="px-3 pt-3 text-2xl font-bold">Shopping Cart</h2>
 
-              <div className="flex items-center justify-between text-center">
+              <div className="flex items-center justify-between px-3 pb-3 text-center">
                 <div>{totalProductsCart}</div>
                 <div className="flex gap-x-3">
                   <button className="btn h-8 min-h-[32px] border-0 bg-base-100">
@@ -301,36 +301,34 @@ function Cart() {
             </div>
           </div>
 
-          {productsCart.length > 0 ? (
-            <div className="w-full lg:grow lg:basis-0">
-              <div className="sticky top-24 rounded-lg border-2 p-6">
-                <div className="text-xl font-bold">Details</div>
-                <div className="py-4">
-                  <div className="flex justify-between pb-4">
-                    <div>
-                      <span>Total Price</span>{" "}
-                      <span className="lg:block min-[1130px]:inline">
-                        ({totalProductsCart})
-                      </span>
-                    </div>
-                    <div>{idrPriceFormat(totalPriceProductsCart)}</div>
+          <div className="w-full lg:grow lg:basis-0">
+            <div className="sticky top-24 rounded-2xl border-2 p-6 shadow-xl">
+              <div className="text-xl font-bold">Details</div>
+              <div className="py-4">
+                <div className="flex justify-between pb-4">
+                  <div>
+                    <span>Total Price</span>{" "}
+                    <span className="lg:block min-[1130px]:inline">
+                      ({totalProductsCart})
+                    </span>
                   </div>
-                  <div className="flex justify-between pb-4">
-                    <div className="font-bold">Total</div>
-                    <div className="font-bold">
-                      {idrPriceFormat(totalPriceProductsCart)}
-                    </div>
-                  </div>
-                  <button
-                    className="btn btn-primary btn-block"
-                    onClick={handleOrder}
-                  >
-                    buy
-                  </button>
+                  <div>{idrPriceFormat(totalPriceProductsCart)}</div>
                 </div>
+                <div className="flex justify-between pb-4">
+                  <div className="font-bold">Total</div>
+                  <div className="font-bold">
+                    {idrPriceFormat(totalPriceProductsCart)}
+                  </div>
+                </div>
+                <button
+                  className="btn btn-primary btn-block"
+                  onClick={handleOrder}
+                >
+                  order
+                </button>
               </div>
             </div>
-          ) : null}
+          </div>
         </div>
       )}
     </>

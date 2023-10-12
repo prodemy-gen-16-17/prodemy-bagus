@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 import Default from "./layouts/Default";
+import AdminLogin from "./pages/admin/AdminLogin";
 import Cart from "./pages/Cart";
 import Categories from "./pages/Categories";
 import Home from "./pages/Home";
@@ -22,6 +23,8 @@ const router = createBrowserRouter(
       <Route path="cart" element={<Cart />} />
       <Route path="categories" element={<Categories />} />
       <Route path="products/:productId" element={<Products />} />
+
+      <Route path="admin/login" element={<AdminLogin />} />
     </Route>,
   ),
 );

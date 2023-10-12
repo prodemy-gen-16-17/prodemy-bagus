@@ -40,7 +40,7 @@ function Login() {
     <>
       <div className="flex h-full min-h-screen flex-col justify-between">
         <div className="m-auto flex w-full items-center justify-center bg-[url('')]">
-          <div className="card card-compact max-w-xs bg-base-100">
+          <div className="card-compact card max-w-xs bg-base-100">
             <Link
               to={"/"}
               className="btn mx-auto mt-4 border-0 bg-base-100 text-3xl text-primary"

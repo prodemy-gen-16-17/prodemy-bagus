@@ -70,22 +70,25 @@ function Carousel({ className, slideList, imageIndicator }) {
     setActive(id);
   }
 
-  useEffect(function () {
-    const interval = setInterval(function () {
-      const maxSlide = slideList.length - 1;
-      const nextSlide = active + 1;
+  useEffect(
+    function () {
+      const interval = setInterval(function () {
+        const maxSlide = slideList.length - 1;
+        const nextSlide = active + 1;
 
-      let newCurrentSlide = Math.min(nextSlide, maxSlide);
-      const isOnLastSlide = maxSlide === active;
-      newCurrentSlide = isOnLastSlide ? 0 : newCurrentSlide;
+        let newCurrentSlide = Math.min(nextSlide, maxSlide);
+        const isOnLastSlide = maxSlide === active;
+        newCurrentSlide = isOnLastSlide ? 0 : newCurrentSlide;
 
-      setActive(newCurrentSlide);
-    }, 5000);
+        setActive(newCurrentSlide);
+      }, 5000);
 
-    return function () {
-      clearInterval(interval);
-    };
-  }, [slideList, active]);
+      return function () {
+        clearInterval(interval);
+      };
+    },
+    [slideList, active],
+  );
 
   function handleClickNext() {
     const maxSlide = slideList.length - 1;

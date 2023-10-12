@@ -65,9 +65,14 @@ function Home() {
     return sortedProducts;
   }
 
-  const productsList = sortProduct(sortBy, products).map(function (product) {
-    return <ProductCard key={product.id} product={product} />;
-  });
+  // from json or api that marked to cart
+  const someProducts = [...products].slice(0, 12);
+
+  const productsList = sortProduct(sortBy, someProducts).map(
+    function (product) {
+      return <ProductCard key={product.id} product={product} />;
+    },
+  );
 
   const popularCategoryList = categories.map(function (category) {
     return <CategoryCard key={category.id} category={category} />;

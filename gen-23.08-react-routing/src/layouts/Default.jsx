@@ -6,18 +6,18 @@ import Header from "../components/layout/Header";
 
 function Default() {
   const { pathname } = useLocation();
-  const hideOnPages = ["/login", "/register", "/admin/login"];
-  const shouldNotRendered = hideOnPages.includes(pathname);
+  const hideOnPages = ["/login", "/register"];
+  const showDefault = !hideOnPages.includes(pathname);
 
   return (
     <>
-      {shouldNotRendered ? null : <Header />}
+      {showDefault && <Header />}
 
       <main className="mx-auto max-w-7xl px-6">
         <Outlet />
       </main>
 
-      {shouldNotRendered ? null : (
+      {showDefault && (
         <>
           <Footer />
 

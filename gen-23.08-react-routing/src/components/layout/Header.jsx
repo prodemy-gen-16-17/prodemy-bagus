@@ -29,7 +29,7 @@ function Header() {
   };
   return (
     <>
-      <header className="sticky top-0 z-50 bg-base-100">
+      <header className="sticky top-0 z-50 bg-base-100 shadow">
         <div className="navbar mx-auto max-w-7xl space-x-1">
           <Link className="btn hidden border-0 bg-base-100 text-2xl text-primary sm:inline-flex">
             <svg

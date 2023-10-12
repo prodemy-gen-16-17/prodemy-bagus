@@ -1,0 +1,390 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "DiFluid - R1 Coffee Refractometer",
+      "brand": "DiFluid",
+      "ratings": 4.8,
+      "totalReviews": 10,
+      "sku": "ASDFGHJKLZXCV",
+      "promos": ["Tersedia COD", "Gratis Ongkir"],
+      "categoryId": 8,
+      "price": 2250000,
+      "stocks": [
+        { "location": "jakarta", "total": 10 },
+        { "location": "bandung", "total": 0 },
+        { "location": "bogor", "total": 0 }
+      ],
+      "images": [
+        "https://s-ecom.ottenstatic.com/original/64f5950499e0b133674202.jpg",
+        "https://s-ecom.ottenstatic.com/original/64f5950495c6c776218984.jpg",
+        "https://s-ecom.ottenstatic.com/original/64f595049bb65142483082.jpg"
+      ],
+      "createdAt": 1693537970,
+      "releasedAt": 1693538175
+    },
+    {
+      "id": 2,
+      "name": "Fellow - Opus Conical Burr Grinder",
+      "brand": "Fellow",
+      "ratings": 5,
+      "totalReviews": 6,
+      "sku": "QWERTYUIOPAS",
+      "promos": ["Tersedia COD"],
+      "price": 3750000,
+      "categoryId": 7,
+      "stocks": [
+        { "location": "jakarta", "total": 3 },
+        { "location": "bandung", "total": 3 },
+        { "location": "bogor", "total": 3 }
+      ],
+      "images": [
+        "https://s-ecom.ottenstatic.com/original/647024b097b35353051103.jpg",
+        "https://s-ecom.ottenstatic.com/original/647025144ca6f113928749.jpg",
+        "https://s-ecom.ottenstatic.com/original/647024b179fc6308095865.jpg",
+        "https://s-ecom.ottenstatic.com/original/647024b18c7a7270479173.jpg",
+        "https://s-ecom.ottenstatic.com/original/647024b0c1dc9100083764.jpg",
+        "https://s-ecom.ottenstatic.com/original/64c8be08d1578479442395.jpg"
+      ],
+      "createdAt": 1693638975,
+      "releasedAt": 1693639035
+    },
+    {
+      "id": 3,
+      "name": "PourxOura - Coffee Scale",
+      "brand": "PourxOura",
+      "ratings": 4.4,
+      "totalReviews": 100,
+      "sku": "ZXCVBNMLKJHG",
+      "promos": [],
+      "price": 2950000,
+      "categoryId": 9,
+      "stocks": [
+        { "location": "jakarta", "total": 0 },
+        { "location": "bandung", "total": 30 },
+        { "location": "bogor", "total": 54 }
+      ],
+      "images": [
+        "https://s-ecom.ottenstatic.com/original/5fb39a14e68f9013271566.jpg",
+        "https://s-ecom.ottenstatic.com/original/6013d22690945628825167.jpg",
+        "https://s-ecom.ottenstatic.com/original/6013d2ccca14c112305158.jpg",
+        "https://s-ecom.ottenstatic.com/original/6013d226b1776763286782.jpg"
+      ],
+      "createdAt": 1693732393,
+      "releasedAt": 1693732573
+    },
+    {
+      "id": 4,
+      "name": "Bialetti - Mokapot Moka Induction Exclusive Red - Mokapot 2 Cups",
+      "brand": "Bialetti",
+      "ratings": 0,
+      "totalReviews": 0,
+      "sku": "EDFBTDWSEADR",
+      "promos": ["Gratis Ongkir"],
+      "price": 875000,
+      "categoryId": 4,
+      "stocks": [{ "location": "jakarta", "total": 10 }],
+      "images": [
+        "https://s-ecom.ottenstatic.com/original/651e454defaf1037486810.jpg",
+        "https://s-ecom.ottenstatic.com/original/651e454df2a97928470981.jpg",
+        "https://s-ecom.ottenstatic.com/original/651e454dd7efc630774543.jpg"
+      ],
+      "createdAt": 1693827384,
+      "releasedAt": 1693827444
+    },
+    {
+      "id": 5,
+      "name": "Flair - Classic Espresso Maker",
+      "brand": "Flair",
+      "ratings": 4.4,
+      "totalReviews": 100,
+      "sku": "XFWEAQDQWEDA",
+      "promos": [],
+      "price": 2850000,
+      "categoryId": 5,
+      "stocks": [
+        { "location": "jakarta", "total": 3 },
+        { "location": "bandung", "total": 4 },
+        { "location": "bogor", "total": 3 }
+      ],
+      "images": [
+        "https://s-ecom.ottenstatic.com/original/646c8e6f44b00017016849.jpg",
+        "https://s-ecom.ottenstatic.com/original/5c628eddb9f03396152278.jpg",
+        "https://s-ecom.ottenstatic.com/original/5f6d981483be2117076028.jpg",
+        "https://s-ecom.ottenstatic.com/original/59afb552ab21a314398803.jpg",
+        "https://s-ecom.ottenstatic.com/original/5a1286b635e47023941711.jpg",
+        "https://s-ecom.ottenstatic.com/original/5c628eddbfabb172040578.jpg"
+      ],
+      "createdAt": 1693921535,
+      "releasedAt": 1693921595
+    },
+    {
+      "id": 6,
+      "name": "AeroPress - Original Coffee Press",
+      "brand": "AeroPress",
+      "ratings": 4.9,
+      "totalReviews": 100,
+      "sku": "DSADASDSADAS",
+      "promos": [],
+      "price": 650000,
+      "categoryId": 6,
+      "stocks": [
+        { "location": "jakarta", "total": 44 },
+        { "location": "bandung", "total": 33 },
+        { "location": "bogor", "total": 52 }
+      ],
+      "images": [
+        "https://s-ecom.ottenstatic.com/original/646d99896b10b388450405.jpg",
+        "https://s-ecom.ottenstatic.com/original/646d99850dd3e311998241.jpg",
+        "https://s-ecom.ottenstatic.com/original/646d99f909dcc156522957.jpg",
+        "https://s-ecom.ottenstatic.com/original/62c6930dd3397463763772.jpg",
+        "https://s-ecom.ottenstatic.com/original/62c692f4dbd72282380374.png",
+        "https://s-ecom.ottenstatic.com/original/62c692f4eba47826874763.png",
+        "https://s-ecom.ottenstatic.com/original/646d84dc7aca4576259738.jpg",
+        "https://s-ecom.ottenstatic.com/original/646d9984b3c40822378675.jpg",
+        "https://s-ecom.ottenstatic.com/original/646d9984a75c1906611023.jpg"
+      ],
+      "createdAt": 1694012816,
+      "releasedAt": 1694012876
+    },
+    {
+      "id": 7,
+      "name": "Wanoja Kamojang Anaerobic Honey Process 200g Kopi Arabica",
+      "brand": "Otten",
+      "ratings": 5,
+      "totalReviews": 1000,
+      "sku": "KOPIOTTENEX1",
+      "promos": ["Tersedia COD"],
+      "categoryId": 1,
+      "price": 185000,
+      "stocks": [
+        { "location": "jakarta", "total": 800 },
+        { "location": "bandung", "total": 30 },
+        { "location": "bogor", "total": 54 }
+      ],
+      "images": [
+        "https://s-ecom.ottenstatic.com/original/63623e2a73275276583884.png",
+        "https://s-ecom.ottenstatic.com/original/63623e2a55335024133293.png",
+        "https://s-ecom.ottenstatic.com/original/628230f371bae220998203.jpg"
+      ],
+      "createdAt": 1696739237,
+      "releasedAt": 1696739297
+    },
+    {
+      "id": 8,
+      "name": "Java Trawas Honey Process 200g Kopi Arabica",
+      "brand": "Otten",
+      "ratings": 5,
+      "totalReviews": 80,
+      "sku": "KOPIOTTENEX2",
+      "promos": ["Tersedia COD"],
+      "categoryId": 1,
+      "price": 124000,
+      "stocks": [
+        { "location": "jakarta", "total": 80 },
+        { "location": "bandung", "total": 30 },
+        { "location": "bogor", "total": 54 }
+      ],
+      "images": [
+        "https://s-ecom.ottenstatic.com/original/623833ae828b2493989332.jpg",
+        "https://s-ecom.ottenstatic.com/original/623833ae96394704812203.jpg",
+        "https://s-ecom.ottenstatic.com/original/623833ae7db0d843268235.jpg"
+      ],
+      "createdAt": 1696739418,
+      "releasedAt": 1696739538
+    },
+    {
+      "id": 9,
+      "name": "Sidikalang 200g Kopi Arabica",
+      "brand": "Otten",
+      "ratings": 5,
+      "totalReviews": 1,
+      "sku": "KOPIOTTENEX3",
+      "promos": ["Tersedia COD"],
+      "categoryId": 1,
+      "price": 94000,
+      "stocks": [
+        { "location": "jakarta", "total": 10 },
+        { "location": "bandung", "total": 5 },
+        { "location": "bogor", "total": 3 }
+      ],
+      "images": [
+        "https://s-ecom.ottenstatic.com/original/60b8a014b2b7e545920384.jpg",
+        "https://s-ecom.ottenstatic.com/original/6214be8ea0661911947116.jpg",
+        "https://s-ecom.ottenstatic.com/original/6053114d0396a562126148.jpg"
+      ],
+      "createdAt": 1696740319,
+      "releasedAt": 1696740439
+    },
+    {
+      "id": 10,
+      "name": "Biji / Bubuk Kopi Infused - Choco Chip Cookie Robusta Coffee 120g",
+      "brand": "Otten",
+      "ratings": 4.8,
+      "totalReviews": 6,
+      "sku": "KOPIOTTENEX4",
+      "promos": ["Tersedia COD"],
+      "categoryId": 1,
+      "price": 79000,
+      "stocks": [
+        { "location": "jakarta", "total": 10 },
+        { "location": "bandung", "total": 5 }
+      ],
+      "images": [
+        "https://s-ecom.ottenstatic.com/original/63b3b60a3f3f5879950012.jpg",
+        "https://s-ecom.ottenstatic.com/original/63e33ef67f4af051792048.jpg",
+        "https://s-ecom.ottenstatic.com/original/63e33ef67076a684288295.jpg",
+        "https://s-ecom.ottenstatic.com/original/63e33ef6732f0299072538.jpg"
+      ],
+      "createdAt": 1696809730,
+      "releasedAt": 1696809910
+    },
+    {
+      "id": 11,
+      "name": "Biji / Bubuk Kopi Infused - Fruit Candy Arabica Coffee 120g",
+      "brand": "Otten",
+      "ratings": 5,
+      "totalReviews": 16,
+      "sku": "KOPIOTTENEX5",
+      "promos": ["Tersedia COD"],
+      "categoryId": 1,
+      "price": 79000,
+      "stocks": [
+        { "location": "jakarta", "total": 5 },
+        { "location": "bandung", "total": 5 }
+      ],
+      "images": [
+        "https://s-ecom.ottenstatic.com/original/639d28a6cbcff777322616.jpg",
+        "https://s-ecom.ottenstatic.com/original/639d28a6bd0c6488879142.jpg",
+        "https://s-ecom.ottenstatic.com/original/639d28a6d81c1099485562.jpg"
+      ],
+      "createdAt": 1696811951,
+      "releasedAt": 1696812131
+    },
+    {
+      "id": 12,
+      "name": "Biji / Bubuk Kopi Infused - Choco Banana Robusta Coffee 120g",
+      "brand": "Otten",
+      "ratings": 4.7,
+      "totalReviews": 4,
+      "sku": "KOPIOTTENEX6",
+      "promos": ["Tersedia COD"],
+      "categoryId": 1,
+      "price": 79000,
+      "stocks": [
+        { "location": "jakarta", "total": 5 },
+        { "location": "bandung", "total": 5 }
+      ],
+      "images": [
+        "https://s-ecom.ottenstatic.com/original/63e33f09ab490608313191.jpg",
+        "https://s-ecom.ottenstatic.com/original/63e33f0b01b07970657766.jpg",
+        "https://s-ecom.ottenstatic.com/original/63b3b3f57b453457322810.jpg"
+      ],
+      "createdAt": 1696813812,
+      "releasedAt": 1696813972
+    }
+  ],
+  "promos": [
+    {
+      "id": 1,
+      "name": "Mega Sale Anniversary",
+      "image": "https://s-ecom.ottenstatic.com/original/651e8d4930d75219983245.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Super Sale 10.10",
+      "image": "https://s-ecom.ottenstatic.com/original/651b8dbcab658980198258.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Mesin Kopi Spesial",
+      "image": "https://s-ecom.ottenstatic.com/original/651cbd1f961f3481497523.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Spesial Biji Kopi Terbaik",
+      "image": "https://s-ecom.ottenstatic.com/original/651ff1e5d105f740478124.jpg"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Biji Kopi",
+      "image": "https://s-ecom.ottenstatic.com/thumbnail/64afc9daecb1c324710620.png",
+      "minimumOrder": 1
+    },
+    {
+      "id": 2,
+      "name": "Siap Minum",
+      "image": "https://s-ecom.ottenstatic.com/thumbnail/60e3f04389844278706618.png",
+      "minimumOrder": 1
+    },
+    {
+      "id": 3,
+      "name": "Kapsul",
+      "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c64f40f76e356882238.png",
+      "minimumOrder": 1
+    },
+
+    {
+      "id": 4,
+      "name": "Mokapot",
+      "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c6f0f926e0973503574.png",
+      "minimumOrder": 1
+    },
+    {
+      "id": 5,
+      "name": "Espresso Maker",
+      "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c6ecf1ec41790255231.png",
+      "minimumOrder": 1
+    },
+    {
+      "id": 6,
+      "name": "Press Brewer",
+      "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c6f536bdd4138726946.png",
+      "minimumOrder": 1
+    },
+
+    {
+      "id": 7,
+      "name": "Electric Grinder",
+      "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c6e71de73e686854167.png",
+      "minimumOrder": 1
+    },
+
+    {
+      "id": 8,
+      "name": "Cupping Tools",
+      "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c792a66ebb039245248.png",
+      "minimumOrder": 1
+    },
+    {
+      "id": 9,
+      "name": "Scales",
+      "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c707431a84111443641.png",
+      "minimumOrder": 1
+    }
+  ],
+  "superCategories": [
+    {
+      "id": 1,
+      "name": "Kopi",
+      "categoryId": [1, 2, 3]
+    },
+    {
+      "id": 2,
+      "name": "Manual Brewer",
+      "categoryId": [4, 5, 6]
+    },
+    {
+      "id": 3,
+      "name": "Grinder",
+      "categoryId": [7]
+    },
+    {
+      "id": 4,
+      "name": "Tools",
+      "categoryId": [8, 9]
+    }
+  ]
+}

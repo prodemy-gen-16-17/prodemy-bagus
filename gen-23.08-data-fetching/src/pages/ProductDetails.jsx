@@ -1,35 +1,59 @@
+import axios from "axios";
 import { Fragment, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import useSWR from "swr";
 
 import Carousel from "../components/Carousel";
-import { categories, products } from "../db.json";
 import { idrPriceFormat } from "../utils/price";
 
 function ProductDetails() {
   const { productId } = useParams();
 
-  const product = products.find(function (product) {
-    return product.id === parseInt(productId);
-  });
+  // from json or api
+  async function fetcher(url) {
+    const response = await axios.get(url);
+    return response.data;
+  }
 
-  const category = categories.find(function (category) {
-    return category.id === product.categoryId;
-  });
+  const {
+    isLoading,
+    error,
+    data: product,
+  } = useSWR(
+    `http://localhost:3000/products/${productId}?_expand=category`,
+    fetcher,
+  );
 
-  const [totalProducts, setTotalProducts] = useState(category.minimumOrder);
+  const [totalProducts, setTotalProducts] = useState(1);
 
   function handlePlusTotalProduct() {
     setTotalProducts((s) => s + 1);
   }
   function handleMinusTotalProduct() {
-    setTotalProducts((s) => (s <= category.minimumOrder ? s : s - 1));
+    setTotalProducts((s) => (s <= 1 ? s : s - 1));
   }
 
   function handleTotalProductChanged(event) {
-    setTotalProducts(
-      event.target.value <= category.minimumOrder
-        ? category.minimumOrder
-        : event.target.value,
+    setTotalProducts(event.target.value <= 1 ? 1 : event.target.value);
+  }
+
+  if (isLoading) {
+    return (
+      <>
+        <div className="flex items-center justify-center">
+          <span className="loading loading-dots loading-lg"></span>
+        </div>
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <div className="flex items-center justify-center">
+          <p>{error.message}</p>
+        </div>
+      </>
     );
   }
 
@@ -40,7 +64,7 @@ function ProductDetails() {
         <ol className="list-reset flex">
           <li>
             <Link className="hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600 text-primary transition duration-150 ease-in-out">
-              {category.name}
+              {product.category.name}
             </Link>
           </li>
           <li>

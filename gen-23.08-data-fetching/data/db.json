@@ -311,80 +311,85 @@
       "id": 1,
       "name": "Biji Kopi",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/64afc9daecb1c324710620.png",
-      "minimumOrder": 1
+      "minimumOrder": 1,
+      "superCategoryId": 1
     },
     {
       "id": 2,
       "name": "Siap Minum",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/60e3f04389844278706618.png",
-      "minimumOrder": 1
+      "minimumOrder": 1,
+      "superCategoryId": 1
     },
     {
       "id": 3,
       "name": "Kapsul",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c64f40f76e356882238.png",
-      "minimumOrder": 1
+      "minimumOrder": 1,
+      "superCategoryId": 1
     },
 
     {
       "id": 4,
       "name": "Mokapot",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c6f0f926e0973503574.png",
-      "minimumOrder": 1
+      "minimumOrder": 1,
+      "superCategoryId": 2
     },
     {
       "id": 5,
       "name": "Espresso Maker",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c6ecf1ec41790255231.png",
-      "minimumOrder": 1
+      "minimumOrder": 1,
+      "superCategoryId": 2
     },
     {
       "id": 6,
       "name": "Press Brewer",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c6f536bdd4138726946.png",
-      "minimumOrder": 1
+      "minimumOrder": 1,
+      "superCategoryId": 2
     },
 
     {
       "id": 7,
       "name": "Electric Grinder",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c6e71de73e686854167.png",
-      "minimumOrder": 1
+      "minimumOrder": 1,
+      "superCategoryId": 3
     },
 
     {
       "id": 8,
       "name": "Cupping Tools",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c792a66ebb039245248.png",
-      "minimumOrder": 1
+      "minimumOrder": 1,
+      "superCategoryId": 4
     },
     {
       "id": 9,
       "name": "Scales",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c707431a84111443641.png",
-      "minimumOrder": 1
+      "minimumOrder": 1,
+      "superCategoryId": 4
     }
   ],
   "superCategories": [
     {
       "id": 1,
-      "name": "Kopi",
-      "categoryId": [1, 2, 3]
+      "name": "Kopi"
     },
     {
       "id": 2,
-      "name": "Manual Brewer",
-      "categoryId": [4, 5, 6]
+      "name": "Manual Brewer"
     },
     {
       "id": 3,
-      "name": "Grinder",
-      "categoryId": [7]
+      "name": "Grinder"
     },
     {
       "id": 4,
-      "name": "Tools",
-      "categoryId": [8, 9]
+      "name": "Tools"
     }
   ]
 }

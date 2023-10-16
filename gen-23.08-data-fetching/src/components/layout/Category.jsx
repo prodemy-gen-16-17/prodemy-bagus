@@ -1,8 +1,8 @@
+import axios from "axios";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
-import { categories, superCategories } from "../../db.json";
+import useSWR from "swr";
 
 function CategoryTabNav({
   superCategoryName,
@@ -30,15 +30,11 @@ CategoryTabNav.propTypes = {
   handleTabClick: PropTypes.func,
 };
 
-function CategoryTabContent({ categoryIds, index, activeTab }) {
-  const categoryIdsList = categoryIds.map(function (categoryId) {
-    const categoryIdDetail = categories.find(function (category) {
-      return category.id === categoryId;
-    });
-
+function CategoryTabContent({ categories, index, activeTab }) {
+  const categoriesList = categories.map(function (category) {
     return (
-      <Link key={categoryIdDetail.id} className="m-2">
-        {categoryIdDetail.name}
+      <Link key={category.id} className="m-2">
+        {category.name}
       </Link>
     );
   });
@@ -51,14 +47,14 @@ function CategoryTabContent({ categoryIds, index, activeTab }) {
         role="tabpanel"
         aria-labelledby={`tab-${index}`}
       >
-        <div className="flex flex-wrap">{categoryIdsList}</div>
+        <div className="flex flex-wrap">{categoriesList}</div>
       </div>
     </>
   );
 }
 
 CategoryTabContent.propTypes = {
-  categoryIds: PropTypes.array,
+  categories: PropTypes.array,
   index: PropTypes.number,
   activeTab: PropTypes.number,
 };
@@ -70,7 +66,18 @@ function Category() {
     setActiveTab(tabId);
   }
 
-  const categoriesTabNavList = superCategories.map(
+  // from json or api
+  async function fetcher(url) {
+    const response = await axios.get(url);
+    return response.data;
+  }
+
+  const { data: superCategories } = useSWR(
+    "http://localhost:3000/superCategories?_embed=categories",
+    fetcher,
+  );
+
+  const categoriesTabNavList = superCategories?.map(
     function (superCategory, index) {
       return (
         <CategoryTabNav
@@ -84,12 +91,12 @@ function Category() {
     },
   );
 
-  const categoriesTabContentList = superCategories.map(
+  const categoriesTabContentList = superCategories?.map(
     function (superCategory, index) {
       return (
         <CategoryTabContent
           key={superCategory.id}
-          categoryIds={superCategory.categoryId}
+          categories={superCategory.categories}
           index={index}
           activeTab={activeTab}
         ></CategoryTabContent>

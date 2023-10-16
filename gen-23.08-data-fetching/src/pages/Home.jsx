@@ -1,19 +1,22 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useSWR from "swr";
 
 import Carousel from "../components/Carousel";
 import CategoryCard from "../components/CategoryCard";
 import ProductCard from "../components/ProductCard";
-import { categories, products, promos } from "../db.json";
 
 function Home() {
   const [sortBy, setSortBy] = useState("");
 
   function handleSortByChanged(event) {
-    setSortBy(event.target.value);
+    const sort = event.target.value;
+    setSortBy(sort);
+    sortProduct(sort);
   }
 
-  useEffect(() => {
+  useEffect(function () {
     setSortBy("date-desc");
   }, []);
 
@@ -33,55 +36,74 @@ function Home() {
     );
   });
 
-  function sortProduct(sortBy, products) {
+  function sortProduct(sortBy) {
     // https://www.w3schools.com/js/js_array_sort.asp
 
-    const sortedProducts = [...products];
     switch (sortBy) {
       case "date-desc":
-        sortedProducts.sort(function (a, b) {
+        products.sort(function (a, b) {
           return new Date(b.releasedAt) - new Date(a.releasedAt);
         });
         break;
       case "date-asc":
-        sortedProducts.sort(function (a, b) {
+        products.sort(function (a, b) {
           return new Date(a.releasedAt) - new Date(b.releasedAt);
         });
         break;
       case "price-desc":
-        sortedProducts.sort(function (a, b) {
+        products.sort(function (a, b) {
           return b.price - a.price;
         });
         break;
       case "price-asc":
-        sortedProducts.sort(function (a, b) {
+        products.sort(function (a, b) {
           return a.price - b.price;
         });
         break;
       default:
         break;
     }
-
-    return sortedProducts;
   }
 
-  // from json or api that marked to cart
-  const someProducts = [...products].slice(0, 12);
+  async function delay() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 2000);
+    });
+  }
 
-  const productsList = sortProduct(sortBy, someProducts).map(
-    function (product) {
-      return <ProductCard key={product.id} product={product} />;
+  // from json or api
+  async function fetcher(url) {
+    await delay();
+    const response = await axios.get(url);
+    return response.data;
+  }
+
+  const { data: products } = useSWR("http://localhost:3000/products", fetcher, {
+    onSuccess: function (data) {
+      return data.sort(function (a, b) {
+        return new Date(b.releasedAt) - new Date(a.releasedAt);
+      });
     },
+  });
+
+  const { data: categories } = useSWR(
+    "http://localhost:3000/categories?_limit=6",
+    fetcher,
   );
 
-  const popularCategoryList = categories.map(function (category) {
-    return <CategoryCard key={category.id} category={category} />;
-  });
+  const { data: promos } = useSWR("http://localhost:3000/promos", fetcher);
 
   return (
     <>
-      {/* <Carousel></Carousel> */}
-      <Carousel slideList={promos}></Carousel>
+      {promos ? (
+        <Carousel slideList={promos}></Carousel>
+      ) : (
+        <div className="flex items-center justify-center">
+          <span className="loading loading-dots loading-lg"></span>
+        </div>
+      )}
 
       {/* <!-- Exclusive Products --> */}
       <section className="text-center">
@@ -95,15 +117,23 @@ function Home() {
             >
               {optionsList}
             </select>
-            <Link to={`/search?sortBy=${sortBy}`} className="btn btn-primary">
+            <Link to={`/products?sortBy=${sortBy}`} className="btn btn-primary">
               See All
             </Link>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-          {productsList}
-        </div>
+        {products ? (
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+            {products.map(function (product) {
+              return <ProductCard key={product.id} product={product} />;
+            })}
+          </div>
+        ) : (
+          <div className="flex items-center justify-center">
+            <span className="loading loading-dots loading-lg"></span>
+          </div>
+        )}
       </section>
 
       {/* <!-- Popular Category --> */}
@@ -111,9 +141,18 @@ function Home() {
         <div className="flex items-center justify-between py-2">
           <h2 className="text-2xl">Popular Category</h2>
         </div>
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-          {popularCategoryList}
-        </div>
+
+        {categories ? (
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+            {categories.map(function (category) {
+              return <CategoryCard key={category.id} category={category} />;
+            })}
+          </div>
+        ) : (
+          <div className="flex items-center justify-center">
+            <span className="loading loading-dots loading-lg"></span>
+          </div>
+        )}
       </section>
     </>
   );

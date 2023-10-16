@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { categories, products } from "../db.json";
+import { categories, products } from "../../data/db.json";
 import { idrPriceFormat } from "../utils/price";
 
 function ProductCart({

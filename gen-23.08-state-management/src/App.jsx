@@ -1,3 +1,4 @@
+import { Provider } from "react-redux";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -19,6 +20,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import ProductDetails from "./pages/ProductDetails";
 import Register from "./pages/Register";
+import store from "./redux/store";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -52,7 +54,9 @@ const router = createBrowserRouter(
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
     </>
   );
 }

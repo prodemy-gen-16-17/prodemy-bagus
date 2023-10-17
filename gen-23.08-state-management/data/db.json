@@ -10,6 +10,7 @@
       "promos": ["Tersedia COD", "Gratis Ongkir"],
       "categoryId": 8,
       "price": 2250000,
+      "minOrder": 1,
       "stocks": [
         { "location": "jakarta", "total": 10 },
         { "location": "bandung", "total": 0 },
@@ -33,6 +34,7 @@
       "promos": ["Tersedia COD"],
       "price": 3750000,
       "categoryId": 7,
+      "minOrder": 1,
       "stocks": [
         { "location": "jakarta", "total": 3 },
         { "location": "bandung", "total": 3 },
@@ -59,6 +61,7 @@
       "promos": [],
       "price": 2950000,
       "categoryId": 9,
+      "minOrder": 1,
       "stocks": [
         { "location": "jakarta", "total": 0 },
         { "location": "bandung", "total": 30 },
@@ -83,6 +86,7 @@
       "promos": ["Gratis Ongkir"],
       "price": 875000,
       "categoryId": 4,
+      "minOrder": 1,
       "stocks": [{ "location": "jakarta", "total": 10 }],
       "images": [
         "https://s-ecom.ottenstatic.com/original/651e454defaf1037486810.jpg",
@@ -102,6 +106,7 @@
       "promos": [],
       "price": 2850000,
       "categoryId": 5,
+      "minOrder": 1,
       "stocks": [
         { "location": "jakarta", "total": 3 },
         { "location": "bandung", "total": 4 },
@@ -128,6 +133,7 @@
       "promos": [],
       "price": 650000,
       "categoryId": 6,
+      "minOrder": 1,
       "stocks": [
         { "location": "jakarta", "total": 44 },
         { "location": "bandung", "total": 33 },
@@ -157,6 +163,7 @@
       "promos": ["Tersedia COD"],
       "categoryId": 1,
       "price": 185000,
+      "minOrder": 1,
       "stocks": [
         { "location": "jakarta", "total": 800 },
         { "location": "bandung", "total": 30 },
@@ -180,6 +187,7 @@
       "promos": ["Tersedia COD"],
       "categoryId": 1,
       "price": 124000,
+      "minOrder": 1,
       "stocks": [
         { "location": "jakarta", "total": 80 },
         { "location": "bandung", "total": 30 },
@@ -203,6 +211,7 @@
       "promos": ["Tersedia COD"],
       "categoryId": 1,
       "price": 94000,
+      "minOrder": 1,
       "stocks": [
         { "location": "jakarta", "total": 10 },
         { "location": "bandung", "total": 5 },
@@ -226,6 +235,7 @@
       "promos": ["Tersedia COD"],
       "categoryId": 1,
       "price": 79000,
+      "minOrder": 2,
       "stocks": [
         { "location": "jakarta", "total": 10 },
         { "location": "bandung", "total": 5 }
@@ -249,6 +259,7 @@
       "promos": ["Tersedia COD"],
       "categoryId": 1,
       "price": 79000,
+      "minOrder": 2,
       "stocks": [
         { "location": "jakarta", "total": 5 },
         { "location": "bandung", "total": 5 }
@@ -271,6 +282,7 @@
       "promos": ["Tersedia COD"],
       "categoryId": 1,
       "price": 79000,
+      "minOrder": 2,
       "stocks": [
         { "location": "jakarta", "total": 5 },
         { "location": "bandung", "total": 5 }
@@ -311,21 +323,18 @@
       "id": 1,
       "name": "Biji Kopi",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/64afc9daecb1c324710620.png",
-      "minimumOrder": 1,
       "superCategoryId": 1
     },
     {
       "id": 2,
       "name": "Siap Minum",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/60e3f04389844278706618.png",
-      "minimumOrder": 1,
       "superCategoryId": 1
     },
     {
       "id": 3,
       "name": "Kapsul",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c64f40f76e356882238.png",
-      "minimumOrder": 1,
       "superCategoryId": 1
     },
 
@@ -333,21 +342,18 @@
       "id": 4,
       "name": "Mokapot",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c6f0f926e0973503574.png",
-      "minimumOrder": 1,
       "superCategoryId": 2
     },
     {
       "id": 5,
       "name": "Espresso Maker",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c6ecf1ec41790255231.png",
-      "minimumOrder": 1,
       "superCategoryId": 2
     },
     {
       "id": 6,
       "name": "Press Brewer",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c6f536bdd4138726946.png",
-      "minimumOrder": 1,
       "superCategoryId": 2
     },
 
@@ -355,7 +361,6 @@
       "id": 7,
       "name": "Electric Grinder",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c6e71de73e686854167.png",
-      "minimumOrder": 1,
       "superCategoryId": 3
     },
 
@@ -363,14 +368,12 @@
       "id": 8,
       "name": "Cupping Tools",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c792a66ebb039245248.png",
-      "minimumOrder": 1,
       "superCategoryId": 4
     },
     {
       "id": 9,
       "name": "Scales",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c707431a84111443641.png",
-      "minimumOrder": 1,
       "superCategoryId": 4
     }
   ],

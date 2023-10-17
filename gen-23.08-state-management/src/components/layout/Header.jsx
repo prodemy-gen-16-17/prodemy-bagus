@@ -1,8 +1,12 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import Category from "./Category";
 
 function Header() {
+  const totalAmounts = useSelector((state) => state.cart.totalAmounts);
+  const isCartExist = totalAmounts !== 0;
+
   const showSearchDropdown = () => {
     const dropdown = document.getElementById("search-dropdown");
     const button = document.getElementById("close-search-dropdown-btn");
@@ -146,7 +150,11 @@ function Header() {
             className="btn hidden border-0 bg-base-100 sm:inline-flex"
           >
             <div className="indicator flex items-center text-center">
-              <span className="badge indicator-item badge-primary px-1">8</span>
+              {isCartExist && (
+                <span className="badge indicator-item badge-primary px-1">
+                  {totalAmounts}
+                </span>
+              )}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 text-primary"

@@ -1,9 +1,12 @@
 import axios from "axios";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import useSWR from "swr";
 
 import Carousel from "../components/Carousel";
+import { addProduct } from "../redux/cartSlice";
 import { idrPriceFormat } from "../utils/price";
 
 function ProductDetails() {
@@ -19,23 +22,64 @@ function ProductDetails() {
     isLoading,
     error,
     data: product,
-  } = useSWR(
-    `http://localhost:3000/products/${productId}?_expand=category`,
-    fetcher,
-  );
+  } = useSWR(`http://localhost:3000/products/${productId}`, fetcher);
 
-  const [totalProducts, setTotalProducts] = useState(1);
+  const form = useForm({
+    defaultValues: {
+      amounts: 0,
+      totalPrice: 0,
+      maxOrder: 0,
+    },
+  });
 
-  function handlePlusTotalProduct() {
-    setTotalProducts((s) => s + 1);
-  }
-  function handleMinusTotalProduct() {
-    setTotalProducts((s) => (s <= 1 ? s : s - 1));
+  const { register, handleSubmit, watch, setValue, reset } = form;
+  const values = watch();
+
+  useEffect(() => {
+    if (product) {
+      reset({
+        amounts: product.minOrder,
+        totalPrice: product.minOrder * product.price,
+        maxOrder: product.stocks.reduce(
+          (total, stock) => total + stock.total,
+          0,
+        ),
+      });
+    }
+  }, [product, reset]);
+
+  useEffect(() => {
+    const subscription = watch((values) => {
+      console.log("watch", values);
+
+      if (product) {
+        const totalPrice = values.amounts * product.price;
+        if (totalPrice !== values.totalPrice) {
+          setValue("totalPrice", totalPrice);
+        }
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [product, setValue, watch]);
+
+  function onIncrement() {
+    setValue("amounts", values.amounts + 1);
   }
 
-  function handleTotalProductChanged(event) {
-    setTotalProducts(event.target.value <= 1 ? 1 : event.target.value);
+  function onDecrement() {
+    setValue("amounts", values.amounts - 1);
   }
+
+  const dispatch = useDispatch();
+  const onSubmit = (data) => {
+    console.log("onSubmit", data);
+    dispatch(
+      addProduct({
+        ...product,
+        ...data,
+      }),
+    );
+  };
 
   if (isLoading) {
     return (
@@ -172,73 +216,76 @@ function ProductDetails() {
 
           <hr className="my-2 border"></hr>
 
-          <div className="flex items-center justify-between">
-            <span className="text-center">Jumlah</span>
-            <div className="join float-right border p-2">
-              <button
-                className="join-item flex items-center justify-center px-1 py-2 sm:p-2"
-                onClick={handleMinusTotalProduct}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 fill-primary"
-                  viewBox="0 0 448 512"
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <div className="flex items-center justify-between">
+              <span className="text-center">Jumlah</span>
+              <div className="join float-right border p-2">
+                <button
+                  type="button"
+                  className="join-item flex items-center justify-center px-1 py-2 sm:p-2"
+                  onClick={onDecrement}
+                  disabled={values.amounts <= product.minOrder}
                 >
-                  {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
-                  <path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"></path>
-                </svg>
-              </button>
-              <input
-                className="join-item w-8 border-0 bg-base-100 p-0 text-center"
-                type="tel"
-                maxLength="4"
-                pattern="^-?[0-9]\d*\.?\d*$"
-                value={totalProducts}
-                onChange={handleTotalProductChanged}
-              ></input>
-              <button
-                className="join-item flex items-center justify-center px-1 py-2 sm:p-2"
-                onClick={handlePlusTotalProduct}
-              >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 fill-primary"
+                    viewBox="0 0 448 512"
+                  >
+                    {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
+                    <path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"></path>
+                  </svg>
+                </button>
+                <input
+                  className="join-item w-8 border-0 bg-base-100 p-0 text-center"
+                  type="number"
+                  {...register("amounts", { valueAsNumber: true })}
+                ></input>
+                <button
+                  type="button"
+                  className="join-item flex items-center justify-center px-1 py-2 sm:p-2"
+                  onClick={onIncrement}
+                  disabled={values.amounts >= values.maxOrder}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 fill-primary"
+                    viewBox="0 0 448 512"
+                  >
+                    {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
+                    <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <hr className="my-2 border"></hr>
+
+            <div className="flex h-16 items-center justify-evenly space-x-1">
+              <button type="button" className="btn btn-secondary flex-1">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 fill-primary"
+                  className="h-4"
                   viewBox="0 0 448 512"
                 >
                   {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
                   <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"></path>
                 </svg>
+                <span className="ml-1">Buy Now</span>
+              </button>
+
+              <button type="submit" className="btn btn-primary flex-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 fill-base-100"
+                  viewBox="0 0 576 512"
+                >
+                  {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
+                  <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"></path>
+                </svg>
+                <span className="ml-1">Cart</span>
               </button>
             </div>
-          </div>
-
-          <hr className="my-2 border"></hr>
-
-          <div className="flex h-16 items-center justify-evenly space-x-1">
-            <button className="btn btn-secondary flex-1">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4"
-                viewBox="0 0 448 512"
-              >
-                {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
-                <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"></path>
-              </svg>
-              <span className="ml-1">Buy Now</span>
-            </button>
-
-            <button className="btn btn-primary flex-1">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 fill-base-100"
-                viewBox="0 0 576 512"
-              >
-                {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
-                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"></path>
-              </svg>
-              <span className="ml-1">Cart</span>
-            </button>
-          </div>
+          </form>
         </div>
       </div>
 

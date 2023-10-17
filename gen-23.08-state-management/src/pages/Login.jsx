@@ -1,5 +1,8 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import * as yup from "yup";
 
 import FooterSimple from "../components/layout/FooterSimple";
 
@@ -11,30 +14,27 @@ function Login() {
     });
   }
 
-  const [rememberMe, setRememberMe] = useState(false);
-  function handleRememberMeChange() {
-    setRememberMe(function (value) {
-      return !value;
-    });
-  }
-
-  const [data, setData] = useState({
-    email: "",
-    password: "",
+  const schema = yup.object({
+    email: yup.string().email().required("Required"),
+    password: yup.string().required("Required"),
+    rememberMe: yup.boolean(),
   });
 
-  const { email, password } = data;
+  const form = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+      rememberMe: false,
+    },
+    resolver: yupResolver(schema),
+  });
 
-  function handleDataChange(event) {
-    setData(function (data) {
-      return { ...data, [event.target.name]: [event.target.value] };
-    });
-  }
+  const { register, handleSubmit, formState } = form;
+  const { errors } = formState;
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  const onSubmit = (data) => {
     console.log(data);
-  }
+  };
 
   return (
     <>
@@ -47,6 +47,7 @@ function Login() {
             >
               <span className="">Kaffee</span>
             </Link>
+
             <div className="flex items-center justify-between pt-4">
               <h1 className="text-xl font-bold uppercase">Login</h1>
               <span className="flex">
@@ -56,39 +57,45 @@ function Login() {
                 </Link>
               </span>
             </div>
-            <form className="card-body pb-0" onSubmit={handleSubmit}>
+
+            <form
+              className="card-body pb-0"
+              onSubmit={handleSubmit(onSubmit)}
+              noValidate
+            >
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
+                  <span className="label-text-alt text-error">
+                    {errors.email?.message}
+                  </span>
                 </label>
                 <input
                   type="email"
                   placeholder="email"
-                  className="input input-bordered"
-                  required
-                  name="email"
-                  value={email}
-                  onChange={handleDataChange}
+                  className={`input input-bordered ${
+                    errors.email ? "input-error" : ""
+                  }`}
+                  {...register("email")}
                 />
               </div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Password</span>
+                  <span className="label-text-alt text-error">
+                    {errors.password?.message}
+                  </span>
                 </label>
-                <div className="join flex flex-row">
+                <div className="input-group">
                   <input
                     type={reveal ? "text" : "password"}
                     placeholder="password"
-                    className="input join-item input-bordered w-full"
-                    required
-                    name="password"
-                    value={password}
-                    onChange={handleDataChange}
+                    className={`input input-bordered w-full ${
+                      errors.email ? "input-error" : ""
+                    }`}
+                    {...register("password")}
                   />
-                  <button
-                    className="btn join-item bg-base-100 px-2"
-                    onClick={handleReveal}
-                  >
+                  <button className="btn bg-base-100" onClick={handleReveal}>
                     {reveal ? (
                       <svg
                         className="h-5 w-6 fill-gray-400"
@@ -121,10 +128,8 @@ function Login() {
                   <span className="label-text">Remember me</span>
                   <input
                     type="checkbox"
-                    name="rememberMe"
-                    checked={rememberMe}
                     className="checkbox h-4 w-4 rounded"
-                    onChange={handleRememberMeChange}
+                    {...register("rememberMe")}
                   />
                 </label>
               </div>
@@ -134,9 +139,9 @@ function Login() {
                   value="Login"
                   className="btn btn-primary"
                 />
-                <a className="btn border-0 bg-base-100 p-0 font-normal normal-case text-primary">
+                <Link className="btn border-0 bg-base-100 p-0 font-normal normal-case text-primary">
                   Forgot password?
-                </a>
+                </Link>
               </div>
             </form>
 

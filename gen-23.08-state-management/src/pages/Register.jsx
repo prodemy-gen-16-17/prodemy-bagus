@@ -1,5 +1,8 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import * as yup from "yup";
 
 import FooterSimple from "../components/layout/FooterSimple";
 
@@ -11,25 +14,32 @@ function Register() {
     });
   }
 
-  const [data, setData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    password: "",
+  const schema = yup.object({
+    name: yup.string().email().required("Required"),
+    email: yup.string().email().required("Required"),
+    password: yup.string().required("Required"),
+    confirmPassword: yup
+      .string()
+      .required("Required")
+      .oneOf([yup.ref("password"), null], "Must match"),
   });
 
-  const { name, email, phone, password } = data;
+  const form = useForm({
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    resolver: yupResolver(schema),
+  });
 
-  function handleDataChange(event) {
-    setData(function (data) {
-      return { ...data, [event.target.name]: [event.target.value] };
-    });
-  }
+  const { register, handleSubmit, formState } = form;
+  const { errors } = formState;
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  const onSubmit = (data) => {
     console.log(data);
-  }
+  };
 
   return (
     <>
@@ -42,6 +52,7 @@ function Register() {
             >
               <span className="">Kaffee</span>
             </Link>
+
             <div className="flex items-center justify-between pt-4">
               <h1 className="text-xl font-bold uppercase">Register</h1>
               <span className="flex">
@@ -51,67 +62,57 @@ function Register() {
                 </Link>
               </span>
             </div>
-            <form className="card-body pb-0" onSubmit={handleSubmit}>
+
+            <form className="card-body pb-0" onSubmit={handleSubmit(onSubmit)}>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Name</span>
+                  <span className="label-text-alt text-error">
+                    {errors.name?.message}
+                  </span>
                 </label>
                 <input
                   type="text"
                   placeholder="name"
-                  className="input input-bordered"
-                  required
-                  name="name"
-                  value={name}
-                  onChange={handleDataChange}
+                  className={`input input-bordered ${
+                    errors.name ? "input-error" : ""
+                  }`}
+                  {...register("name")}
                 />
               </div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
+                  <span className="label-text-alt text-error">
+                    {errors.email?.message}
+                  </span>
                 </label>
                 <input
                   type="email"
                   placeholder="email"
-                  className="input input-bordered"
-                  required
-                  name="email"
-                  value={email}
-                  onChange={handleDataChange}
-                />
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Phone Number</span>
-                </label>
-                <input
-                  type="tel"
-                  placeholder="phone number"
-                  className="input input-bordered"
-                  required
-                  name="phone"
-                  value={phone}
-                  onChange={handleDataChange}
+                  className={`input input-bordered ${
+                    errors.email ? "input-error" : ""
+                  }`}
+                  {...register("email")}
                 />
               </div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Password</span>
+                  <span className="label-text-alt text-error">
+                    {errors.password?.message}
+                  </span>
                 </label>
-                <div className="join flex flex-row">
+                <div className="input-group">
                   <input
                     type={reveal ? "text" : "password"}
                     placeholder="password"
-                    className="input join-item input-bordered w-full"
-                    required
-                    name="password"
-                    value={password}
-                    onChange={handleDataChange}
+                    className={`input input-bordered w-full ${
+                      errors.email ? "input-error" : ""
+                    }`}
+                    {...register("password")}
                   />
-                  <button
-                    className="btn join-item bg-base-100 px-2"
-                    onClick={handleReveal}
-                  >
+                  <button className="btn bg-base-100" onClick={handleReveal}>
                     {reveal ? (
                       <svg
                         className="h-5 w-6 fill-gray-400"
@@ -138,6 +139,50 @@ function Register() {
                   </button>
                 </div>
               </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Comfirm Password</span>
+                  <span className="label-text-alt text-error">
+                    {errors.confirmPassword?.message}
+                  </span>
+                </label>
+                <div className="input-group">
+                  <input
+                    type={reveal ? "text" : "password"}
+                    placeholder="confirm password"
+                    className={`input input-bordered w-full ${
+                      errors.email ? "input-error" : ""
+                    }`}
+                    {...register("confirmPassword")}
+                  />
+                  <button className="btn bg-base-100" onClick={handleReveal}>
+                    {reveal ? (
+                      <svg
+                        className="h-5 w-6 fill-gray-400"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M320 400c-75.85 0-137.25-58.71-142.9-133.11L72.2 185.82c-13.79 17.3-26.48 35.59-36.72 55.59a32.35 32.35 0 0 0 0 29.19C89.71 376.41 197.07 448 320 448c26.91 0 52.87-4 77.89-10.46L346 397.39a144.13 144.13 0 0 1-26 2.61zm313.82 58.1l-110.55-85.44a331.25 331.25 0 0 0 81.25-102.07 32.35 32.35 0 0 0 0-29.19C550.29 135.59 442.93 64 320 64a308.15 308.15 0 0 0-147.32 37.7L45.46 3.37A16 16 0 0 0 23 6.18L3.37 31.45A16 16 0 0 0 6.18 53.9l588.36 454.73a16 16 0 0 0 22.46-2.81l19.64-25.27a16 16 0 0 0-2.82-22.45zm-183.72-142l-39.3-30.38A94.75 94.75 0 0 0 416 256a94.76 94.76 0 0 0-121.31-92.21A47.65 47.65 0 0 1 304 192a46.64 46.64 0 0 1-1.54 10l-73.61-56.89A142.31 142.31 0 0 1 320 112a143.92 143.92 0 0 1 144 144c0 21.63-5.29 41.79-13.9 60.11z"
+                        ></path>
+                      </svg>
+                    ) : (
+                      <svg
+                        className="h-5 w-6 fill-gray-400"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z"
+                        ></path>
+                      </svg>
+                    )}
+                  </button>
+                </div>
+              </div>
+
               <div className="form-control py-4 text-center">
                 <p>
                   By registering, you agree to the{" "}

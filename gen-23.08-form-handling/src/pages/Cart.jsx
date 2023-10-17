@@ -32,7 +32,7 @@ function ProductCart({
 
   return (
     <>
-      <div className="border-b-2 p-3">
+      <div className="border-b-2 p-3 last:border-b-0">
         <div className="flex gap-3">
           <Link to={`/products/${id}`} className="w-16 flex-none">
             <img className="rounded" src={images[0]} alt={name} />

@@ -58,7 +58,7 @@ function Cart() {
     };
   });
 
-  const [productsCart, setProductsCart] = useState(processedProducts);
+  const [productsCart] = useState(processedProducts);
 
   function handleOrder() {
     console.log(productsCart);

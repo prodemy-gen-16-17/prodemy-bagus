@@ -22,7 +22,10 @@ function ProductDetails() {
     isLoading,
     error,
     data: product,
-  } = useSWR(`http://localhost:3000/products/${productId}`, fetcher);
+  } = useSWR(
+    `http://localhost:3000/products/${productId}?_expand=category`,
+    fetcher,
+  );
 
   const form = useForm({
     defaultValues: {
@@ -68,6 +71,18 @@ function ProductDetails() {
 
   function onDecrement() {
     setValue("amounts", values.amounts - 1);
+  }
+
+  function onChange(event) {
+    let vAsNum = parseInt(event.target.value, 10);
+
+    if (vAsNum <= product.minOrder || isNaN(vAsNum)) {
+      vAsNum = product.minOrder;
+    } else if (vAsNum >= values.maxOrder) {
+      vAsNum = values.maxOrder;
+    }
+
+    setValue("amounts", vAsNum);
   }
 
   const dispatch = useDispatch();
@@ -238,7 +253,9 @@ function ProductDetails() {
                 <input
                   className="join-item w-8 border-0 bg-base-100 p-0 text-center"
                   type="number"
-                  {...register("amounts", { valueAsNumber: true })}
+                  {...register("amounts", {
+                    onChange: onChange,
+                  })}
                 ></input>
                 <button
                   type="button"

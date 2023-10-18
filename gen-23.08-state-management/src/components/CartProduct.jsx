@@ -29,7 +29,15 @@ function CartProduct({ product }) {
   }
 
   function handleOnChange(event) {
-    dispatch(onChange({ id, price, amounts: parseInt(event.target.value) }));
+    dispatch(
+      onChange({
+        id,
+        price,
+        amounts: parseInt(event.target.value),
+        minOrder,
+        maxOrder,
+      }),
+    );
   }
 
   function handleOnIncrement() {
@@ -44,21 +52,22 @@ function CartProduct({ product }) {
     <>
       <div className="border-b-2 p-3 last:border-b-0">
         <div className="flex gap-3">
-          <Link to={`/products/${id}`} className="w-16 flex-none">
+          <Link to={`/products/${id}`} className="w-[68px] flex-none">
             <img className="rounded" src={images[0]} alt={name} />
           </Link>
 
-          <div className="">
+          <div className="flex-1">
             <Link to={`/products/${id}`} className="font-bold">
               {name}
             </Link>
             <div className="text-sm">SKU {sku}</div>
-            <div className="flex items-center font-bold">
+            <div className="flex items-center justify-between font-bold">
+              <span>{idrPriceFormat(price)}</span>
               <span>{idrPriceFormat(totalPrice)}</span>
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between pt-2">
           <div className="flex">
             <button className="btn border-0 bg-base-100 px-3">
               <svg

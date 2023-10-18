@@ -13,11 +13,27 @@ const cartSlice = createSlice({
   },
   reducers: {
     addProduct: (state, { payload }) => {
-      const { amounts, totalPrice } = payload;
+      const { id, price, amounts, totalPrice } = payload;
 
-      state.products.push(payload);
-      state.totalAmounts += amounts;
-      state.totalPrice += totalPrice;
+      const isProductExist = state.products.find(
+        (product) => product.id === id,
+      );
+
+      if (!isProductExist) {
+        state.products.push(payload);
+        state.totalAmounts += amounts;
+        state.totalPrice += totalPrice;
+      } else {
+        // onIncrement
+        state.products = updateProducts(state.products, id, (product) => ({
+          ...product,
+          amounts: product.amounts + 1,
+          totalPrice: product.totalPrice + product.price,
+        }));
+
+        state.totalAmounts += 1;
+        state.totalPrice += price;
+      }
     },
     removeProduct: (state, { payload }) => {
       const { id, amounts, totalPrice } = payload;
@@ -56,12 +72,19 @@ const cartSlice = createSlice({
       state.totalPrice -= price;
     },
     onChange: (state, { payload }) => {
-      const { id, amounts } = payload;
+      const { id, amounts, minOrder, maxOrder } = payload;
+
+      let vAsNum = parseInt(amounts, 10);
+      if (vAsNum <= minOrder || isNaN(vAsNum)) {
+        vAsNum = minOrder;
+      } else if (vAsNum >= maxOrder) {
+        vAsNum = maxOrder;
+      }
 
       state.products = updateProducts(state.products, id, (product) => ({
         ...product,
-        amounts: amounts,
-        totalPrice: amounts * product.price,
+        amounts: vAsNum,
+        totalPrice: vAsNum * product.price,
       }));
 
       state.totalAmounts = state.products.reduce(

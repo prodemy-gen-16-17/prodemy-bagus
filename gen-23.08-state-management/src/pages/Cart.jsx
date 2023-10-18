@@ -41,8 +41,8 @@ function Cart() {
   const totalProductsCart =
     totalAmounts === 1 ? `${totalAmounts} product` : `${totalAmounts} products`;
 
-  const productList = products.map(function (product, index) {
-    return <CartProduct key={index} product={product}></CartProduct>;
+  const productList = products.map(function (product) {
+    return <CartProduct key={product.id} product={product}></CartProduct>;
   });
 
   if (totalAmounts === 0) {

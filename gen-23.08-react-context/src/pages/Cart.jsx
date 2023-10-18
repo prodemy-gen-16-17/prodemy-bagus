@@ -1,9 +1,10 @@
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import CartProduct from "../components/CartProduct";
-import { removeAllProducts } from "../redux/cartSlice";
+import { CartContext } from "../context/CartProvider";
+// import { removeAllProducts } from "../redux/cartSlice";
 import { idrPriceFormat } from "../utils/price";
 
 function CartEmpty() {
@@ -25,13 +26,21 @@ function CartEmpty() {
 }
 
 function Cart() {
-  const products = useSelector((state) => state.cart.products);
-  const totalAmounts = useSelector((state) => state.cart.totalAmounts);
-  const totalPrice = useSelector((state) => state.cart.totalPrice);
+  // const products = useSelector((state) => state.cart.products);
+  // const totalAmounts = useSelector((state) => state.cart.totalAmounts);
+  // const totalPrice = useSelector((state) => state.cart.totalPrice);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  // function handleRemoveAllProducts() {
+  //   dispatch(removeAllProducts());
+  // }
+  const { cart, removeAllProducts } = useContext(CartContext);
+  const products = cart.products;
+  const totalAmounts = cart.totalAmounts;
+  const totalPrice = cart.totalPrice;
+
   function handleRemoveAllProducts() {
-    dispatch(removeAllProducts());
+    removeAllProducts();
   }
 
   function handleOrder() {
@@ -41,7 +50,7 @@ function Cart() {
   const totalProductsCart =
     totalAmounts === 1 ? `${totalAmounts} product` : `${totalAmounts} products`;
 
-  const productList = products.map(function (product) {
+  const productList = products?.map(function (product) {
     return <CartProduct key={product.id} product={product}></CartProduct>;
   });
 
@@ -99,6 +108,7 @@ function Cart() {
                 <div className="font-bold">{idrPriceFormat(totalPrice)}</div>
               </div>
               <button
+                type="button"
                 className="btn btn-primary btn-block"
                 onClick={handleOrder}
               >

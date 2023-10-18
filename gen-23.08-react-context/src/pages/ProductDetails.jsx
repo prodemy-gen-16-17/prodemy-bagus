@@ -1,12 +1,13 @@
 import axios from "axios";
-import { Fragment, useEffect } from "react";
+import { Fragment, useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import useSWR from "swr";
 
 import Carousel from "../components/Carousel";
-import { addProduct } from "../redux/cartSlice";
+import { CartContext } from "../context/CartProvider";
+// import { addProduct } from "../redux/cartSlice";
 import { idrPriceFormat } from "../utils/price";
 
 function ProductDetails() {
@@ -85,15 +86,28 @@ function ProductDetails() {
     setValue("amounts", vAsNum);
   }
 
-  const dispatch = useDispatch();
-  const onSubmit = (data) => {
-    console.log("onSubmit", data);
-    dispatch(
-      addProduct({
-        product: product,
-        ...data,
-      }),
-    );
+  // const dispatch = useDispatch();
+  const { cart, addProduct } = useContext(CartContext);
+  const onSubmit = async (data) => {
+    console.log("onSubmitProductDetails", {
+      cartId: cart.id,
+      productId: product.id,
+      product: product,
+      ...data,
+    });
+
+    addProduct({
+      cartId: cart.id,
+      productId: product.id,
+      product: product,
+      ...data,
+    });
+    // dispatch(
+    //   addProduct({
+    //     product: product,
+    //     ...data,
+    //   }),
+    // );
   };
 
   if (isLoading) {

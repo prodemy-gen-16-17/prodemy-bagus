@@ -1,43 +1,56 @@
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 
-import {
-  onChange,
-  onDecrement,
-  onIncrement,
-  removeProduct,
-} from "../redux/cartSlice";
+import { CartContext } from "../context/CartProvider";
+// import {
+//   onChange,
+//   onDecrement,
+//   onIncrement,
+//   removeProduct,
+// } from "../redux/cartSlice";
 import { idrPriceFormat } from "../utils/price";
 
 function CartProduct({ product }) {
-  console.log(product);
-  const { product: pproduct, maxOrder, amounts, totalPrice } = product;
-  const { id, name, sku, images, price, minOrder } = pproduct;
+  const { product: productproduct, maxOrder, amounts, totalPrice } = product;
+  const { id, name, sku, images, price, minOrder } = productproduct;
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const { onChange, onDecrement, onIncrement, removeProduct } =
+    useContext(CartContext);
   function handleOnDecrement() {
-    dispatch(onDecrement({ id, price }));
+    // dispatch(onDecrement({ id, price }));
+    onDecrement({ id, price });
   }
 
   function handleOnChange(event) {
-    dispatch(
-      onChange({
-        id,
-        price,
-        amounts: parseInt(event.target.value),
-        minOrder,
-        maxOrder,
-      }),
-    );
+    // dispatch(
+    //   onChange({
+    //     id,
+    //     price,
+    //     amounts: parseInt(event.target.value),
+    //     minOrder,
+    //     maxOrder,
+    //   }),
+    // );
+    onChange({
+      id,
+      price,
+      amounts: parseInt(event.target.value),
+      minOrder,
+      maxOrder,
+    });
   }
 
   function handleOnIncrement() {
-    dispatch(onIncrement({ id, price }));
+    // dispatch(onIncrement({ id, price }));
+    onIncrement({ id, price });
   }
 
   function handleRemoveProductById() {
-    dispatch(removeProduct({ id, amounts, totalPrice }));
+    // dispatch(removeProduct({ id, amounts, totalPrice }));
+    removeProduct({ id, amounts, totalPrice });
   }
 
   return (

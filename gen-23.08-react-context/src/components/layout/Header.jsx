@@ -1,10 +1,14 @@
-import { useSelector } from "react-redux";
+import { useContext } from "react";
+// import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+import { CartContext } from "../../context/CartProvider";
 import Category from "./Category";
 
 function Header() {
-  const totalAmounts = useSelector((state) => state.cart.totalAmounts);
+  // const totalAmounts = useSelector((state) => state.cart.totalAmounts);
+  const { cart } = useContext(CartContext);
+  const totalAmounts = cart?.totalAmounts;
   const isCartExist = totalAmounts !== 0;
 
   const showSearchDropdown = () => {

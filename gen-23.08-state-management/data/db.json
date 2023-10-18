@@ -12,9 +12,18 @@
       "price": 2250000,
       "minOrder": 1,
       "stocks": [
-        { "location": "jakarta", "total": 10 },
-        { "location": "bandung", "total": 0 },
-        { "location": "bogor", "total": 0 }
+        {
+          "location": "jakarta",
+          "total": 10
+        },
+        {
+          "location": "bandung",
+          "total": 0
+        },
+        {
+          "location": "bogor",
+          "total": 0
+        }
       ],
       "images": [
         "https://s-ecom.ottenstatic.com/original/64f5950499e0b133674202.jpg",
@@ -36,9 +45,18 @@
       "categoryId": 7,
       "minOrder": 1,
       "stocks": [
-        { "location": "jakarta", "total": 3 },
-        { "location": "bandung", "total": 3 },
-        { "location": "bogor", "total": 3 }
+        {
+          "location": "jakarta",
+          "total": 3
+        },
+        {
+          "location": "bandung",
+          "total": 3
+        },
+        {
+          "location": "bogor",
+          "total": 3
+        }
       ],
       "images": [
         "https://s-ecom.ottenstatic.com/original/647024b097b35353051103.jpg",
@@ -63,9 +81,18 @@
       "categoryId": 9,
       "minOrder": 1,
       "stocks": [
-        { "location": "jakarta", "total": 0 },
-        { "location": "bandung", "total": 30 },
-        { "location": "bogor", "total": 54 }
+        {
+          "location": "jakarta",
+          "total": 0
+        },
+        {
+          "location": "bandung",
+          "total": 30
+        },
+        {
+          "location": "bogor",
+          "total": 54
+        }
       ],
       "images": [
         "https://s-ecom.ottenstatic.com/original/5fb39a14e68f9013271566.jpg",
@@ -87,7 +114,12 @@
       "price": 875000,
       "categoryId": 4,
       "minOrder": 1,
-      "stocks": [{ "location": "jakarta", "total": 10 }],
+      "stocks": [
+        {
+          "location": "jakarta",
+          "total": 10
+        }
+      ],
       "images": [
         "https://s-ecom.ottenstatic.com/original/651e454defaf1037486810.jpg",
         "https://s-ecom.ottenstatic.com/original/651e454df2a97928470981.jpg",
@@ -108,9 +140,18 @@
       "categoryId": 5,
       "minOrder": 1,
       "stocks": [
-        { "location": "jakarta", "total": 3 },
-        { "location": "bandung", "total": 4 },
-        { "location": "bogor", "total": 3 }
+        {
+          "location": "jakarta",
+          "total": 3
+        },
+        {
+          "location": "bandung",
+          "total": 4
+        },
+        {
+          "location": "bogor",
+          "total": 3
+        }
       ],
       "images": [
         "https://s-ecom.ottenstatic.com/original/646c8e6f44b00017016849.jpg",
@@ -135,9 +176,18 @@
       "categoryId": 6,
       "minOrder": 1,
       "stocks": [
-        { "location": "jakarta", "total": 44 },
-        { "location": "bandung", "total": 33 },
-        { "location": "bogor", "total": 52 }
+        {
+          "location": "jakarta",
+          "total": 44
+        },
+        {
+          "location": "bandung",
+          "total": 33
+        },
+        {
+          "location": "bogor",
+          "total": 52
+        }
       ],
       "images": [
         "https://s-ecom.ottenstatic.com/original/646d99896b10b388450405.jpg",
@@ -165,9 +215,18 @@
       "price": 185000,
       "minOrder": 1,
       "stocks": [
-        { "location": "jakarta", "total": 800 },
-        { "location": "bandung", "total": 30 },
-        { "location": "bogor", "total": 54 }
+        {
+          "location": "jakarta",
+          "total": 800
+        },
+        {
+          "location": "bandung",
+          "total": 30
+        },
+        {
+          "location": "bogor",
+          "total": 54
+        }
       ],
       "images": [
         "https://s-ecom.ottenstatic.com/original/63623e2a73275276583884.png",
@@ -189,9 +248,18 @@
       "price": 124000,
       "minOrder": 1,
       "stocks": [
-        { "location": "jakarta", "total": 80 },
-        { "location": "bandung", "total": 30 },
-        { "location": "bogor", "total": 54 }
+        {
+          "location": "jakarta",
+          "total": 80
+        },
+        {
+          "location": "bandung",
+          "total": 30
+        },
+        {
+          "location": "bogor",
+          "total": 54
+        }
       ],
       "images": [
         "https://s-ecom.ottenstatic.com/original/623833ae828b2493989332.jpg",
@@ -213,9 +281,18 @@
       "price": 94000,
       "minOrder": 1,
       "stocks": [
-        { "location": "jakarta", "total": 10 },
-        { "location": "bandung", "total": 5 },
-        { "location": "bogor", "total": 3 }
+        {
+          "location": "jakarta",
+          "total": 10
+        },
+        {
+          "location": "bandung",
+          "total": 5
+        },
+        {
+          "location": "bogor",
+          "total": 3
+        }
       ],
       "images": [
         "https://s-ecom.ottenstatic.com/original/60b8a014b2b7e545920384.jpg",
@@ -237,8 +314,14 @@
       "price": 79000,
       "minOrder": 2,
       "stocks": [
-        { "location": "jakarta", "total": 10 },
-        { "location": "bandung", "total": 5 }
+        {
+          "location": "jakarta",
+          "total": 10
+        },
+        {
+          "location": "bandung",
+          "total": 5
+        }
       ],
       "images": [
         "https://s-ecom.ottenstatic.com/original/63b3b60a3f3f5879950012.jpg",
@@ -261,8 +344,14 @@
       "price": 79000,
       "minOrder": 2,
       "stocks": [
-        { "location": "jakarta", "total": 5 },
-        { "location": "bandung", "total": 5 }
+        {
+          "location": "jakarta",
+          "total": 5
+        },
+        {
+          "location": "bandung",
+          "total": 5
+        }
       ],
       "images": [
         "https://s-ecom.ottenstatic.com/original/639d28a6cbcff777322616.jpg",
@@ -284,8 +373,14 @@
       "price": 79000,
       "minOrder": 2,
       "stocks": [
-        { "location": "jakarta", "total": 5 },
-        { "location": "bandung", "total": 5 }
+        {
+          "location": "jakarta",
+          "total": 5
+        },
+        {
+          "location": "bandung",
+          "total": 5
+        }
       ],
       "images": [
         "https://s-ecom.ottenstatic.com/original/63e33f09ab490608313191.jpg",
@@ -337,7 +432,6 @@
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c64f40f76e356882238.png",
       "superCategoryId": 1
     },
-
     {
       "id": 4,
       "name": "Mokapot",
@@ -356,14 +450,12 @@
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c6f536bdd4138726946.png",
       "superCategoryId": 2
     },
-
     {
       "id": 7,
       "name": "Electric Grinder",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c6e71de73e686854167.png",
       "superCategoryId": 3
     },
-
     {
       "id": 8,
       "name": "Cupping Tools",
@@ -393,6 +485,30 @@
     {
       "id": 4,
       "name": "Tools"
+    }
+  ],
+  "carts": [
+    {
+      "id": 1,
+      "userId": 2
+    }
+  ],
+  "cartItems": [
+    {
+      "id": 1,
+      "cartId": 1,
+      "productId": 1,
+      "amounts": 2,
+      "totalPrice": 4500000,
+      "maxOrder": 10
+    },
+    {
+      "id": 2,
+      "cartId": 1,
+      "productId": 2,
+      "amounts": 4,
+      "totalPrice": 7500000,
+      "maxOrder": 9
     }
   ]
 }

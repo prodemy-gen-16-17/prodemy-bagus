@@ -1,13 +1,22 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Outlet, useLocation } from "react-router-dom";
 
 import BottomNav from "../components/layout/BottomNav";
 import Footer from "../components/layout/Footer";
 import Header from "../components/layout/Header";
+import { fetchCartByUserId } from "../redux/cartSlice";
 
 function Default() {
   const { pathname } = useLocation();
   const hideOnPages = ["/login", "/register"];
   const showDefault = !hideOnPages.includes(pathname);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCartByUserId());
+  }, [dispatch]);
 
   return (
     <>

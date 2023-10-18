@@ -90,7 +90,7 @@ function ProductDetails() {
     console.log("onSubmit", data);
     dispatch(
       addProduct({
-        ...product,
+        product: product,
         ...data,
       }),
     );

@@ -11,17 +11,9 @@ import {
 import { idrPriceFormat } from "../utils/price";
 
 function CartProduct({ product }) {
-  const {
-    id,
-    name,
-    sku,
-    images,
-    price,
-    minOrder,
-    maxOrder,
-    amounts,
-    totalPrice,
-  } = product;
+  console.log(product);
+  const { product: pproduct, maxOrder, amounts, totalPrice } = product;
+  const { id, name, sku, images, price, minOrder } = pproduct;
 
   const dispatch = useDispatch();
   function handleOnDecrement() {

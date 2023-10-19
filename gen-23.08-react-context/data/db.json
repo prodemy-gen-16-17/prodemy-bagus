@@ -535,11 +535,26 @@
     },
     {
       "cartId": 2,
-      "productId": 10,
-      "amounts": 2,
-      "totalPrice": 158000,
-      "maxOrder": 15,
+      "productId": 9,
+      "amounts": 5,
+      "totalPrice": 470000,
+      "maxOrder": 18,
       "id": 3
+    }
+  ],
+  "orders": [
+    {
+      "userId": 1,
+      "totalAmounts": 3,
+      "totalPrice": 9450000,
+      "id": 1
+    }
+  ],
+  "orderItems": [
+    {
+      "productId": 5,
+      "subTotal": 5700000,
+      "id": 1
     }
   ]
 }

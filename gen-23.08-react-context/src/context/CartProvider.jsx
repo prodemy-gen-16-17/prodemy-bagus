@@ -57,6 +57,8 @@ export const CartProvider = ({ children }) => {
               maxOrder: maxOrder,
             });
           }
+
+          console.log("addProductWhenNotExistedIsLoggedIn", response.data);
         } else {
           response = await axios.patch(`${API_BASE_URL}/${isProductExist.id}`, {
             cartId: isProductExist.cartId,
@@ -65,8 +67,9 @@ export const CartProvider = ({ children }) => {
             totalPrice: isProductExist.totalPrice + totalPrice,
             maxOrder: isProductExist.maxOrder,
           });
+
+          console.log("addProductWhenOnIncrementIsLoggedIn", response.data);
         }
-        console.log("addProductWhenIsLoggedIn", response.data);
       } catch (error) {
         console.error(error);
       }
@@ -98,7 +101,6 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeProduct = async (payload) => {
-    console.log("removeProduct", payload);
     const { id, amounts, totalPrice } = payload;
 
     // If user is logged in, post data to server
@@ -117,7 +119,7 @@ export const CartProvider = ({ children }) => {
         console.error(error);
       }
     }
-
+    console.log("removeProduct", payload);
     setCart({
       ...cart,
       products: cart.products.filter((product) => product.productId !== id),
@@ -127,16 +129,14 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeAllProducts = async () => {
-    console.log("removeAllProducts");
-
     // If user is logged in, post data to server
     if (auth.isLoggedIn && cart.id !== -1) {
       try {
-        const requests = cart.products.map((product) => {
+        const cartItemRequests = cart.products.map((product) => {
           return axios.delete(`${API_BASE_URL}/${product.id}`);
         });
 
-        const responses = await Promise.all(requests);
+        const cartItemResponses = await Promise.all(cartItemRequests);
 
         const cartResponse = await axios.delete(
           `http://localhost:3000/carts/${cart.id}`,
@@ -144,7 +144,7 @@ export const CartProvider = ({ children }) => {
 
         console.log(
           "removeAllProductWhenIsLoggedIn",
-          responses.data,
+          cartItemResponses,
           cartResponse.data,
         );
       } catch (error) {
@@ -152,6 +152,7 @@ export const CartProvider = ({ children }) => {
       }
     }
 
+    console.log("removeAllProducts");
     setCart({
       ...cart,
       products: [],
@@ -161,7 +162,6 @@ export const CartProvider = ({ children }) => {
   };
 
   const onIncrement = async (payload) => {
-    console.log("onIncrement", payload);
     const { id, price } = payload;
 
     // If user is logged in, post data to server
@@ -182,12 +182,13 @@ export const CartProvider = ({ children }) => {
           },
         );
 
-        console.log("removeProductWhenIsLoggedIn", response.data);
+        console.log("onIncrementWhenIsLoggedIn", response.data);
       } catch (error) {
         console.error(error);
       }
     }
 
+    console.log("onIncrement", payload);
     setCart({
       ...cart,
       products: updateProducts(cart.products, id, (product) => ({
@@ -201,7 +202,6 @@ export const CartProvider = ({ children }) => {
   };
 
   const onDecrement = async (payload) => {
-    console.log("onDecrement", payload);
     const { id, price } = payload;
 
     // If user is logged in, post data to server
@@ -222,12 +222,13 @@ export const CartProvider = ({ children }) => {
           },
         );
 
-        console.log("removeProductWhenIsLoggedIn", response.data);
+        console.log("onDecrementWhenIsLoggedIn", response.data);
       } catch (error) {
         console.error(error);
       }
     }
 
+    console.log("onDecrement", payload);
     setCart({
       ...cart,
       products: updateProducts(cart.products, id, (product) => ({
@@ -241,7 +242,6 @@ export const CartProvider = ({ children }) => {
   };
 
   const onChange = async (payload) => {
-    console.log("onChange", payload);
     const { id, amounts, minOrder, maxOrder } = payload;
 
     let vAsNum = parseInt(amounts, 10);
@@ -256,19 +256,6 @@ export const CartProvider = ({ children }) => {
       amounts: vAsNum,
       totalPrice: vAsNum * product.product.price,
     }));
-
-    setCart({
-      ...cart,
-      products: productList,
-      totalAmounts: productList.reduce(
-        (total, product) => total + product.amounts,
-        0,
-      ),
-      totalPrice: productList.reduce(
-        (total, product) => total + product.totalPrice,
-        0,
-      ),
-    });
 
     // If user is logged in, post data to server
     if (auth.isLoggedIn) {
@@ -293,6 +280,20 @@ export const CartProvider = ({ children }) => {
         console.error(error);
       }
     }
+
+    console.log("onChange", payload);
+    setCart({
+      ...cart,
+      products: productList,
+      totalAmounts: productList.reduce(
+        (total, product) => total + product.amounts,
+        0,
+      ),
+      totalPrice: productList.reduce(
+        (total, product) => total + product.totalPrice,
+        0,
+      ),
+    });
   };
 
   const contextValue = {

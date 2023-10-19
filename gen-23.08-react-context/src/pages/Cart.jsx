@@ -1,8 +1,10 @@
 // import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import CartProduct from "../components/CartProduct";
+import { AuthContext } from "../context/AuthProvider";
 import { CartContext } from "../context/CartProvider";
 // import { removeAllProducts } from "../redux/cartSlice";
 import { idrPriceFormat } from "../utils/price";
@@ -34,7 +36,11 @@ function Cart() {
   // function handleRemoveAllProducts() {
   //   dispatch(removeAllProducts());
   // }
+  const navigate = useNavigate();
+
+  const { auth } = useContext(AuthContext);
   const { cart, removeAllProducts } = useContext(CartContext);
+
   const products = cart.products;
   const totalAmounts = cart.totalAmounts;
   const totalPrice = cart.totalPrice;
@@ -43,8 +49,35 @@ function Cart() {
     removeAllProducts();
   }
 
-  function handleOrder() {
-    console.log(products);
+  async function handleOrder() {
+    console.log("handleOrder", products);
+    try {
+      const orderResponse = await axios.post("http://localhost:3000/orders", {
+        userId: auth.user.id,
+        totalAmounts: totalAmounts,
+        totalPrice: totalPrice,
+      });
+
+      console.log("orderResponse", orderResponse);
+
+      const orderItemRequests = cart.products.map((product) => {
+        return axios.post("http://localhost:3000/orderItems", {
+          orderId: orderResponse.id,
+          amount: product.amount,
+          productId: product.productId,
+          subTotal: product.totalPrice,
+        });
+      });
+
+      const orderItemResponses = await Promise.all(orderItemRequests);
+
+      console.log("orderResponse", orderItemResponses);
+
+      await removeAllProducts();
+      navigate("/checkout");
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const totalProductsCart =

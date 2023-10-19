@@ -1,4 +1,4 @@
-// import { Provider } from "react-redux";
+import { Provider } from "react-redux";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -6,8 +6,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import { AuthProvider } from "./context/AuthProvider";
-import { CartProvider } from "./context/CartProvider";
+// import { AuthProvider } from "./context/AuthProvider";
+// import { CartProvider } from "./context/CartProvider";
 import AdminDefault from "./layouts/AdminDefault";
 import AdminDefaultProtected from "./layouts/AdminDefaultProtected";
 import Default from "./layouts/Default";
@@ -22,7 +22,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import ProductDetails from "./pages/ProductDetails";
 import Register from "./pages/Register";
-// import store from "./redux/store";
+import store from "./redux/store";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -56,13 +56,13 @@ const router = createBrowserRouter(
 function App() {
   return (
     <>
-      {/* <Provider store={store}></Provider> */}
-      <AuthProvider>
-        <CartProvider>
-          <RouterProvider router={router} />
-        </CartProvider>
-      </AuthProvider>
-      {/* </Provider> */}
+      <Provider store={store}>
+        {/* <AuthProvider> */}
+        {/* <CartProvider> */}
+        <RouterProvider router={router} />
+        {/* </CartProvider> */}
+        {/* </AuthProvider> */}
+      </Provider>
     </>
   );
 }

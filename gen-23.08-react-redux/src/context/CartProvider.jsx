@@ -19,15 +19,15 @@ export const CartProvider = ({ children }) => {
   const API_BASE_URL = "http://localhost:3000/cartItems";
 
   const updateProducts = (products, productId, updateFn) =>
-    products.map((product) =>
-      product.productId === productId ? updateFn(product) : product,
+    products.map((item) =>
+      item.productId === productId ? updateFn(item) : item,
     );
 
   const addProduct = async (payload) => {
-    const { amounts, totalPrice, maxOrder, productId } = payload;
+    const { amounts, subTotal, maxOrder, productId } = payload;
 
     const isProductExist = cart.products.find(
-      (product) => product.productId === productId,
+      (item) => item.productId === productId,
     );
 
     // If user is logged in, post data to server
@@ -45,7 +45,7 @@ export const CartProvider = ({ children }) => {
               cartId: response.data.id,
               productId: productId,
               amounts: amounts,
-              totalPrice: totalPrice,
+              subTotal: subTotal,
               maxOrder: maxOrder,
             });
           } else {
@@ -53,7 +53,7 @@ export const CartProvider = ({ children }) => {
               cartId: cart.id,
               productId: productId,
               amounts: amounts,
-              totalPrice: totalPrice,
+              subTotal: subTotal,
               maxOrder: maxOrder,
             });
           }
@@ -64,7 +64,7 @@ export const CartProvider = ({ children }) => {
             cartId: isProductExist.cartId,
             productId: isProductExist.productId,
             amounts: isProductExist.amounts + amounts,
-            totalPrice: isProductExist.totalPrice + totalPrice,
+            subTotal: isProductExist.subTotal + subTotal,
             maxOrder: isProductExist.maxOrder,
           });
 
@@ -87,26 +87,26 @@ export const CartProvider = ({ children }) => {
       console.log("addProductOnIncrement", payload);
       newCart = {
         ...cart,
-        products: updateProducts(cart.products, productId, (product) => ({
-          ...product,
-          amounts: product.amounts + amounts,
-          totalPrice: product.totalPrice + totalPrice,
+        products: updateProducts(cart.products, productId, (item) => ({
+          ...item,
+          amounts: item.amounts + amounts,
+          subTotal: item.subTotal + subTotal,
         })),
       };
     }
 
     newCart.totalAmounts += amounts;
-    newCart.totalPrice += totalPrice;
+    newCart.totalPrice += subTotal;
     setCart(newCart);
   };
 
   const removeProduct = async (payload) => {
-    const { id, amounts, totalPrice } = payload;
+    const { id, amounts, subTotal } = payload;
 
     // If user is logged in, post data to server
     if (auth.isLoggedIn) {
       const isProductExist = cart.products.find(
-        (product) => product.productId === id,
+        (item) => item.productId === id,
       );
 
       try {
@@ -119,12 +119,13 @@ export const CartProvider = ({ children }) => {
         console.error(error);
       }
     }
+
     console.log("removeProduct", payload);
     setCart({
       ...cart,
-      products: cart.products.filter((product) => product.productId !== id),
+      products: cart.products.filter((item) => item.productId !== id),
       totalAmounts: cart.totalAmounts - amounts,
-      totalPrice: cart.totalPrice - totalPrice,
+      totalPrice: cart.totalPrice - subTotal,
     });
   };
 
@@ -132,8 +133,8 @@ export const CartProvider = ({ children }) => {
     // If user is logged in, post data to server
     if (auth.isLoggedIn && cart.id !== -1) {
       try {
-        const cartItemRequests = cart.products.map((product) => {
-          return axios.delete(`${API_BASE_URL}/${product.id}`);
+        const cartItemRequests = cart.products.map((item) => {
+          return axios.delete(`${API_BASE_URL}/${item.id}`);
         });
 
         const cartItemResponses = await Promise.all(cartItemRequests);
@@ -167,7 +168,7 @@ export const CartProvider = ({ children }) => {
     // If user is logged in, post data to server
     if (auth.isLoggedIn) {
       const isProductExist = cart.products.find(
-        (product) => product.productId === id,
+        (item) => item.productId === id,
       );
 
       try {
@@ -177,7 +178,7 @@ export const CartProvider = ({ children }) => {
             cartId: isProductExist.cartId,
             productId: isProductExist.productId,
             amounts: isProductExist.amounts + 1,
-            totalPrice: isProductExist.totalPrice + price,
+            subTotal: isProductExist.subTotal + price,
             maxOrder: isProductExist.maxOrder,
           },
         );
@@ -191,10 +192,10 @@ export const CartProvider = ({ children }) => {
     console.log("onIncrement", payload);
     setCart({
       ...cart,
-      products: updateProducts(cart.products, id, (product) => ({
-        ...product,
-        amounts: product.amounts + 1,
-        totalPrice: product.totalPrice + product.product.price,
+      products: updateProducts(cart.products, id, (item) => ({
+        ...item,
+        amounts: item.amounts + 1,
+        subTotal: item.subTotal + item.product.price,
       })),
       totalAmounts: cart.totalAmounts + 1,
       totalPrice: cart.totalPrice + price,
@@ -207,7 +208,7 @@ export const CartProvider = ({ children }) => {
     // If user is logged in, post data to server
     if (auth.isLoggedIn) {
       const isProductExist = cart.products.find(
-        (product) => product.productId === id,
+        (item) => item.productId === id,
       );
 
       try {
@@ -217,7 +218,7 @@ export const CartProvider = ({ children }) => {
             cartId: isProductExist.cartId,
             productId: isProductExist.productId,
             amounts: isProductExist.amounts - 1,
-            totalPrice: isProductExist.totalPrice - price,
+            subTotal: isProductExist.subTotal - price,
             maxOrder: isProductExist.maxOrder,
           },
         );
@@ -231,10 +232,10 @@ export const CartProvider = ({ children }) => {
     console.log("onDecrement", payload);
     setCart({
       ...cart,
-      products: updateProducts(cart.products, id, (product) => ({
-        ...product,
-        amounts: product.amounts - 1,
-        totalPrice: product.totalPrice - product.product.price,
+      products: updateProducts(cart.products, id, (item) => ({
+        ...item,
+        amounts: item.amounts - 1,
+        subTotal: item.subTotal - item.product.price,
       })),
       totalAmounts: cart.totalAmounts - 1,
       totalPrice: cart.totalPrice - price,
@@ -251,16 +252,16 @@ export const CartProvider = ({ children }) => {
       vAsNum = maxOrder;
     }
 
-    let productList = updateProducts(cart.products, id, (product) => ({
-      ...product,
+    let productList = updateProducts(cart.products, id, (item) => ({
+      ...item,
       amounts: vAsNum,
-      totalPrice: vAsNum * product.product.price,
+      subTotal: vAsNum * item.product.price,
     }));
 
     // If user is logged in, post data to server
     if (auth.isLoggedIn) {
       const isProductExist = cart.products.find(
-        (product) => product.productId === id,
+        (item) => item.productId === id,
       );
 
       try {
@@ -270,7 +271,7 @@ export const CartProvider = ({ children }) => {
             cartId: isProductExist.cartId,
             productId: isProductExist.productId,
             amounts: vAsNum,
-            totalPrice: vAsNum * isProductExist.price,
+            subTotal: vAsNum * isProductExist.price,
             maxOrder: isProductExist.maxOrder,
           },
         );
@@ -286,13 +287,10 @@ export const CartProvider = ({ children }) => {
       ...cart,
       products: productList,
       totalAmounts: productList.reduce(
-        (total, product) => total + product.amounts,
+        (total, item) => total + item.amounts,
         0,
       ),
-      totalPrice: productList.reduce(
-        (total, product) => total + product.totalPrice,
-        0,
-      ),
+      totalPrice: productList.reduce((total, item) => total + item.subTotal, 0),
     });
   };
 

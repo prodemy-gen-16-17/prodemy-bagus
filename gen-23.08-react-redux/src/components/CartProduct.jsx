@@ -1,61 +1,69 @@
 import PropTypes from "prop-types";
-// import { useDispatch } from "react-redux";
-import { useContext } from "react";
+import { useDispatch } from "react-redux";
+// import { useContext } from "react";
 import { Link } from "react-router-dom";
 
-import { CartContext } from "../context/CartProvider";
+// import { CartContext } from "../context/CartProvider";
 // import {
 //   onChange,
 //   onDecrement,
 //   onIncrement,
 //   removeProduct,
 // } from "../redux/cartSlice";
+import {
+  onChange,
+  onDecrement,
+  onIncrement,
+  removeProduct,
+} from "../redux/actions/cartAction";
 import { idrPriceFormat } from "../utils/price";
 
-function CartProduct({ product }) {
-  const { product: productproduct, maxOrder, amounts, totalPrice } = product;
-  const { id, name, sku, images, price, minOrder } = productproduct;
+function CartProduct({ item }) {
+  const { amounts, maxOrder, product, subTotal } = item;
+  const { id, name, sku, images, price, minOrder } = product;
 
-  // const dispatch = useDispatch();
-  const { onChange, onDecrement, onIncrement, removeProduct } =
-    useContext(CartContext);
+  // const { onChange, onDecrement, onIncrement, removeProduct } =
+  //   useContext(CartContext);
+  const dispatch = useDispatch();
+
   function handleOnDecrement() {
-    // dispatch(onDecrement({ id, price }));
-    onDecrement({ id, price });
+    dispatch(onDecrement({ id, price }));
+    // onDecrement({ id, price });
   }
 
   function handleOnChange(event) {
-    // dispatch(
-    //   onChange({
-    //     id,
-    //     price,
-    //     amounts: parseInt(event.target.value),
-    //     minOrder,
-    //     maxOrder,
-    //   }),
-    // );
-    onChange({
-      id,
-      price,
-      amounts: parseInt(event.target.value),
-      minOrder,
-      maxOrder,
-    });
+    console.log(event.target.value);
+    dispatch(
+      onChange({
+        id,
+        price,
+        amounts: parseInt(event.target.value),
+        minOrder,
+        maxOrder,
+      }),
+    );
+    // onChange({
+    //   id,
+    //   price,
+    //   amounts: parseInt(event.target.value),
+    //   minOrder,
+    //   maxOrder,
+    // });
   }
 
   function handleOnIncrement() {
-    // dispatch(onIncrement({ id, price }));
-    onIncrement({ id, price });
+    dispatch(onIncrement({ id, price }));
+    // onIncrement({ id, price });
   }
 
   function handleRemoveProductById() {
-    // dispatch(removeProduct({ id, amounts, totalPrice }));
-    removeProduct({ id, amounts, totalPrice });
+    dispatch(removeProduct({ id, amounts, subTotal }));
+    // removeProduct({ id, amounts, subTotal });
   }
 
   return (
     <>
-      <div className="border-b-2 p-3 last:border-b-0">
+      <div className="border-b-2 last:border-b-0">
         <div className="flex gap-3">
           <Link to={`/products/${id}`} className="w-[68px] flex-none">
             <img className="rounded" src={images[0]} alt={name} />
@@ -68,13 +76,14 @@ function CartProduct({ product }) {
             <div className="text-sm">SKU {sku}</div>
             <div className="flex items-center justify-between font-bold">
               <span>{idrPriceFormat(price)}</span>
-              <span>{idrPriceFormat(totalPrice)}</span>
+              <span>{idrPriceFormat(subTotal)}</span>
             </div>
           </div>
         </div>
+
         <div className="flex items-center justify-between pt-2">
           <div className="flex">
-            <button className="btn border-0 bg-base-100 px-3">
+            <button type="button" className="btn border-0 bg-base-100 px-3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 fill-primary"
@@ -85,6 +94,7 @@ function CartProduct({ product }) {
               </svg>
             </button>
             <button
+              type="button"
               className="btn border-0 bg-base-100 px-3"
               onClick={handleRemoveProductById}
             >
@@ -96,6 +106,7 @@ function CartProduct({ product }) {
 
           <div className="join float-right border border-primary p-2">
             <button
+              type="button"
               className="join-item flex items-center justify-center px-1 py-2 sm:p-2"
               onClick={handleOnDecrement}
               disabled={amounts <= minOrder}
@@ -117,6 +128,7 @@ function CartProduct({ product }) {
               onChange={handleOnChange}
             ></input>
             <button
+              type="button"
               className="join-item flex items-center justify-center px-1 py-2 sm:p-2"
               onClick={handleOnIncrement}
               disabled={amounts >= maxOrder}
@@ -138,7 +150,7 @@ function CartProduct({ product }) {
 }
 
 CartProduct.propTypes = {
-  product: PropTypes.object,
+  item: PropTypes.object,
 };
 
 export default CartProduct;

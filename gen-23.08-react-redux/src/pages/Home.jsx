@@ -1,8 +1,9 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useSWR from "swr";
 
+import { getAllItems } from "../api/api";
+import { CATEGORIES, PRODUCTS, PROMOS } from "../api/routes";
 import Carousel from "../components/Carousel";
 import CategoryCard from "../components/CategoryCard";
 import ProductCard from "../components/ProductCard";
@@ -65,22 +66,7 @@ function Home() {
     }
   }
 
-  async function delay() {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve();
-      }, 2000);
-    });
-  }
-
-  // from json or api
-  async function fetcher(url) {
-    await delay();
-    const response = await axios.get(url);
-    return response.data;
-  }
-
-  const { data: products } = useSWR("http://localhost:3000/products", fetcher, {
+  const { data: products } = useSWR(PRODUCTS, getAllItems, {
     onSuccess: function (data) {
       return data.sort(function (a, b) {
         return new Date(b.releasedAt) - new Date(a.releasedAt);
@@ -88,12 +74,9 @@ function Home() {
     },
   });
 
-  const { data: categories } = useSWR(
-    "http://localhost:3000/categories?_limit=6",
-    fetcher,
-  );
+  const { data: categories } = useSWR(`${CATEGORIES}?_limit=6`, getAllItems);
 
-  const { data: promos } = useSWR("http://localhost:3000/promos", fetcher);
+  const { data: promos } = useSWR(PROMOS, getAllItems);
 
   return (
     <>

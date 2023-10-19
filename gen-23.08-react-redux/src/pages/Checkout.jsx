@@ -1,28 +1,35 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import PropTypes from "prop-types";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useLocation } from "react-router-dom";
+import useSWR from "swr";
+import * as yup from "yup";
 
-import { categories, products } from "../../data/db.json";
+import { getAllItems, getItemById } from "../api/api";
+import { ORDER_ITEMS, ORDERS } from "../api/routes";
 import { idrPriceFormat } from "../utils/price";
 // TODO: Create checkout multi step navigation
-function ProductCart({ product }) {
-  const { id, name, sku, images, totalPrice } = product;
+function OrderItem({ item }) {
+  const { product, subTotal } = item;
+  const { id, name, sku, images, price } = product;
 
   return (
     <>
-      <div className="border-b-2 p-3 last:border-b-0">
+      <div className="border-b-2 last:border-b-0">
         <div className="flex gap-3">
           <Link to={`/products/${id}`} className="w-16 flex-none">
             <img className="rounded" src={images[0]} alt={name} />
           </Link>
 
-          <div className="">
+          <div className="flex-1">
             <Link to={`products/${id}`} className="font-bold">
               {name}
             </Link>
             <div className="text-sm">SKU {sku}</div>
-            <div className="flex items-center font-bold">
-              <span>{idrPriceFormat(totalPrice)}</span>
+            <div className="flex items-center justify-between font-bold">
+              <span>{idrPriceFormat(price)}</span>
+              <span>{idrPriceFormat(subTotal)}</span>
             </div>
           </div>
         </div>
@@ -31,108 +38,240 @@ function ProductCart({ product }) {
   );
 }
 
-ProductCart.propTypes = {
-  product: PropTypes.object,
+OrderItem.propTypes = {
+  item: PropTypes.object,
 };
 
-function Cart() {
-  // from json or api that marked to cart
-  const someProducts = [...products]
-    .sort(function (a, b) {
-      return a.price - b.price;
-    })
-    .slice(0, 7);
+function CheckoutEmpty() {
+  return (
+    <>
+      <div className="flex items-center justify-center py-6 text-center">
+        <div className="">
+          <h2 className="mb-4 text-2xl font-bold">Your Order is Empty</h2>
+          <div className="mb-6">
+            Start Shopping Now and Find the Products You Want
+          </div>
+          <Link className="btn btn-primary">Start Shopping</Link>
+        </div>
+      </div>
+    </>
+  );
+}
 
-  const processedProducts = someProducts.map(function (product) {
-    const { minimumOrder } = categories.find(function (category) {
-      return category.id === product.categoryId;
-    });
+function Checkout() {
+  const { state } = useLocation();
 
-    const totalPrice = minimumOrder * product.price;
+  const orderId = state?.orderId ? state?.orderId : -1;
 
-    return {
-      ...product,
-      minimumOrder: minimumOrder,
-      amounts: minimumOrder,
-      totalPrice: totalPrice,
-    };
+  const {
+    isLoading,
+    error,
+    data: order,
+  } = useSWR(`${ORDERS}/${orderId}`, getItemById);
+
+  const { data: orderItems } = useSWR(
+    `${ORDERS}/${orderId}${ORDER_ITEMS}?_expand=product`,
+    getAllItems,
+  );
+
+  const totalAmounts =
+    order?.totalAmounts === 1 ? `1 product` : `${order?.totalAmounts} products`;
+
+  const productList = orderItems?.map(function (item) {
+    return <OrderItem key={item.id} item={item}></OrderItem>;
   });
 
-  const [productsCart] = useState(processedProducts);
+  const schema = yup.object({
+    address: yup.string().required("Required"),
+    phone: yup.string().required("Required"),
+    shipping: yup.string().required("Required"),
+    payment: yup.string().required("Required"),
+    insurance: yup.boolean(),
+  });
 
-  function handleOrder() {
-    console.log(productsCart);
+  const form = useForm({
+    defaultValues: {
+      userId: 0,
+      totalAmounts: 0,
+      totalPrice: 0,
+      id: 0,
+
+      address: "",
+      phone: "",
+      shipping: "",
+      payment: "",
+      insurance: false,
+    },
+    resolver: yupResolver(schema),
+  });
+
+  const { register, handleSubmit, reset, formState } = form;
+  const { errors } = formState;
+
+  useEffect(() => {
+    if (order) {
+      reset({
+        ...order,
+
+        address: "",
+        phone: "",
+        shipping: "",
+        payment: "",
+        insurance: false,
+      });
+    }
+  }, [order, reset]);
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
+  if (order?.totalAmounts === 0 || error || orderId === -1) {
+    return <CheckoutEmpty></CheckoutEmpty>;
   }
 
-  const totalAmountProductsCart = productsCart.reduce(function (
-    accumulator,
-    curValue,
-  ) {
-    return accumulator + curValue.amounts;
-  }, 0);
-
-  const totalPriceProductsCart = productsCart.reduce(function (
-    accumulator,
-    curValue,
-  ) {
-    return accumulator + curValue.totalPrice;
-  }, 0);
-
-  const totalProductsCart =
-    totalAmountProductsCart === 1
-      ? `${totalAmountProductsCart} product`
-      : `${totalAmountProductsCart} products`;
-
-  const productList = productsCart.map(function (product) {
-    return <ProductCart key={product.id} product={product}></ProductCart>;
-  });
+  if (isLoading) {
+    return (
+      <>
+        <div className="flex items-center justify-center">
+          <span className="loading loading-dots loading-lg"></span>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
-      <div className="flex flex-wrap pt-6">
-        <div className="mb-6 w-full rounded-2xl shadow-xl lg:mr-6 lg:min-w-[67%] lg:max-w-[67%] lg:grow lg:basis-0">
-          <div className="">
-            <h2 className="px-3 pt-3 text-2xl font-bold">Shopping Cart</h2>
+      <form
+        className="flex flex-wrap pt-6"
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate
+      >
+        <div className="mb-6 w-full lg:mr-6 lg:min-w-[67%] lg:max-w-[67%] lg:grow lg:basis-0">
+          <div className="card mb-6 w-full shadow-xl">
+            <div className="card-body p-6">
+              <h2 className="text-2xl font-bold">Product</h2>
 
-            <div className="flex items-center justify-between px-3 pb-3 text-center">
-              <div>{totalProductsCart}</div>
+              <div className="flex items-center justify-between text-center">
+                <div>{totalAmounts}</div>
+              </div>
+
+              <div>{productList}</div>
             </div>
+          </div>
 
-            <div>{productList}</div>
+          <div className="card w-full shadow-xl">
+            <div className="card-body p-6">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Address</span>
+                  <span className="label-text-alt text-error">
+                    {errors.address?.message}
+                  </span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Address"
+                  className="input input-bordered"
+                  {...register("address")}
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Phone</span>
+                  <span className="label-text-alt text-error">
+                    {errors.phone?.message}
+                  </span>
+                </label>
+                <input
+                  type="tel"
+                  placeholder="Phone"
+                  className="input input-bordered"
+                  {...register("phone")}
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Shipping Method</span>
+                  <span className="label-text-alt text-error">
+                    {errors.shipping?.message}
+                  </span>
+                </label>
+                <select
+                  className="select select-bordered w-full"
+                  {...register("shipping")}
+                >
+                  <option disabled value="">
+                    Shipping Method
+                  </option>
+                  <option value="same-day">Same-Day</option>
+                  <option value="express">Express</option>
+                  <option value="regular">Regular</option>
+                </select>
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Payment Method</span>
+                  <span className="label-text-alt text-error">
+                    {errors.payment?.message}
+                  </span>
+                </label>
+                <select
+                  className="select select-bordered w-full"
+                  {...register("payment")}
+                >
+                  <option disabled value="">
+                    Payment Method
+                  </option>
+                  <option value="cash-on-delivery">Cash on Delivery</option>
+                  <option value="bank-transfer">Bank Transfer</option>
+                  <option value="paylater">Paylater</option>
+                </select>
+              </div>
+              <div className="form-control">
+                <label className="label cursor-pointer">
+                  <span className="label-text">Insurance</span>
+                  <input
+                    type="checkbox"
+                    className="checkbox"
+                    {...register("insurance")}
+                  />
+                </label>
+              </div>
+            </div>
           </div>
         </div>
 
         <div className="w-full lg:grow lg:basis-0">
-          <div className="sticky top-24 rounded-2xl border-2 p-6 shadow-xl">
-            <div className="text-xl font-bold">Details</div>
-            <div className="py-4">
-              <div className="flex justify-between pb-4">
-                <div>
-                  <span>Total Price</span>{" "}
-                  <span className="lg:block min-[1130px]:inline">
-                    ({totalProductsCart})
-                  </span>
+          <div className="card sticky top-0 mb-6 shadow-xl">
+            <div className="card-body p-6">
+              <div className="text-xl font-bold">Details</div>
+              <div className="py-4">
+                <div className="flex justify-between pb-4">
+                  <div>
+                    <span>Total Price</span>{" "}
+                    <span className="lg:block min-[1130px]:inline">
+                      ({totalAmounts})
+                    </span>
+                  </div>
+                  <div>{idrPriceFormat(order.totalPrice)}</div>
                 </div>
-                <div>{idrPriceFormat(totalPriceProductsCart)}</div>
-              </div>
-              <div className="flex justify-between pb-4">
-                <div className="font-bold">Total</div>
-                <div className="font-bold">
-                  {idrPriceFormat(totalPriceProductsCart)}
+                <div className="flex justify-between pb-4">
+                  <div className="font-bold">Total</div>
+                  <div className="font-bold">
+                    {idrPriceFormat(order.totalPrice)}
+                  </div>
                 </div>
+                <button type="submit" className="btn btn-primary btn-block">
+                  checkout
+                </button>
               </div>
-              <button
-                className="btn btn-primary btn-block"
-                onClick={handleOrder}
-              >
-                order
-              </button>
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </>
   );
 }
 
-export default Cart;
+export default Checkout;

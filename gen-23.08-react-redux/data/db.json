@@ -7,10 +7,7 @@
       "ratings": 4.8,
       "totalReviews": 10,
       "sku": "ASDFGHJKLZXCV",
-      "promos": [
-        "Tersedia COD",
-        "Gratis Ongkir"
-      ],
+      "promos": ["Tersedia COD", "Gratis Ongkir"],
       "categoryId": 8,
       "price": 2250000,
       "minOrder": 1,
@@ -43,9 +40,7 @@
       "ratings": 5,
       "totalReviews": 6,
       "sku": "QWERTYUIOPAS",
-      "promos": [
-        "Tersedia COD"
-      ],
+      "promos": ["Tersedia COD"],
       "price": 3750000,
       "categoryId": 7,
       "minOrder": 1,
@@ -115,9 +110,7 @@
       "ratings": 0,
       "totalReviews": 0,
       "sku": "EDFBTDWSEADR",
-      "promos": [
-        "Gratis Ongkir"
-      ],
+      "promos": ["Gratis Ongkir"],
       "price": 875000,
       "categoryId": 4,
       "minOrder": 1,
@@ -217,9 +210,7 @@
       "ratings": 5,
       "totalReviews": 1000,
       "sku": "KOPIOTTENEX1",
-      "promos": [
-        "Tersedia COD"
-      ],
+      "promos": ["Tersedia COD"],
       "categoryId": 1,
       "price": 185000,
       "minOrder": 1,
@@ -252,9 +243,7 @@
       "ratings": 5,
       "totalReviews": 80,
       "sku": "KOPIOTTENEX2",
-      "promos": [
-        "Tersedia COD"
-      ],
+      "promos": ["Tersedia COD"],
       "categoryId": 1,
       "price": 124000,
       "minOrder": 1,
@@ -287,9 +276,7 @@
       "ratings": 5,
       "totalReviews": 1,
       "sku": "KOPIOTTENEX3",
-      "promos": [
-        "Tersedia COD"
-      ],
+      "promos": ["Tersedia COD"],
       "categoryId": 1,
       "price": 94000,
       "minOrder": 1,
@@ -322,9 +309,7 @@
       "ratings": 4.8,
       "totalReviews": 6,
       "sku": "KOPIOTTENEX4",
-      "promos": [
-        "Tersedia COD"
-      ],
+      "promos": ["Tersedia COD"],
       "categoryId": 1,
       "price": 79000,
       "minOrder": 2,
@@ -354,9 +339,7 @@
       "ratings": 5,
       "totalReviews": 16,
       "sku": "KOPIOTTENEX5",
-      "promos": [
-        "Tersedia COD"
-      ],
+      "promos": ["Tersedia COD"],
       "categoryId": 1,
       "price": 79000,
       "minOrder": 2,
@@ -385,9 +368,7 @@
       "ratings": 4.7,
       "totalReviews": 4,
       "sku": "KOPIOTTENEX6",
-      "promos": [
-        "Tersedia COD"
-      ],
+      "promos": ["Tersedia COD"],
       "categoryId": 1,
       "price": 79000,
       "minOrder": 2,
@@ -437,58 +418,58 @@
       "id": 1,
       "name": "Biji Kopi",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/64afc9daecb1c324710620.png",
-      "superCategoryId": 1
+      "super-categoryId": 1
     },
     {
       "id": 2,
       "name": "Siap Minum",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/60e3f04389844278706618.png",
-      "superCategoryId": 1
+      "super-categoryId": 1
     },
     {
       "id": 3,
       "name": "Kapsul",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c64f40f76e356882238.png",
-      "superCategoryId": 1
+      "super-categoryId": 1
     },
     {
       "id": 4,
       "name": "Mokapot",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c6f0f926e0973503574.png",
-      "superCategoryId": 2
+      "super-categoryId": 2
     },
     {
       "id": 5,
       "name": "Espresso Maker",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c6ecf1ec41790255231.png",
-      "superCategoryId": 2
+      "super-categoryId": 2
     },
     {
       "id": 6,
       "name": "Press Brewer",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c6f536bdd4138726946.png",
-      "superCategoryId": 2
+      "super-categoryId": 2
     },
     {
       "id": 7,
       "name": "Electric Grinder",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c6e71de73e686854167.png",
-      "superCategoryId": 3
+      "super-categoryId": 3
     },
     {
       "id": 8,
       "name": "Cupping Tools",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c792a66ebb039245248.png",
-      "superCategoryId": 4
+      "super-categoryId": 4
     },
     {
       "id": 9,
       "name": "Scales",
       "image": "https://s-ecom.ottenstatic.com/thumbnail/5f4c707431a84111443641.png",
-      "superCategoryId": 4
+      "super-categoryId": 4
     }
   ],
-  "superCategories": [
+  "super-categories": [
     {
       "id": 1,
       "name": "Kopi"
@@ -506,54 +487,22 @@
       "name": "Tools"
     }
   ],
-  "carts": [
-    {
-      "id": 1,
-      "userId": 2
-    },
-    {
-      "userId": 1,
-      "id": 2
-    }
-  ],
-  "cartItems": [
-    {
-      "id": 1,
-      "cartId": 1,
-      "productId": 1,
-      "amounts": 4,
-      "totalPrice": 9000000,
-      "maxOrder": 10
-    },
-    {
-      "id": 2,
-      "cartId": 1,
-      "productId": 2,
-      "amounts": 4,
-      "totalPrice": 15000000,
-      "maxOrder": 9
-    },
-    {
-      "cartId": 2,
-      "productId": 9,
-      "amounts": 5,
-      "totalPrice": 470000,
-      "maxOrder": 18,
-      "id": 3
-    }
-  ],
+  "carts": [],
+  "cart-items": [],
   "orders": [
     {
       "userId": 1,
-      "totalAmounts": 3,
-      "totalPrice": 9450000,
+      "totalAmounts": 2,
+      "totalPrice": 5700000,
       "id": 1
     }
   ],
-  "orderItems": [
+  "order-items": [
     {
+      "orderId": 1,
       "productId": 5,
       "subTotal": 5700000,
+      "amounts": 2,
       "id": 1
     }
   ]

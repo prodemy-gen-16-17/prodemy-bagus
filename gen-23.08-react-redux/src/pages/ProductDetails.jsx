@@ -1,38 +1,34 @@
-import axios from "axios";
-import { Fragment, useContext, useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { useForm } from "react-hook-form";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import useSWR from "swr";
 
+import { getItemById } from "../api/api";
+import { PRODUCTS } from "../api/routes";
 import Carousel from "../components/Carousel";
-import { CartContext } from "../context/CartProvider";
+// import { CartContext } from "../context/CartProvider";
 // import { addProduct } from "../redux/cartSlice";
+import { addProduct } from "../redux/actions/cartAction.js";
 import { idrPriceFormat } from "../utils/price";
 
 function ProductDetails() {
   const { productId } = useParams();
 
-  // from json or api
-  async function fetcher(url) {
-    const response = await axios.get(url);
-    return response.data;
-  }
-
   const {
     isLoading,
     error,
     data: product,
-  } = useSWR(
-    `http://localhost:3000/products/${productId}?_expand=category`,
-    fetcher,
-  );
+  } = useSWR(`${PRODUCTS}/${productId}?_expand=category`, getItemById);
 
   const form = useForm({
     defaultValues: {
       amounts: 0,
-      totalPrice: 0,
+      cartId: 0,
       maxOrder: 0,
+      product: null,
+      productId: 0,
+      subTotal: 0,
     },
   });
 
@@ -43,11 +39,14 @@ function ProductDetails() {
     if (product) {
       reset({
         amounts: product.minOrder,
-        totalPrice: product.minOrder * product.price,
+        cartId: -1,
         maxOrder: product.stocks.reduce(
           (total, stock) => total + stock.total,
           0,
         ),
+        product: product,
+        productId: product.id,
+        subTotal: product.minOrder * product.price,
       });
     }
   }, [product, reset]);
@@ -57,9 +56,9 @@ function ProductDetails() {
       console.log("watch", values);
 
       if (product) {
-        const totalPrice = values.amounts * product.price;
-        if (totalPrice !== values.totalPrice) {
-          setValue("totalPrice", totalPrice);
+        const subTotal = values.amounts * product.price;
+        if (subTotal !== values.subTotal) {
+          setValue("subTotal", subTotal);
         }
       }
     });
@@ -86,28 +85,13 @@ function ProductDetails() {
     setValue("amounts", vAsNum);
   }
 
-  // const dispatch = useDispatch();
-  const { cart, addProduct } = useContext(CartContext);
+  // const { cart, addProduct } = useContext(CartContext);
+  const dispatch = useDispatch();
   const onSubmit = async (data) => {
-    console.log("onSubmitProductDetails", {
-      cartId: cart.id,
-      productId: product.id,
-      product: product,
-      ...data,
-    });
+    console.log("onSubmitProductDetails", data);
 
-    addProduct({
-      cartId: cart.id,
-      productId: product.id,
-      product: product,
-      ...data,
-    });
-    // dispatch(
-    //   addProduct({
-    //     product: product,
-    //     ...data,
-    //   }),
-    // );
+    // addProduct(data);
+    dispatch(addProduct(data));
   };
 
   if (isLoading) {

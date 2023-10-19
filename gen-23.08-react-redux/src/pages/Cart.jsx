@@ -1,11 +1,13 @@
-// import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import { useContext } from "react";
+// import { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
+import { createItem } from "../api/api";
+import { ORDER_ITEMS, ORDERS } from "../api/routes";
 import CartProduct from "../components/CartProduct";
-import { AuthContext } from "../context/AuthProvider";
-import { CartContext } from "../context/CartProvider";
+import { removeAllProducts } from "../redux/actions/cartAction";
+// import { AuthContext } from "../context/AuthProvider";
+// import { CartContext } from "../context/CartProvider";
 // import { removeAllProducts } from "../redux/cartSlice";
 import { idrPriceFormat } from "../utils/price";
 
@@ -28,63 +30,58 @@ function CartEmpty() {
 }
 
 function Cart() {
-  // const products = useSelector((state) => state.cart.products);
-  // const totalAmounts = useSelector((state) => state.cart.totalAmounts);
-  // const totalPrice = useSelector((state) => state.cart.totalPrice);
-
-  // const dispatch = useDispatch();
-  // function handleRemoveAllProducts() {
-  //   dispatch(removeAllProducts());
-  // }
   const navigate = useNavigate();
 
-  const { auth } = useContext(AuthContext);
-  const { cart, removeAllProducts } = useContext(CartContext);
+  // const { auth } = useContext(AuthContext);
+  // const { cart, removeAllProducts } = useContext(CartContext);
+  // const { products, totalAmounts, totalPrice } = cart;
 
-  const products = cart.products;
-  const totalAmounts = cart.totalAmounts;
-  const totalPrice = cart.totalPrice;
+  const { products, totalAmounts, totalPrice } = useSelector(
+    (state) => state.cart,
+  );
 
+  const dispatch = useDispatch();
   function handleRemoveAllProducts() {
-    removeAllProducts();
+    // removeAllProducts();
+    dispatch(removeAllProducts());
   }
 
   async function handleOrder() {
     console.log("handleOrder", products);
     try {
-      const orderResponse = await axios.post("http://localhost:3000/orders", {
-        userId: auth.user.id,
+      const order = await createItem(ORDERS, {
+        userId: -1,
         totalAmounts: totalAmounts,
         totalPrice: totalPrice,
       });
 
-      console.log("orderResponse", orderResponse);
+      console.log("orderResponse", order);
 
-      const orderItemRequests = cart.products.map((product) => {
-        return axios.post("http://localhost:3000/orderItems", {
-          orderId: orderResponse.id,
-          amount: product.amount,
+      const orderItemRequests = products.map((product) => {
+        return createItem(ORDER_ITEMS, {
+          orderId: order.id,
+          amounts: product.amounts,
           productId: product.productId,
-          subTotal: product.totalPrice,
+          subTotal: product.subTotal,
         });
       });
 
-      const orderItemResponses = await Promise.all(orderItemRequests);
+      const orderItems = await Promise.all(orderItemRequests);
 
-      console.log("orderResponse", orderItemResponses);
+      console.log("orderResponse", orderItems);
 
-      await removeAllProducts();
-      navigate("/checkout");
+      handleRemoveAllProducts();
+      navigate("/checkout", { state: { orderId: order.id } });
     } catch (error) {
       console.log(error);
     }
   }
 
   const totalProductsCart =
-    totalAmounts === 1 ? `${totalAmounts} product` : `${totalAmounts} products`;
+    totalAmounts === 1 ? `1 product` : `${totalAmounts} products`;
 
-  const productList = products?.map(function (product) {
-    return <CartProduct key={product.id} product={product}></CartProduct>;
+  const productList = products?.map(function (product, index) {
+    return <CartProduct key={index} item={product}></CartProduct>;
   });
 
   if (totalAmounts === 0) {
@@ -94,11 +91,11 @@ function Cart() {
   return (
     <>
       <div className="flex flex-wrap pt-6">
-        <div className="mb-6 w-full rounded-2xl shadow-xl lg:mr-6 lg:min-w-[67%] lg:max-w-[67%] lg:grow lg:basis-0">
-          <div className="">
-            <h2 className="px-3 pt-3 text-2xl font-bold">Shopping Cart</h2>
+        <div className="card mb-6 w-full shadow-xl lg:mr-6 lg:min-w-[67%] lg:max-w-[67%] lg:grow lg:basis-0">
+          <div className="card-body p-6">
+            <h2 className="text-2xl font-bold">Shopping Cart</h2>
 
-            <div className="flex items-center justify-between px-3 pb-3 text-center">
+            <div className="flex items-center justify-between text-center">
               <div>{totalProductsCart}</div>
               <div className="flex gap-x-3">
                 <button className="btn h-8 min-h-[32px] border-0 bg-base-100">
@@ -124,29 +121,31 @@ function Cart() {
         </div>
 
         <div className="w-full lg:grow lg:basis-0">
-          <div className="sticky top-24 rounded-2xl border-2 p-6 shadow-xl">
-            <div className="text-xl font-bold">Details</div>
-            <div className="py-4">
-              <div className="flex justify-between pb-4">
-                <div>
-                  <span>Total Price</span>{" "}
-                  <span className="lg:block min-[1130px]:inline">
-                    ({totalProductsCart})
-                  </span>
+          <div className="card sticky top-0 mb-6 shadow-xl">
+            <div className="card-body p-6">
+              <div className="text-xl font-bold">Details</div>
+              <div className="py-4">
+                <div className="flex justify-between pb-4">
+                  <div>
+                    <span>Total Price</span>{" "}
+                    <span className="lg:block min-[1130px]:inline">
+                      ({totalProductsCart})
+                    </span>
+                  </div>
+                  <div>{idrPriceFormat(totalPrice)}</div>
                 </div>
-                <div>{idrPriceFormat(totalPrice)}</div>
+                <div className="flex justify-between pb-4">
+                  <div className="font-bold">Total</div>
+                  <div className="font-bold">{idrPriceFormat(totalPrice)}</div>
+                </div>
+                <button
+                  type="button"
+                  className="btn btn-primary btn-block"
+                  onClick={handleOrder}
+                >
+                  order
+                </button>
               </div>
-              <div className="flex justify-between pb-4">
-                <div className="font-bold">Total</div>
-                <div className="font-bold">{idrPriceFormat(totalPrice)}</div>
-              </div>
-              <button
-                type="button"
-                className="btn btn-primary btn-block"
-                onClick={handleOrder}
-              >
-                order
-              </button>
             </div>
           </div>
         </div>

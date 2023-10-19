@@ -1,8 +1,10 @@
-import axios from "axios";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import useSWR from "swr";
+
+import { getAllItems } from "../../api/api";
+import { SUPER_CATEGORIES } from "../../api/routes";
 
 function CategoryTabNav({
   superCategoryName,
@@ -66,15 +68,9 @@ function Category() {
     setActiveTab(tabId);
   }
 
-  // from json or api
-  async function fetcher(url) {
-    const response = await axios.get(url);
-    return response.data;
-  }
-
   const { data: superCategories } = useSWR(
-    "http://localhost:3000/superCategories?_embed=categories",
-    fetcher,
+    `${SUPER_CATEGORIES}?_embed=categories`,
+    getAllItems,
   );
 
   const categoriesTabNavList = superCategories?.map(

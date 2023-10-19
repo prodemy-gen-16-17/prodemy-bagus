@@ -1,15 +1,14 @@
-import { useContext } from "react";
-// import { useSelector } from "react-redux";
+// import { useContext } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { CartContext } from "../../context/CartProvider";
+// import { CartContext } from "../../context/CartProvider";
 import Category from "./Category";
 
 function Header() {
-  // const totalAmounts = useSelector((state) => state.cart.totalAmounts);
-  const { cart } = useContext(CartContext);
-  const totalAmounts = cart?.totalAmounts;
-  const isCartExist = totalAmounts !== 0;
+  // const { cart } = useContext(CartContext);
+
+  const { totalAmounts } = useSelector((state) => state.cart);
 
   const showSearchDropdown = () => {
     const dropdown = document.getElementById("search-dropdown");
@@ -154,7 +153,7 @@ function Header() {
             className="btn hidden border-0 bg-base-100 sm:inline-flex"
           >
             <div className="indicator flex items-center text-center">
-              {isCartExist && (
+              {totalAmounts !== 0 && (
                 <span className="badge indicator-item badge-primary px-1">
                   {totalAmounts}
                 </span>

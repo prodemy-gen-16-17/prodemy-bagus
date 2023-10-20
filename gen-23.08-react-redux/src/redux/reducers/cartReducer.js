@@ -126,7 +126,7 @@ const cartReducer = (state = initialState, action) => {
           0,
         ),
         totalPrice: state.products.reduce(
-          (total, item) => total + item.totalPrice,
+          (total, item) => total + item.subTotal,
           0,
         ),
       };

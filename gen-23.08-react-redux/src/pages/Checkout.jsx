@@ -1,12 +1,12 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import PropTypes from "prop-types";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation } from "react-router-dom";
 import useSWR from "swr";
 import * as yup from "yup";
 
-import { getAllItems, getItemById } from "../api/api";
+import { getAllItems, getItemById, updateItem } from "../api/api";
 import { ORDER_ITEMS, ORDERS } from "../api/routes";
 import { idrPriceFormat } from "../utils/price";
 // TODO: Create checkout multi step navigation
@@ -51,6 +51,22 @@ function CheckoutEmpty() {
           <div className="mb-6">
             Start Shopping Now and Find the Products You Want
           </div>
+          <Link className="btn btn-primary">Start Shopping</Link>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function CheckoutSuccess() {
+  return (
+    <>
+      <div className="flex items-center justify-center py-6 text-center">
+        <div className="">
+          <h2 className="mb-4 text-2xl font-bold">
+            Your Order has been submitted
+          </h2>
+          <div className="mb-6">Start Shopping Again</div>
           <Link className="btn btn-primary">Start Shopping</Link>
         </div>
       </div>
@@ -122,9 +138,19 @@ function Checkout() {
     }
   }, [order, reset]);
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const [success, setSuccess] = useState(false);
+
+  const onSubmit = async (data) => {
+    const order = await updateItem(`${ORDERS}/${orderId}`, data);
+
+    console.log("orderResponse", order);
+
+    setSuccess(true);
   };
+
+  if (success) {
+    return <CheckoutSuccess></CheckoutSuccess>;
+  }
 
   if (order?.totalAmounts === 0 || error || orderId === -1) {
     return <CheckoutEmpty></CheckoutEmpty>;

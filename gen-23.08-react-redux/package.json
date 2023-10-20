@@ -9,7 +9,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "prettier": "prettier --write \"src/**/*.{js,jsx}\"",
     "preview": "vite preview",
-    "server": "json-server --watch data/db.json"
+    "server": "json-server --watch data/db.json --middlewares data/addTimestamps.cjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",

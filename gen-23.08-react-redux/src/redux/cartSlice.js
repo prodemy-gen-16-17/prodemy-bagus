@@ -1,9 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Utility function for updating products array
-const updateProducts = (products, id, updateFn) =>
-  products.map((product) => (product.id === id ? updateFn(product) : product));
-
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
@@ -14,32 +10,36 @@ const cartSlice = createSlice({
   },
   reducers: {
     addProduct: (state, { payload }) => {
-      const { id, price, amounts, subTotal } = payload;
+      const { productId, amounts, subTotal } = payload;
 
       const isProductExist = state.products.find(
-        (product) => product.id === id,
+        (item) => item.productId === productId,
       );
 
       if (!isProductExist) {
-        state.products.push(payload);
-        state.totalAmounts += amounts;
-        state.subTotal += subTotal;
+        state.products = [...state.products, payload];
+        state.totalAmounts = state.totalAmounts + amounts;
+        state.totalPrice = state.totalPrice + subTotal;
       } else {
         // onIncrement
-        state.products = updateProducts(state.products, id, (product) => ({
-          ...product,
-          amounts: product.amounts + 1,
-          subTotal: product.subTotal + product.price,
-        }));
+        state.products = state.products.map((item) =>
+          item.productId === productId
+            ? {
+                ...item,
+                amounts: item.amounts + amounts,
+                subTotal: item.subTotal + subTotal,
+              }
+            : item,
+        );
 
-        state.totalAmounts += 1;
-        state.totalPrice += price;
+        state.totalAmounts += amounts;
+        state.totalPrice += subTotal;
       }
     },
     removeProduct: (state, { payload }) => {
       const { id, amounts, subTotal } = payload;
 
-      state.products = state.products.filter((product) => product.id !== id);
+      state.products = state.products.filter((item) => item.productId !== id);
       state.totalAmounts -= amounts;
       state.totalPrice -= subTotal;
     },
@@ -51,11 +51,15 @@ const cartSlice = createSlice({
     onIncrement: (state, { payload }) => {
       const { id, price } = payload;
 
-      state.products = updateProducts(state.products, id, (product) => ({
-        ...product,
-        amounts: product.amounts + 1,
-        subTotal: product.subTotal + product.price,
-      }));
+      state.products = state.products.map((item) =>
+        item.productId === id
+          ? {
+              ...item,
+              amounts: item.amounts + 1,
+              subTotal: item.subTotal + item.product.price,
+            }
+          : item,
+      );
 
       state.totalAmounts += 1;
       state.totalPrice += price;
@@ -63,11 +67,15 @@ const cartSlice = createSlice({
     onDecrement: (state, { payload }) => {
       const { id, price } = payload;
 
-      state.products = updateProducts(state.products, id, (product) => ({
-        ...product,
-        amounts: product.amounts - 1,
-        subTotal: product.subTotal - product.price,
-      }));
+      state.products = state.products.map((item) =>
+        item.productId === id
+          ? {
+              ...item,
+              amounts: item.amounts - 1,
+              subTotal: item.subTotal - item.product.price,
+            }
+          : item,
+      );
 
       state.totalAmounts -= 1;
       state.totalPrice -= price;
@@ -82,18 +90,22 @@ const cartSlice = createSlice({
         vAsNum = maxOrder;
       }
 
-      state.products = updateProducts(state.products, id, (product) => ({
-        ...product,
-        amounts: vAsNum,
-        subTotal: vAsNum * product.price,
-      }));
+      state.products = state.products.map((item) =>
+        item.productId === id
+          ? {
+              ...item,
+              amounts: vAsNum,
+              subTotal: vAsNum * item.product.price,
+            }
+          : item,
+      );
 
       state.totalAmounts = state.products.reduce(
-        (total, product) => total + product.amounts,
+        (total, item) => total + item.amounts,
         0,
       );
       state.totalPrice = state.products.reduce(
-        (total, product) => total + product.subTotal,
+        (total, item) => total + item.subTotal,
         0,
       );
     },

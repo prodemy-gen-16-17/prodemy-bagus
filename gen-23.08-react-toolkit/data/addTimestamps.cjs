@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 module.exports = (req, _res, next) => {
   const { method } = req;
-  const timestamp = Date.now();
+  const timestamp = Math.floor(Date.now() / 1000);
 
   if (method === "POST") {
     req.body.createdAt = timestamp;

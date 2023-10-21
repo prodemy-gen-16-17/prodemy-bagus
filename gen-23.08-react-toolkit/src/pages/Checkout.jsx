@@ -2,13 +2,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useLocation } from "react-router-dom";
-import useSWR from "swr";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import * as yup from "yup";
 
-import { getAllItems, getItemById, updateItem } from "../api/api";
+import { createItem } from "../api/api";
 import { ORDER_ITEMS, ORDERS } from "../api/routes";
-import { idrPriceFormat } from "../utils/price";
+import { removeOrder } from "../redux/reducers/orderSlice";
+import idrPriceFormat from "../utils/price";
 // TODO: Create checkout multi step navigation
 function OrderItem({ item }) {
   const { product, subTotal } = item;
@@ -75,26 +76,16 @@ function CheckoutSuccess() {
 }
 
 function Checkout() {
-  const { state } = useLocation();
-
-  const orderId = state?.orderId ? state?.orderId : -1;
-
-  const {
-    isLoading,
-    error,
-    data: order,
-  } = useSWR(`${ORDERS}/${orderId}`, getItemById);
-
-  const { data: orderItems } = useSWR(
-    `${ORDERS}/${orderId}${ORDER_ITEMS}?_expand=product`,
-    getAllItems,
+  const { items, totalAmounts, totalPrice } = useSelector(
+    (state) => state.order,
   );
+  const { user } = useSelector((state) => state.auth);
 
-  const totalAmounts =
-    order?.totalAmounts === 1 ? `1 product` : `${order?.totalAmounts} products`;
+  const totalOrderItems =
+    totalAmounts === 1 ? `1 product` : `${totalAmounts} products`;
 
-  const productList = orderItems?.map(function (item) {
-    return <OrderItem key={item.id} item={item}></OrderItem>;
+  const itemsList = items?.map(function (item, index) {
+    return <OrderItem key={index} item={item}></OrderItem>;
   });
 
   const schema = yup.object({
@@ -110,7 +101,7 @@ function Checkout() {
       userId: 0,
       totalAmounts: 0,
       totalPrice: 0,
-      id: 0,
+      status: "pending",
 
       address: "",
       phone: "",
@@ -125,45 +116,49 @@ function Checkout() {
   const { errors } = formState;
 
   useEffect(() => {
-    if (order) {
-      reset({
-        ...order,
-
-        address: "",
-        phone: "",
-        shipping: "",
-        payment: "",
-        insurance: false,
-      });
-    }
-  }, [order, reset]);
+    reset({
+      userId: user.id,
+      totalAmounts: totalAmounts,
+      totalPrice: totalPrice,
+    });
+  }, [reset, totalAmounts, totalPrice, user.id]);
 
   const [success, setSuccess] = useState(false);
 
+  const dispatch = useDispatch();
   const onSubmit = async (data) => {
-    const order = await updateItem(`${ORDERS}/${orderId}`, data);
+    try {
+      const order = await createItem(ORDERS, data);
 
-    console.log("orderResponse", order);
+      console.log("orderResponse", order);
 
-    setSuccess(true);
+      const orderItemRequests = items.map((product) => {
+        return createItem(ORDER_ITEMS, {
+          orderId: order.id,
+          amounts: product.amounts,
+          productId: product.productId,
+          subTotal: product.subTotal,
+        });
+      });
+
+      const orderItems = await Promise.all(orderItemRequests);
+
+      console.log("orderResponse", orderItems);
+
+      dispatch(removeOrder());
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSuccess(true);
+    }
   };
 
   if (success) {
     return <CheckoutSuccess></CheckoutSuccess>;
   }
 
-  if (order?.totalAmounts === 0 || error || orderId === -1) {
+  if (totalAmounts === 0) {
     return <CheckoutEmpty></CheckoutEmpty>;
-  }
-
-  if (isLoading) {
-    return (
-      <>
-        <div className="flex items-center justify-center">
-          <span className="loading loading-dots loading-lg"></span>
-        </div>
-      </>
-    );
   }
 
   return (
@@ -179,10 +174,10 @@ function Checkout() {
               <h2 className="text-2xl font-bold">Product</h2>
 
               <div className="flex items-center justify-between text-center">
-                <div>{totalAmounts}</div>
+                <div>{totalOrderItems}</div>
               </div>
 
-              <div>{productList}</div>
+              <div>{itemsList}</div>
             </div>
           </div>
 
@@ -277,16 +272,14 @@ function Checkout() {
                   <div>
                     <span>Total Price</span>{" "}
                     <span className="lg:block min-[1130px]:inline">
-                      ({totalAmounts})
+                      ({totalOrderItems})
                     </span>
                   </div>
-                  <div>{idrPriceFormat(order.totalPrice)}</div>
+                  <div>{idrPriceFormat(totalPrice)}</div>
                 </div>
                 <div className="flex justify-between pb-4">
                   <div className="font-bold">Total</div>
-                  <div className="font-bold">
-                    {idrPriceFormat(order.totalPrice)}
-                  </div>
+                  <div className="font-bold">{idrPriceFormat(totalPrice)}</div>
                 </div>
                 <button type="submit" className="btn btn-primary btn-block">
                   checkout

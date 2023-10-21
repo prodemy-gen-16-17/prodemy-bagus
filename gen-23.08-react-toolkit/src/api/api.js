@@ -18,11 +18,16 @@ const handleErrors = (error) => {
 // Generic CRUD functions
 const sendRequest = async (method, endpoint, data = null) => {
   try {
-    const response = await api({
+    const config = {
       method,
       url: endpoint,
-      data,
-    });
+    };
+
+    if (data !== null) {
+      config.data = data;
+    }
+
+    const response = await api(config);
 
     return response.data;
   } catch (error) {

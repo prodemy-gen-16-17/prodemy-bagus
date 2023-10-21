@@ -6,8 +6,6 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-// import { AuthProvider } from "./context/AuthProvider";
-// import { CartProvider } from "./context/CartProvider";
 import AdminDefault from "./layouts/AdminDefault";
 import AdminDefaultProtected from "./layouts/AdminDefaultProtected";
 import Default from "./layouts/Default";
@@ -57,11 +55,7 @@ function App() {
   return (
     <>
       <Provider store={store}>
-        {/* <AuthProvider> */}
-        {/* <CartProvider> */}
         <RouterProvider router={router} />
-        {/* </CartProvider> */}
-        {/* </AuthProvider> */}
       </Provider>
     </>
   );

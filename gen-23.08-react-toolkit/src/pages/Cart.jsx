@@ -1,15 +1,12 @@
-// import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-import { createItem } from "../api/api";
-import { ORDER_ITEMS, ORDERS } from "../api/routes";
-import CartProduct from "../components/CartProduct";
-import { removeAllProducts } from "../redux/actions/cartAction";
-// import { AuthContext } from "../context/AuthProvider";
-// import { CartContext } from "../context/CartProvider";
-// import { removeAllProducts } from "../redux/cartSlice";
-import { idrPriceFormat } from "../utils/price";
+// import { createItem } from "../api/api";
+// import { ORDER_ITEMS, ORDERS } from "../api/routes";
+import CartItem from "../components/CartItem";
+import { removeAllItems } from "../redux/reducers/cartSlice";
+import { addOrder } from "../redux/reducers/orderSlice";
+import idrPriceFormat from "../utils/price";
 
 function CartEmpty() {
   return (
@@ -30,59 +27,38 @@ function CartEmpty() {
 }
 
 function Cart() {
-  const navigate = useNavigate();
-
-  // const { auth } = useContext(AuthContext);
-  // const { cart, removeAllProducts } = useContext(CartContext);
-  // const { products, totalAmounts, totalPrice } = cart;
-
-  const { products, totalAmounts, totalPrice } = useSelector(
+  const { isLoading, items, totalAmounts, totalPrice } = useSelector(
     (state) => state.cart,
   );
 
   const dispatch = useDispatch();
-  function handleRemoveAllProducts() {
-    // removeAllProducts();
-    dispatch(removeAllProducts());
+  function handleRemoveAllItems() {
+    dispatch(removeAllItems());
   }
 
-  async function handleOrder() {
-    console.log("handleOrder", products);
-    try {
-      const order = await createItem(ORDERS, {
-        userId: -1,
-        totalAmounts: totalAmounts,
-        totalPrice: totalPrice,
-      });
-
-      console.log("orderResponse", order);
-
-      const orderItemRequests = products.map((product) => {
-        return createItem(ORDER_ITEMS, {
-          orderId: order.id,
-          amounts: product.amounts,
-          productId: product.productId,
-          subTotal: product.subTotal,
-        });
-      });
-
-      const orderItems = await Promise.all(orderItemRequests);
-
-      console.log("orderResponse", orderItems);
-
-      handleRemoveAllProducts();
-      navigate("/checkout", { state: { orderId: order.id } });
-    } catch (error) {
-      console.log(error);
-    }
+  const navigate = useNavigate();
+  function handleOrder() {
+    dispatch(addOrder({ items, totalAmounts, totalPrice }));
+    handleRemoveAllItems();
+    navigate("/checkout");
   }
 
-  const totalProductsCart =
+  const totalCartItems =
     totalAmounts === 1 ? `1 product` : `${totalAmounts} products`;
 
-  const productList = products?.map(function (product, index) {
-    return <CartProduct key={index} item={product}></CartProduct>;
+  const itemList = items?.map(function (item, index) {
+    return <CartItem key={index} item={item}></CartItem>;
   });
+
+  if (isLoading) {
+    return (
+      <>
+        <div className="flex h-screen items-center justify-center">
+          <span className="loading loading-dots loading-lg"></span>
+        </div>
+      </>
+    );
+  }
 
   if (totalAmounts === 0) {
     return <CartEmpty></CartEmpty>;
@@ -96,7 +72,7 @@ function Cart() {
             <h2 className="text-2xl font-bold">Shopping Cart</h2>
 
             <div className="flex items-center justify-between text-center">
-              <div>{totalProductsCart}</div>
+              <div>{totalCartItems}</div>
               <div className="flex gap-x-3">
                 <button className="btn h-8 min-h-[32px] border-0 bg-base-100">
                   <svg viewBox="0 0 24 24" className="w-5 fill-primary">
@@ -106,7 +82,7 @@ function Cart() {
                 </button>
                 <button
                   className="btn h-8 min-h-[32px] border-0 bg-base-100"
-                  onClick={handleRemoveAllProducts}
+                  onClick={handleRemoveAllItems}
                 >
                   <svg viewBox="0 0 24 24" className="w-5 fill-primary">
                     <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"></path>
@@ -116,7 +92,7 @@ function Cart() {
               </div>
             </div>
 
-            <div>{productList}</div>
+            <div>{itemList}</div>
           </div>
         </div>
 
@@ -129,7 +105,7 @@ function Cart() {
                   <div>
                     <span>Total Price</span>{" "}
                     <span className="lg:block min-[1130px]:inline">
-                      ({totalProductsCart})
+                      ({totalCartItems})
                     </span>
                   </div>
                   <div>{idrPriceFormat(totalPrice)}</div>

@@ -1,18 +1,24 @@
 import { Fragment, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import useSWR from "swr";
 
-import { getItemById } from "../api/api";
+import { getAllItems, getItemById } from "../api/api";
 import { PRODUCTS } from "../api/routes";
 import Carousel from "../components/Carousel";
-// import { CartContext } from "../context/CartProvider";
-// import { addProduct } from "../redux/cartSlice";
-import { addProduct } from "../redux/actions/cartAction.js";
-import { idrPriceFormat } from "../utils/price";
+import IconStar from "../components/icons/IconStar";
+import ProductCard from "../components/ProductCard";
+import ProductReviews from "../components/ProductReviews";
+import { addItemAsync as addCartItem } from "../redux/reducers/cartSlice";
+import { addItem as addOrderItem } from "../redux/reducers/orderSlice";
+import absoluteRange from "../utils/absoluteRange";
+import idrPriceFormat from "../utils/price";
 
 function ProductDetails() {
+  const { cartId } = useSelector((state) => state.cart);
+
   const { productId } = useParams();
 
   const {
@@ -20,6 +26,11 @@ function ProductDetails() {
     error,
     data: product,
   } = useSWR(`${PRODUCTS}/${productId}?_expand=category`, getItemById);
+
+  const { data: relatedProducts } = useSWR(`${PRODUCTS}?_limit=6`, getAllItems);
+  const relatedProductsList = relatedProducts?.filter(
+    (item) => item.id !== product?.id,
+  );
 
   const form = useForm({
     defaultValues: {
@@ -32,14 +43,14 @@ function ProductDetails() {
     },
   });
 
-  const { register, handleSubmit, watch, setValue, reset } = form;
+  const { register, handleSubmit, watch, setValue, reset, getValues } = form;
   const values = watch();
 
   useEffect(() => {
     if (product) {
       reset({
         amounts: product.minOrder,
-        cartId: -1,
+        cartId: cartId,
         maxOrder: product.stocks.reduce(
           (total, stock) => total + stock.total,
           0,
@@ -49,7 +60,7 @@ function ProductDetails() {
         subTotal: product.minOrder * product.price,
       });
     }
-  }, [product, reset]);
+  }, [cartId, product, reset]);
 
   useEffect(() => {
     const subscription = watch((values) => {
@@ -74,30 +85,35 @@ function ProductDetails() {
   }
 
   function onChange(event) {
-    let vAsNum = parseInt(event.target.value, 10);
+    const valueAsNumber = absoluteRange(
+      event.target.value,
+      product.minOrder,
+      values.maxOrder,
+    );
 
-    if (vAsNum <= product.minOrder || isNaN(vAsNum)) {
-      vAsNum = product.minOrder;
-    } else if (vAsNum >= values.maxOrder) {
-      vAsNum = values.maxOrder;
-    }
-
-    setValue("amounts", vAsNum);
+    setValue("amounts", valueAsNumber);
   }
 
-  // const { cart, addProduct } = useContext(CartContext);
   const dispatch = useDispatch();
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     console.log("onSubmitProductDetails", data);
 
-    // addProduct(data);
-    dispatch(addProduct(data));
+    dispatch(addCartItem(data));
+  };
+
+  const navigate = useNavigate();
+  const handleBuyNow = () => {
+    const rhfData = getValues();
+    console.log("handleBuyNow", rhfData);
+
+    dispatch(addOrderItem(rhfData));
+    navigate("/checkout");
   };
 
   if (isLoading) {
     return (
       <>
-        <div className="flex items-center justify-center">
+        <div className="flex h-screen items-center justify-center">
           <span className="loading loading-dots loading-lg"></span>
         </div>
       </>
@@ -151,14 +167,7 @@ function ProductDetails() {
 
           <div className="mt-2 flex flex-wrap items-center">
             <div className="m-1 inline-flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="mr-1 h-6 fill-yellow-500"
-                viewBox="0 0 576 512"
-              >
-                {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
-                <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"></path>
-              </svg>
+              <IconStar className={"mr-1 h-6"}></IconStar>
               {product.ratings} ({product.totalReviews} Ulasan)
             </div>
             <span className="m-1">•</span>
@@ -276,7 +285,11 @@ function ProductDetails() {
             <hr className="my-2 border"></hr>
 
             <div className="flex h-16 items-center justify-evenly space-x-1">
-              <button type="button" className="btn btn-secondary flex-1">
+              <button
+                type="button"
+                className="btn btn-secondary flex-1"
+                onClick={handleBuyNow}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-4"
@@ -333,213 +346,10 @@ function ProductDetails() {
       </div>
 
       <div className="mt-4 lg:mt-8 lg:px-6">
-        <h2 className="mb-3 text-xl font-bold sm:text-2xl">Ulasan</h2>
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-          <div className="flex items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="mr-1 h-6 fill-yellow-500 lg:h-8"
-              viewBox="0 0 576 512"
-            >
-              {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
-              <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"></path>
-            </svg>
-            <div className="lg:text-xl">
-              <span className="font-bold">4.8 / 5</span> (10 Ulasan)
-            </div>
-          </div>
-          <div className="flex lg:justify-between">
-            <button className="rounded border border-white hover:border-green-500 focus:border-green-500">
-              <div className="m-1 flex justify-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="mr-1 h-6 fill-yellow-500"
-                  viewBox="0 0 576 512"
-                >
-                  {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
-                  <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"></path>
-                </svg>
-                <div className="">
-                  <span className="font-bold">5</span>
-                </div>
-              </div>
-              <p className="m-1 text-center text-sm sm:text-base">10 Ulasan</p>
-            </button>
-            <button className="rounded border border-white hover:border-green-500 focus:border-green-500">
-              <div className="m-1 flex justify-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="mr-1 h-6 fill-yellow-500"
-                  viewBox="0 0 576 512"
-                >
-                  {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
-                  <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"></path>
-                </svg>
-                <div className="">
-                  <span className="font-bold">4</span>
-                </div>
-              </div>
-              <p className="m-1 text-center text-sm sm:text-base">0 Ulasan</p>
-            </button>
-            <button className="rounded border border-white hover:border-green-500 focus:border-green-500">
-              <div className="m-1 flex justify-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="mr-1 h-6 fill-yellow-500"
-                  viewBox="0 0 576 512"
-                >
-                  {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
-                  <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"></path>
-                </svg>
-                <div className="">
-                  <span className="font-bold">3</span>
-                </div>
-              </div>
-              <p className="m-1 text-center text-sm sm:text-base">0 Ulasan</p>
-            </button>
-            <button className="rounded border border-white hover:border-green-500 focus:border-green-500">
-              <div className="m-1 flex justify-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="mr-1 h-6 fill-yellow-500"
-                  viewBox="0 0 576 512"
-                >
-                  {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
-                  <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"></path>
-                </svg>
-                <div className="">
-                  <span className="font-bold">2</span>
-                </div>
-              </div>
-              <p className="m-1 text-center text-sm sm:text-base">0 Ulasan</p>
-            </button>
-            <button className="rounded border border-white hover:border-green-500 focus:border-green-500">
-              <div className="m-1 flex justify-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="mr-1 h-6 fill-yellow-500"
-                  viewBox="0 0 576 512"
-                >
-                  {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
-                  <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"></path>
-                </svg>
-                <div className="">
-                  <span className="font-bold">1</span>
-                </div>
-              </div>
-              <p className="m-1 text-center text-sm sm:text-base">0 Ulasan</p>
-            </button>
-          </div>
-        </div>
-        {/* <!-- Ulasan  --> */}
-        <div className="mt-3">
-          {/* <!-- Ulasan Orang  --> */}
-          <div className="mt-3">
-            <div className="m-1 flex">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="mr-1 h-4 fill-yellow-500"
-                viewBox="0 0 576 512"
-              >
-                {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
-                <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"></path>
-              </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="mr-1 h-4 fill-yellow-500"
-                viewBox="0 0 576 512"
-              >
-                {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
-                <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"></path>
-              </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="mr-1 h-4 fill-yellow-500"
-                viewBox="0 0 576 512"
-              >
-                {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
-                <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"></path>
-              </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="mr-1 h-4 fill-yellow-500"
-                viewBox="0 0 576 512"
-              >
-                {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
-                <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"></path>
-              </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="mr-1 h-4 fill-yellow-500"
-                viewBox="0 0 576 512"
-              >
-                {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
-                <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"></path>
-              </svg>
-            </div>
-            <h3 className="m-1 font-bold">OK</h3>
-            <h4 className="m-1 text-gray-700">Ditulis P*******, 25 Sep 2023</h4>
-            <p className="m-1">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industrys standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
-            </p>
-          </div>
-          {/* <!-- Ulasan Orang  --> */}
-          <div className="mt-3">
-            <div className="m-1 flex">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="mr-1 h-4 fill-yellow-500"
-                viewBox="0 0 576 512"
-              >
-                {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
-                <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"></path>
-              </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="mr-1 h-4 fill-yellow-500"
-                viewBox="0 0 576 512"
-              >
-                {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
-                <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"></path>
-              </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="mr-1 h-4 fill-yellow-500"
-                viewBox="0 0 576 512"
-              >
-                {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
-                <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"></path>
-              </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="mr-1 h-4 fill-yellow-500"
-                viewBox="0 0 576 512"
-              >
-                {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
-                <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"></path>
-              </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="mr-1 h-4 fill-yellow-500"
-                viewBox="0 0 576 512"
-              >
-                {/* <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  --> */}
-                <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"></path>
-              </svg>
-            </div>
-            <h3 className="m-1 font-bold">OK</h3>
-            <h4 className="m-1 text-gray-700">Ditulis P*******, 25 Sep 2023</h4>
-            <p className="m-1">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industrys standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
-            </p>
-          </div>
-        </div>
+        <ProductReviews
+          ratings={product.ratings}
+          totalReviews={product.totalReviews}
+        ></ProductReviews>
       </div>
 
       {/* <!-- Produk Terkait  --> */}
@@ -547,116 +357,17 @@ function ProductDetails() {
         <div className="flex items-center justify-between py-2">
           <h2 className="text-xl font-bold sm:text-2xl">Produk Terkait</h2>
         </div>
-        <div className="flex flex-nowrap overflow-x-auto">
-          {/* <!-- Product 1  --> */}
-          <a href="product.html" className="">
-            <div className="m-1 min-w-[200px] rounded border border-gray-300 bg-gray-100 text-center">
-              <img
-                src="https://s-ecom.ottenstatic.com/thumbnail/63623e2a55335024133293.png"
-                alt="Product 1"
-                className="h-auto max-w-full rounded-t"
-              ></img>
-              <div className="p-3">
-                <h3 className="line-clamp-2 text-lg font-bold">
-                  Wanoja Kamojang Anaerobic Honey Process 200g Kopi Arabica
-                </h3>
-                <div className="mt-2 text-base font-bold text-green-700">
-                  Rp 185.000
-                </div>
-              </div>
-            </div>
-          </a>
-
-          <a href="product.html" className="">
-            <div className="m-1 min-w-[200px] rounded border border-gray-300 bg-gray-100 text-center">
-              <img
-                src="https://s-ecom.ottenstatic.com/thumbnail/63623e2a55335024133293.png"
-                alt="Product 1"
-                className="h-auto max-w-full rounded-t"
-              ></img>
-              <div className="p-3">
-                <h3 className="line-clamp-2 text-lg font-bold">
-                  Wanoja Kamojang Anaerobic Honey Process 200g Kopi Arabica
-                </h3>
-                <div className="mt-2 text-base font-bold text-green-700">
-                  Rp 185.000
-                </div>
-              </div>
-            </div>
-          </a>
-
-          <a href="product.html" className="">
-            <div className="m-1 min-w-[200px] rounded border border-gray-300 bg-gray-100 text-center">
-              <img
-                src="https://s-ecom.ottenstatic.com/thumbnail/63623e2a55335024133293.png"
-                alt="Product 1"
-                className="h-auto max-w-full rounded-t"
-              ></img>
-              <div className="p-3">
-                <h3 className="line-clamp-2 text-lg font-bold">
-                  Wanoja Kamojang Anaerobic Honey Process 200g Kopi Arabica
-                </h3>
-                <div className="mt-2 text-base font-bold text-green-700">
-                  Rp 185.000
-                </div>
-              </div>
-            </div>
-          </a>
-
-          <a href="product.html" className="">
-            <div className="m-1 min-w-[200px] rounded border border-gray-300 bg-gray-100 text-center">
-              <img
-                src="https://s-ecom.ottenstatic.com/thumbnail/63623e2a55335024133293.png"
-                alt="Product 1"
-                className="h-auto max-w-full rounded-t"
-              ></img>
-              <div className="p-3">
-                <h3 className="line-clamp-2 text-lg font-bold">
-                  Wanoja Kamojang Anaerobic Honey Process 200g Kopi Arabica
-                </h3>
-                <div className="mt-2 text-base font-bold text-green-700">
-                  Rp 185.000
-                </div>
-              </div>
-            </div>
-          </a>
-
-          <a href="product.html" className="">
-            <div className="m-1 min-w-[200px] rounded border border-gray-300 bg-gray-100 text-center">
-              <img
-                src="https://s-ecom.ottenstatic.com/thumbnail/63623e2a55335024133293.png"
-                alt="Product 1"
-                className="h-auto max-w-full rounded-t"
-              ></img>
-              <div className="p-3">
-                <h3 className="line-clamp-2 text-lg font-bold">
-                  Wanoja Kamojang Anaerobic Honey Process 200g Kopi Arabica
-                </h3>
-                <div className="mt-2 text-base font-bold text-green-700">
-                  Rp 185.000
-                </div>
-              </div>
-            </div>
-          </a>
-
-          <a href="product.html" className="">
-            <div className="m-1 min-w-[200px] rounded border border-gray-300 bg-gray-100 text-center">
-              <img
-                src="https://s-ecom.ottenstatic.com/thumbnail/63623e2a55335024133293.png"
-                alt="Product 1"
-                className="h-auto max-w-full rounded-t"
-              ></img>
-              <div className="p-3">
-                <h3 className="line-clamp-2 text-lg font-bold">
-                  Wanoja Kamojang Anaerobic Honey Process 200g Kopi Arabica
-                </h3>
-                <div className="mt-2 text-base font-bold text-green-700">
-                  Rp 185.000
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
+        {relatedProductsList ? (
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+            {relatedProductsList.map(function (product) {
+              return <ProductCard key={product.id} product={product} />;
+            })}
+          </div>
+        ) : (
+          <div className="flex items-center justify-center">
+            <span className="loading loading-dots loading-lg"></span>
+          </div>
+        )}
       </section>
     </>
   );

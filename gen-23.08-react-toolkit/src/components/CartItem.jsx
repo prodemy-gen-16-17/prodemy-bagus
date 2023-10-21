@@ -1,64 +1,48 @@
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-// import { useContext } from "react";
 import { Link } from "react-router-dom";
 
-// import { CartContext } from "../context/CartProvider";
-// import {
-//   onChange,
-//   onDecrement,
-//   onIncrement,
-//   removeProduct,
-// } from "../redux/cartSlice";
 import {
-  onChange,
-  onDecrement,
-  onIncrement,
-  removeProduct,
-} from "../redux/actions/cartAction";
-import { idrPriceFormat } from "../utils/price";
+  onChange as onChangeItem,
+  onDecrementAsync as onDecrementItem,
+  onIncrementAsync as onIncrementItem,
+  removeItemAsync as removeCartItem,
+} from "../redux/reducers/cartSlice";
+import absoluteRange from "../utils/absoluteRange";
+import idrPriceFormat from "../utils/price";
 
-function CartProduct({ item }) {
+function CartItem({ item }) {
   const { amounts, maxOrder, product, subTotal } = item;
   const { id, name, sku, images, price, minOrder } = product;
 
-  // const { onChange, onDecrement, onIncrement, removeProduct } =
-  //   useContext(CartContext);
   const dispatch = useDispatch();
 
   function handleOnDecrement() {
-    dispatch(onDecrement({ id, price }));
-    // onDecrement({ id, price });
+    dispatch(onDecrementItem({ id, price }));
   }
 
   function handleOnChange(event) {
     console.log(event.target.value);
+
+    const valueAsNumber = absoluteRange(amounts, minOrder, maxOrder);
+
     dispatch(
-      onChange({
+      onChangeItem({
         id,
         price,
-        amounts: parseInt(event.target.value),
+        amounts: valueAsNumber,
         minOrder,
         maxOrder,
       }),
     );
-    // onChange({
-    //   id,
-    //   price,
-    //   amounts: parseInt(event.target.value),
-    //   minOrder,
-    //   maxOrder,
-    // });
   }
 
   function handleOnIncrement() {
-    dispatch(onIncrement({ id, price }));
-    // onIncrement({ id, price });
+    dispatch(onIncrementItem({ id, price }));
   }
 
-  function handleRemoveProductById() {
-    dispatch(removeProduct({ id, amounts, subTotal }));
-    // removeProduct({ id, amounts, subTotal });
+  function handleRemoveItemById() {
+    dispatch(removeCartItem({ id, amounts, subTotal }));
   }
 
   return (
@@ -96,7 +80,7 @@ function CartProduct({ item }) {
             <button
               type="button"
               className="btn border-0 bg-base-100 px-3"
-              onClick={handleRemoveProductById}
+              onClick={handleRemoveItemById}
             >
               <svg viewBox="0 0 24 24" className="h-6 fill-primary">
                 <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"></path>
@@ -149,8 +133,8 @@ function CartProduct({ item }) {
   );
 }
 
-CartProduct.propTypes = {
+CartItem.propTypes = {
   item: PropTypes.object,
 };
 
-export default CartProduct;
+export default CartItem;

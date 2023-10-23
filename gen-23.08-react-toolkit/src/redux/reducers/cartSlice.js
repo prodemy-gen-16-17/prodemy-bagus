@@ -157,7 +157,7 @@ const cartSlice = createSlice({
       state.totalPrice -= subTotal;
     });
 
-    builder.addCase(removeAllItemAsync.fulfilled, (state) => {
+    builder.addCase(removeAllItemsAsync.fulfilled, (state) => {
       state.items = [];
       state.totalAmounts = 0;
       state.totalPrice = 0;
@@ -325,7 +325,7 @@ export const removeItemAsync = createAsyncThunk(
   },
 );
 
-export const removeAllItemAsync = createAsyncThunk(
+export const removeAllItemsAsync = createAsyncThunk(
   "cart/removeAllItemAsync",
   async (_, thunkAPI) => {
     const { auth, cart } = thunkAPI.getState();

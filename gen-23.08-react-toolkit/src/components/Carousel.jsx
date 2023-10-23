@@ -117,7 +117,7 @@ function Carousel({ className, slideList, imageIndicator }) {
 
     return (
       <CarouselItem
-        key={index}
+        key={img}
         image={img}
         index={index}
         active={active}
@@ -130,7 +130,7 @@ function Carousel({ className, slideList, imageIndicator }) {
 
     return (
       <CarouselIndicator
-        key={index}
+        key={img}
         index={index}
         active={active}
         handleClick={handleClick}

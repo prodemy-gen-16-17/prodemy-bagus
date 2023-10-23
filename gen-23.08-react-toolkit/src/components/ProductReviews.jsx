@@ -34,6 +34,7 @@ Review.propTypes = {
 function ProductReviews({ ratings, totalReviews }) {
   const reviews = [
     {
+      id: 1,
       rating: 5,
       title: "OK",
       description:
@@ -46,6 +47,7 @@ function ProductReviews({ ratings, totalReviews }) {
       createdAt: 1697868397,
     },
     {
+      id: 2,
       rating: 4,
       title: "OK",
       description:
@@ -59,8 +61,8 @@ function ProductReviews({ ratings, totalReviews }) {
     },
   ];
 
-  const reviewList = reviews?.map(function (review, index) {
-    return <Review key={index} review={review}></Review>;
+  const reviewList = reviews?.map(function (review) {
+    return <Review key={review.id} review={review}></Review>;
   });
 
   return (

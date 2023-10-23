@@ -1,17 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-// import { createItem } from "../api/api";
-// import { ORDER_ITEMS, ORDERS } from "../api/routes";
 import CartItem from "../components/CartItem";
-import { removeAllItems } from "../redux/reducers/cartSlice";
+import { removeAllItemsAsync as removeAllCartItems } from "../redux/reducers/cartSlice";
 import { addOrder } from "../redux/reducers/orderSlice";
 import idrPriceFormat from "../utils/price";
 
 function CartEmpty() {
   return (
     <>
-      <div className="flex items-center justify-center py-6 text-center">
+      <div className="flex h-[calc(100vh_-_236px)] items-center justify-center text-center sm:h-[calc(100vh_-_196px)]">
         <div className="">
           <h2 className="mb-4 text-2xl font-bold">
             Your Shopping Cart is Empty
@@ -33,7 +31,7 @@ function Cart() {
 
   const dispatch = useDispatch();
   function handleRemoveAllItems() {
-    dispatch(removeAllItems());
+    dispatch(removeAllCartItems());
   }
 
   const navigate = useNavigate();
@@ -46,14 +44,14 @@ function Cart() {
   const totalCartItems =
     totalAmounts === 1 ? `1 product` : `${totalAmounts} products`;
 
-  const itemList = items?.map(function (item, index) {
-    return <CartItem key={index} item={item}></CartItem>;
+  const itemList = items?.map(function (item) {
+    return <CartItem key={item.productId} item={item}></CartItem>;
   });
 
   if (isLoading) {
     return (
       <>
-        <div className="flex h-screen items-center justify-center">
+        <div className="flex h-[calc(100vh_-_236px)] items-center justify-center sm:h-[calc(100vh_-_196px)]">
           <span className="loading loading-dots loading-lg"></span>
         </div>
       </>
@@ -73,7 +71,7 @@ function Cart() {
 
             <div className="flex items-center justify-between text-center">
               <div>{totalCartItems}</div>
-              <div className="flex gap-x-3">
+              <div className="flex flex-wrap gap-x-3">
                 <button className="btn h-8 min-h-[32px] border-0 bg-base-100">
                   <svg viewBox="0 0 24 24" className="w-5 fill-primary">
                     <path d="M15,9H5V5H15M12,19A3,3 0 0,1 9,16A3,3 0 0,1 12,13A3,3 0 0,1 15,16A3,3 0 0,1 12,19M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3Z"></path>

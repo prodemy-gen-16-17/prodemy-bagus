@@ -22,9 +22,7 @@ function CartItem({ item }) {
   }
 
   function handleOnChange(event) {
-    console.log(event.target.value);
-
-    const valueAsNumber = absoluteRange(amounts, minOrder, maxOrder);
+    const valueAsNumber = absoluteRange(event.target.value, minOrder, maxOrder);
 
     dispatch(
       onChangeItem({
@@ -58,7 +56,7 @@ function CartItem({ item }) {
               {name}
             </Link>
             <div className="text-sm">SKU {sku}</div>
-            <div className="flex items-center justify-between font-bold">
+            <div className="flex flex-wrap items-center justify-between gap-x-3 font-bold">
               <span>{idrPriceFormat(price)}</span>
               <span>{idrPriceFormat(subTotal)}</span>
             </div>

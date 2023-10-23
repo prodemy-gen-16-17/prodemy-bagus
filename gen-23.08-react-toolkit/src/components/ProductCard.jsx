@@ -8,7 +8,7 @@ function ProductCard({ className, product }) {
   return (
     <>
       <Link to={`/products/${product.id}`}>
-        <div className={`card card-compact bg-base-100 shadow-xl ${className}`}>
+        <div className={`card-compact card bg-base-100 shadow-xl ${className}`}>
           <figure>
             <img
               src={product.images[0]}

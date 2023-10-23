@@ -1,7 +1,6 @@
 import { Fragment, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useSWR from "swr";
 
@@ -174,9 +173,9 @@ function ProductDetails() {
             <div className="m-1 inline">Brand {product.brand}</div>
             <span className="m-1">•</span>
             <div className="m-1 inline">SKU {product.sku}</div>
-            {product.promos.map(function (promo, index) {
+            {product.promos.map(function (promo) {
               return (
-                <Fragment key={index}>
+                <Fragment key={promo}>
                   <span className="m-1">•</span>
                   <div className="m-1 inline">{promo}</div>
                 </Fragment>
@@ -219,10 +218,10 @@ function ProductDetails() {
           <div className="">
             <div className="">Stok</div>
             <div className="my-2 grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
-              {product.stocks.map(function (stock, index) {
+              {product.stocks.map(function (stock) {
                 if (stock.total > 0) {
                   return (
-                    <Fragment key={index}>
+                    <Fragment key={stock.location}>
                       <div className="rounded border-2 p-3">
                         <h4 className="font-bold first-letter:uppercase">
                           {stock.location}
@@ -259,9 +258,10 @@ function ProductDetails() {
                 </button>
                 <input
                   className="join-item w-8 border-0 bg-base-100 p-0 text-center"
-                  type="number"
+                  type="text"
                   {...register("amounts", {
                     onChange: onChange,
+                    valueAsNumber: true,
                   })}
                 ></input>
                 <button
@@ -284,10 +284,10 @@ function ProductDetails() {
 
             <hr className="my-2 border"></hr>
 
-            <div className="flex h-16 items-center justify-evenly space-x-1">
+            <div className="flex h-16 items-center justify-evenly space-x-4">
               <button
                 type="button"
-                className="btn btn-secondary flex-1"
+                className="btn btn-secondary flex-1 px-2 sm:px-4"
                 onClick={handleBuyNow}
               >
                 <svg
@@ -301,7 +301,10 @@ function ProductDetails() {
                 <span className="ml-1">Buy Now</span>
               </button>
 
-              <button type="submit" className="btn btn-primary flex-1">
+              <button
+                type="submit"
+                className="btn btn-primary flex-1 px-2 sm:px-4"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-4 fill-base-100"

@@ -1,6 +1,9 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function BottomNav() {
+  const { totalAmounts } = useSelector((state) => state.cart);
+
   return (
     <>
       <div className="btm-nav bg-base-100 sm:hidden">
@@ -37,7 +40,11 @@ function BottomNav() {
 
         <Link to={"/cart"} className="">
           <div className="indicator flex items-center text-center">
-            <span className="badge indicator-item badge-primary px-1">8</span>
+            {totalAmounts !== 0 && (
+              <span className="badge indicator-item badge-primary px-1">
+                {totalAmounts}
+              </span>
+            )}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 text-primary"

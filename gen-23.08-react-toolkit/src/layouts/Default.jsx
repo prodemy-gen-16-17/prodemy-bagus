@@ -22,7 +22,7 @@ function Default() {
     <>
       {showDefault && <Header />}
 
-      <main className="mx-auto max-w-7xl px-6">
+      <main className="mx-auto max-w-7xl p-6">
         <Outlet />
       </main>
 

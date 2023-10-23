@@ -24,7 +24,7 @@ function OrderItem({ item }) {
           </Link>
 
           <div className="flex-1">
-            <Link to={`products/${id}`} className="font-bold">
+            <Link to={`/products/${id}`} className="font-bold">
               {name}
             </Link>
             <div className="text-sm">SKU {sku}</div>
@@ -46,7 +46,7 @@ OrderItem.propTypes = {
 function CheckoutEmpty() {
   return (
     <>
-      <div className="flex items-center justify-center py-6 text-center">
+      <div className="flex h-[calc(100vh_-_236px)] items-center justify-center text-center sm:h-[calc(100vh_-_196px)]">
         <div className="">
           <h2 className="mb-4 text-2xl font-bold">Your Order is Empty</h2>
           <div className="mb-6">
@@ -62,7 +62,7 @@ function CheckoutEmpty() {
 function CheckoutSuccess() {
   return (
     <>
-      <div className="flex items-center justify-center py-6 text-center">
+      <div className="flex h-[calc(100vh_-_236px)] items-center justify-center text-center sm:h-[calc(100vh_-_196px)]">
         <div className="">
           <h2 className="mb-4 text-2xl font-bold">
             Your Order has been submitted
@@ -84,8 +84,8 @@ function Checkout() {
   const totalOrderItems =
     totalAmounts === 1 ? `1 product` : `${totalAmounts} products`;
 
-  const itemsList = items?.map(function (item, index) {
-    return <OrderItem key={index} item={item}></OrderItem>;
+  const itemsList = items?.map(function (item) {
+    return <OrderItem key={item.productId} item={item}></OrderItem>;
   });
 
   const schema = yup.object({

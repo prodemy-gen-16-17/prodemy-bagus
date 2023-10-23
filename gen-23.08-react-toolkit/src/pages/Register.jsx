@@ -1,12 +1,25 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
+import { createItem } from "../api/api";
+import { REGISTER } from "../api/routes";
 import FooterSimple from "../components/layout/FooterSimple";
 
 function Register() {
+  const navigate = useNavigate();
+
+  const { isLoggedIn } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+  }, [isLoggedIn, navigate]);
+
   const [reveal, setReveal] = useState(false);
   function handleReveal() {
     setReveal(function (reveal) {
@@ -15,7 +28,7 @@ function Register() {
   }
 
   const schema = yup.object({
-    name: yup.string().email().required("Required"),
+    name: yup.string().required("Required"),
     email: yup.string().email().required("Required"),
     password: yup.string().required("Required"),
     confirmPassword: yup
@@ -37,15 +50,27 @@ function Register() {
   const { register, handleSubmit, formState } = form;
   const { errors } = formState;
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
+
+    try {
+      await createItem(REGISTER, {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      navigate("/login");
+    }
   };
 
   return (
     <>
       <div className="flex h-full min-h-screen flex-col justify-between">
         <div className="m-auto flex w-full items-center justify-center bg-[url('')]">
-          <div className="card-compact card max-w-xs bg-base-100">
+          <div className="card card-compact max-w-xs bg-base-100">
             <Link
               to={"/"}
               className="btn mx-auto mt-4 border-0 bg-base-100 text-3xl text-primary"

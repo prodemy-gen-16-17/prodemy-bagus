@@ -1,12 +1,24 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
 import FooterSimple from "../components/layout/FooterSimple";
+import { login } from "../redux/reducers/authSlice";
 
 function Login() {
+  const navigate = useNavigate();
+
+  const { isLoggedIn } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+  }, [isLoggedIn, navigate]);
+
   const [reveal, setReveal] = useState(false);
   function handleReveal() {
     setReveal(function (reveal) {
@@ -32,15 +44,19 @@ function Login() {
   const { register, handleSubmit, formState } = form;
   const { errors } = formState;
 
+  const dispatch = useDispatch();
   const onSubmit = (data) => {
     console.log(data);
+    dispatch(login({ email: data.email, password: data.password }));
+
+    navigate("/");
   };
 
   return (
     <>
       <div className="flex h-full min-h-screen flex-col justify-between">
         <div className="m-auto flex w-full items-center justify-center bg-[url('')]">
-          <div className="card-compact card max-w-xs bg-base-100">
+          <div className="card card-compact max-w-xs bg-base-100">
             <Link
               to={"/"}
               className="btn mx-auto mt-4 border-0 bg-base-100 text-3xl text-primary"

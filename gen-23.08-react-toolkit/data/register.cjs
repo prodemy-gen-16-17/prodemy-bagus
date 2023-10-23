@@ -7,6 +7,9 @@ module.exports = (req, _res, next) => {
 
   if (method === "POST" && registerPath) {
     req.body.role = "user";
+    req.body.profilePhoto = `https://api.dicebear.com/7.x/lorelei/svg?seed=${encodeURI(
+      req.body.name,
+    )}`;
   }
 
   next();

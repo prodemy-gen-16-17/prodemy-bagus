@@ -1,3 +1,7 @@
+export const REGISTER = "/register";
+
+export const LOGIN = "/login";
+
 export const PRODUCTS = "/products";
 
 export const PROMOS = "/promos";

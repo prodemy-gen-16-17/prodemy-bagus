@@ -120,6 +120,9 @@ const cartSlice = createSlice({
       state.totalAmounts = payload.totalAmounts;
       state.totalPrice = payload.totalPrice;
     });
+    builder.addCase(fetchCartByUserId.rejected, (state) => {
+      state.isLoading = false;
+    });
 
     builder.addCase(addItemAsync.fulfilled, (state, { payload }) => {
       const { productId, amounts, subTotal } = payload;

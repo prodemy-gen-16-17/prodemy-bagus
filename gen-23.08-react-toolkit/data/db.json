@@ -1,4 +1,14 @@
 {
+  "users": [
+    {
+      "email": "test@test.com",
+      "password": "$2a$10$JOwKtU9naS.FmqnRDQHs6.tVnIzdxXi74DbsojTsGUkzTmKYvBqHm",
+      "role": "user",
+      "profilePhoto": "https://api.dicebear.com/7.x/lorelei/svg?seed=test",
+      "createdAt": 1698045694,
+      "id": 1
+    }
+  ],
   "products": [
     {
       "id": 1,

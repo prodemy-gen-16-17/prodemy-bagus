@@ -35,24 +35,31 @@ const sendRequest = async (method, endpoint, data = null) => {
   }
 };
 
-const getAllItems = async (endpoint) => {
+export const getAllItems = (endpoint) => {
   return sendRequest("get", endpoint);
 };
 
-const getItemById = async (endpoint) => {
+export const getItemById = (endpoint) => {
   return sendRequest("get", endpoint);
 };
 
-const createItem = async (endpoint, itemData) => {
+export const createItem = (endpoint, itemData) => {
   return sendRequest("post", endpoint, itemData);
 };
 
-const updateItem = async (endpoint, itemData) => {
+export const updateItem = (endpoint, itemData) => {
   return sendRequest("put", endpoint, itemData);
 };
 
-const deleteItem = async (endpoint) => {
+export const deleteItem = (endpoint) => {
   return sendRequest("delete", endpoint);
 };
 
-export { createItem, deleteItem, getAllItems, getItemById, updateItem };
+// https://github.com/axios/axios#custom-instance-defaults
+export const addAuthToken = (token) => {
+  api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+};
+
+export const removeAuthToken = () => {
+  delete api.defaults.headers.common["Authorization"];
+};

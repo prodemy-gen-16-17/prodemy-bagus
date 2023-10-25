@@ -11,7 +11,7 @@ const cartSlice = createSlice({
     cartId: 0,
     items: [],
     totalAmounts: 0,
-    totalPrice: 0,
+    subTotalProductPrice: 0,
   },
   reducers: {
     addItem: (state, { payload }) => {
@@ -24,7 +24,7 @@ const cartSlice = createSlice({
       if (!isItemExist) {
         state.items = [...state.items, payload];
         state.totalAmounts = state.totalAmounts + amounts;
-        state.totalPrice = state.totalPrice + subTotal;
+        state.subTotalProductPrice = state.subTotalProductPrice + subTotal;
       } else {
         // onIncrement
         state.items = state.items.map((item) =>
@@ -38,7 +38,7 @@ const cartSlice = createSlice({
         );
 
         state.totalAmounts += amounts;
-        state.totalPrice += subTotal;
+        state.subTotalProductPrice += subTotal;
       }
     },
     removeItem: (state, { payload }) => {
@@ -46,12 +46,12 @@ const cartSlice = createSlice({
 
       state.items = state.items.filter((item) => item.productId !== productId);
       state.totalAmounts -= amounts;
-      state.totalPrice -= subTotal;
+      state.subTotalProductPrice -= subTotal;
     },
     removeAllItems: (state) => {
       state.items = [];
       state.totalAmounts = 0;
-      state.totalPrice = 0;
+      state.subTotalProductPrice = 0;
     },
     onIncrement: (state, { payload }) => {
       const { id: productId, price } = payload;
@@ -67,7 +67,7 @@ const cartSlice = createSlice({
       );
 
       state.totalAmounts += 1;
-      state.totalPrice += price;
+      state.subTotalProductPrice += price;
     },
     onDecrement: (state, { payload }) => {
       const { id: productId, price } = payload;
@@ -83,7 +83,7 @@ const cartSlice = createSlice({
       );
 
       state.totalAmounts -= 1;
-      state.totalPrice -= price;
+      state.subTotalProductPrice -= price;
     },
     onChange: (state, { payload }) => {
       const { id: productId, amounts, price } = payload;
@@ -102,7 +102,7 @@ const cartSlice = createSlice({
         (total, item) => total + item.amounts,
         0,
       );
-      state.totalPrice = state.items.reduce(
+      state.subTotalProductPrice = state.items.reduce(
         (total, item) => total + item.subTotal,
         0,
       );
@@ -118,7 +118,7 @@ const cartSlice = createSlice({
       state.cartId = payload.cartId;
       state.items = payload.items;
       state.totalAmounts = payload.totalAmounts;
-      state.totalPrice = payload.totalPrice;
+      state.subTotalProductPrice = payload.subTotalProductPrice;
     });
     builder.addCase(fetchCartByUserId.rejected, (state) => {
       state.isLoading = false;
@@ -134,7 +134,7 @@ const cartSlice = createSlice({
       if (!isItemExist) {
         state.items = [...state.items, payload];
         state.totalAmounts = state.totalAmounts + amounts;
-        state.totalPrice = state.totalPrice + subTotal;
+        state.subTotalProductPrice = state.subTotalProductPrice + subTotal;
       } else {
         // onIncrement
         state.items = state.items.map((item) =>
@@ -148,7 +148,7 @@ const cartSlice = createSlice({
         );
 
         state.totalAmounts += amounts;
-        state.totalPrice += subTotal;
+        state.subTotalProductPrice += subTotal;
       }
     });
 
@@ -157,13 +157,13 @@ const cartSlice = createSlice({
 
       state.items = state.items.filter((item) => item.productId !== productId);
       state.totalAmounts -= amounts;
-      state.totalPrice -= subTotal;
+      state.subTotalProductPrice -= subTotal;
     });
 
     builder.addCase(removeAllItemsAsync.fulfilled, (state) => {
       state.items = [];
       state.totalAmounts = 0;
-      state.totalPrice = 0;
+      state.subTotalProductPrice = 0;
     });
 
     builder.addCase(onIncrementAsync.fulfilled, (state, { payload }) => {
@@ -180,7 +180,7 @@ const cartSlice = createSlice({
       );
 
       state.totalAmounts += 1;
-      state.totalPrice += price;
+      state.subTotalProductPrice += price;
     });
 
     builder.addCase(onDecrementAsync.fulfilled, (state, { payload }) => {
@@ -197,7 +197,7 @@ const cartSlice = createSlice({
       );
 
       state.totalAmounts -= 1;
-      state.totalPrice -= price;
+      state.subTotalProductPrice -= price;
     });
 
     builder.addCase(onChangeAsync.fulfilled, (state, { payload }) => {
@@ -217,7 +217,7 @@ const cartSlice = createSlice({
         (total, item) => total + item.amounts,
         0,
       );
-      state.totalPrice = state.items.reduce(
+      state.subTotalProductPrice = state.items.reduce(
         (total, item) => total + item.subTotal,
         0,
       );
@@ -256,7 +256,7 @@ export const fetchCartByUserId = createAsyncThunk(
           (total, item) => total + item.amounts,
           0,
         ),
-        totalPrice: cartItemsData.reduce(
+        subTotalProductPrice: cartItemsData.reduce(
           (total, item) => total + item.subTotal,
           0,
         ),
@@ -281,15 +281,17 @@ export const addItemAsync = createAsyncThunk(
     const isItemExist = cart.items.find((item) => item.productId === productId);
 
     try {
+      let itemData;
+
       if (!isItemExist) {
-        await createItem(CART_ITEMS, {
+        itemData = await createItem(CART_ITEMS, {
           amounts,
           cartId,
           productId,
           subTotal,
         });
       } else {
-        await updateItem(`${CART_ITEMS}/${isItemExist.id}`, {
+        itemData = await updateItem(`${CART_ITEMS}/${isItemExist.id}`, {
           amounts: isItemExist.amounts + amounts,
           cartId,
           createdAt: isItemExist.createdAt,
@@ -298,7 +300,8 @@ export const addItemAsync = createAsyncThunk(
         });
       }
 
-      return item;
+      itemData = { ...item, id: itemData.id };
+      return itemData;
     } catch (error) {
       console.log(error);
     }
@@ -337,11 +340,18 @@ export const removeAllItemsAsync = createAsyncThunk(
       return;
     }
 
-    const cartItemRequests = cart.items.map((item) => {
-      return deleteItem(`${CART_ITEMS}/${item.id}`);
-    });
-
     try {
+      const cartItemRequests = cart.items.map((item) => {
+        return new Promise((resolve, reject) => {
+          try {
+            const cartItem = deleteItem(`${CART_ITEMS}/${item.id}`);
+            resolve(cartItem);
+          } catch (error) {
+            reject(error);
+          }
+        });
+      });
+
       await Promise.all(cartItemRequests);
 
       return;

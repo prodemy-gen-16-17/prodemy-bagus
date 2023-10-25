@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { createItem } from "../../api/api";
+import { addAuthToken, createItem, removeAuthToken } from "../../api/api";
 import { LOGIN } from "../../api/routes";
 
 function initialState() {
@@ -9,14 +9,22 @@ function initialState() {
   console.log("user", user, "\naccessToken", accessToken);
 
   if (!user || !accessToken || accessToken === "") {
+    removeAuthToken();
+
     return {
+      isLoading: false,
+
       isLoggedIn: false,
       user: null,
       accessToken: null,
     };
   }
 
+  addAuthToken(accessToken);
+
   return {
+    isLoading: false,
+
     isLoggedIn: true,
     user: user,
     accessToken: accessToken,
@@ -37,15 +45,26 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(login.pending, (state) => {
+      state.isLoading = true;
+    });
     builder.addCase(login.fulfilled, (state, { payload }) => {
+      state.isLoading = false;
+
       localStorage.setItem("user", JSON.stringify(payload.user));
       localStorage.setItem("accessToken", payload.accessToken);
+
+      addAuthToken(payload.accessToken);
 
       state.isLoggedIn = true;
       state.user = payload.user;
       state.accessToken = payload.accessToken;
     });
     builder.addCase(login.rejected, (state, { payload }) => {
+      state.isLoading = false;
+
+      removeAuthToken();
+
       state.isLoggedIn = false;
       console.log(payload);
     });

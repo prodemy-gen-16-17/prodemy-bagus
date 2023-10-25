@@ -1,6 +1,7 @@
 {
   "users": [
     {
+      "name": "test",
       "email": "test@test.com",
       "password": "$2a$10$JOwKtU9naS.FmqnRDQHs6.tVnIzdxXi74DbsojTsGUkzTmKYvBqHm",
       "role": "user",
@@ -9,6 +10,16 @@
       "id": 1
     }
   ],
+  "carts": [
+    {
+      "userId": 1,
+      "createdAt": 1697899482,
+      "id": 1
+    }
+  ],
+  "cart-items": [],
+  "orders": [],
+  "order-items": [],
   "products": [
     {
       "id": 1,
@@ -497,14 +508,165 @@
       "name": "Tools"
     }
   ],
-  "carts": [
+  "payment-methods": [
     {
-      "userId": 1,
-      "createdAt": 1697899482,
-      "id": 1
+      "id": 1,
+      "super-payment-methodId": 1,
+      "name": "BCA"
+    },
+    {
+      "id": 2,
+      "super-payment-methodId": 1,
+      "name": "Mandiri"
+    },
+    {
+      "id": 3,
+      "super-payment-methodId": 1,
+      "name": "BNI"
+    },
+    {
+      "id": 4,
+      "super-payment-methodId": 2,
+      "name": "GO-PAY"
+    },
+    {
+      "id": 5,
+      "super-payment-methodId": 2,
+      "name": "OVO"
+    },
+    {
+      "id": 6,
+      "super-payment-methodId": 2,
+      "name": "DANA"
+    },
+    {
+      "id": 7,
+      "super-payment-methodId": 3,
+      "name": "SPayLater"
+    },
+    {
+      "id": 8,
+      "super-payment-methodId": 4,
+      "name": "Indomaret"
+    },
+    {
+      "id": 9,
+      "super-payment-methodId": 4,
+      "name": "Alfamaret"
     }
   ],
-  "cart-items": [],
-  "orders": [],
-  "order-items": []
+  "super-payment-methods": [
+    {
+      "id": 1,
+      "name": "Bank Transfer"
+    },
+    {
+      "id": 2,
+      "name": "E-Wallet"
+    },
+    {
+      "id": 3,
+      "name": "PayLater"
+    },
+    {
+      "id": 4,
+      "name": "Mini Market"
+    }
+  ],
+  "shipping-methods": [
+    {
+      "id": 1,
+      "super-shipping-methodId": 1,
+      "name": "FreeSlow Instant",
+      "price": 45000
+    },
+    {
+      "id": 2,
+      "super-shipping-methodId": 1,
+      "name": "ComeReceive Instant",
+      "price": 40000
+    },
+    {
+      "id": 3,
+      "super-shipping-methodId": 2,
+      "name": "FreeSlow SameDay",
+      "price": 18000
+    },
+    {
+      "id": 4,
+      "super-shipping-methodId": 2,
+      "name": "ComeReceive SameDay",
+      "price": 27000
+    },
+    {
+      "id": 5,
+      "super-shipping-methodId": 2,
+      "name": "FreeSlow Car",
+      "price": 20000
+    },
+    {
+      "id": 6,
+      "super-shipping-methodId": 2,
+      "name": "ComeReceive Car",
+      "price": 24000
+    },
+    {
+      "id": 7,
+      "super-shipping-methodId": 3,
+      "name": "ENJ NO",
+      "price": 18000
+    },
+    {
+      "id": 8,
+      "super-shipping-methodId": 3,
+      "name": "T&J NextDay",
+      "price": 16000
+    },
+    {
+      "id": 9,
+      "super-shipping-methodId": 4,
+      "name": "ENJ Regular",
+      "price": 9000
+    },
+    {
+      "id": 10,
+      "super-shipping-methodId": 4,
+      "name": "T&J Regular",
+      "price": 10000
+    },
+    {
+      "id": 11,
+      "super-shipping-methodId": 5,
+      "name": "ENJ Cargo",
+      "price": 25000
+    },
+    {
+      "id": 12,
+      "super-shipping-methodId": 5,
+      "name": "T&J Cargo",
+      "price": 23000
+    }
+  ],
+  "super-shipping-methods": [
+    {
+      "id": 1,
+      "name": "Instant"
+    },
+    {
+      "id": 2,
+      "name": "SameDay"
+    },
+    {
+      "id": 3,
+      "name": "Next Day"
+    },
+    {
+      "id": 4,
+      "name": "Regular"
+    },
+    {
+      "id": 5,
+      "name": "Cargo"
+    }
+  ]
 }

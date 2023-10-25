@@ -1,9 +1,70 @@
-import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+import { logout } from "../../redux/reducers/authSlice";
 import Category from "./Category";
 
+function LoginBtnHeader() {
+  return (
+    <>
+      <Link
+        to={"/login"}
+        className="btn hidden border-0 bg-base-100 sm:inline-flex"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 fill-primary"
+          viewBox="0 0 512 512"
+        >
+          <path d="M217.9 105.9L340.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L217.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1L32 320c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM352 416l64 0c17.7 0 32-14.3 32-32l0-256c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c53 0 96 43 96 96l0 256c0 53-43 96-96 96l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z" />
+        </svg>
+        <span className="ml-1 hidden md:inline">Login</span>
+      </Link>
+    </>
+  );
+}
+
+function AccountBtnHeader({ name, profilePhoto }) {
+  const dispatch = useDispatch();
+
+  function handleLogout() {
+    dispatch(logout());
+  }
+  return (
+    <>
+      <details className="dropdown dropdown-end hidden sm:block">
+        <summary className="avatar btn border-0 bg-base-100">
+          <div className="w-9 rounded-full border-2 border-primary">
+            <img src={profilePhoto} alt={profilePhoto} />
+          </div>
+          <span className="hidden py-3 md:inline">{name}</span>
+        </summary>
+        <ul className="menu dropdown-content rounded-box menu-sm z-[1] mt-2 w-52 bg-base-100 p-2 shadow">
+          <li>
+            <Link to={"/account"} className="justify-between">
+              Account
+              {/* <span className="badge">New</span> */}
+            </Link>
+          </li>
+          <li>
+            <a className="" onClick={handleLogout}>
+              Logout
+            </a>
+          </li>
+        </ul>
+      </details>
+    </>
+  );
+}
+
+AccountBtnHeader.propTypes = {
+  name: PropTypes.string,
+  profilePhoto: PropTypes.string,
+};
+
 function Header() {
+  const { isLoggedIn, user } = useSelector((state) => state.auth);
   const { totalAmounts } = useSelector((state) => state.cart);
 
   const showSearchDropdown = () => {
@@ -70,7 +131,7 @@ function Header() {
                 <input
                   id="search"
                   name="search"
-                  className="input input-primary flex-1 px-10 py-1.5"
+                  className="input input-primary w-full px-10 py-1.5"
                   placeholder="Search"
                   type="search"
                   onFocus={showSearchDropdown}
@@ -92,7 +153,7 @@ function Header() {
               </div>
             </summary>
 
-            <div className="dropdown-content rounded-box z-[1] w-full bg-base-100 p-2 shadow">
+            <div className="dropdown-content rounded-box z-[1] mt-2 w-full bg-base-100 p-2 shadow">
               <div className="py-2">Popular Search</div>
               <div className="flex flex-wrap">
                 <Link
@@ -172,19 +233,14 @@ function Header() {
             </div>
           </Link>
 
-          <Link
-            to={"/login"}
-            className="btn hidden border-0 bg-base-100 sm:inline-flex"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 fill-primary"
-              viewBox="0 0 512 512"
-            >
-              <path d="M217.9 105.9L340.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L217.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1L32 320c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM352 416l64 0c17.7 0 32-14.3 32-32l0-256c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c53 0 96 43 96 96l0 256c0 53-43 96-96 96l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z" />
-            </svg>
-            <span className="ml-1 hidden md:inline">Login</span>
-          </Link>
+          {isLoggedIn ? (
+            <AccountBtnHeader
+              name={user.name}
+              profilePhoto={user.profilePhoto}
+            ></AccountBtnHeader>
+          ) : (
+            <LoginBtnHeader></LoginBtnHeader>
+          )}
         </div>
       </header>
     </>

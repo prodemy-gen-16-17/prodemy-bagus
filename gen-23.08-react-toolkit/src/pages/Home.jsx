@@ -92,9 +92,9 @@ function Home() {
       <section className="text-center">
         <div className="flex items-center justify-between py-2">
           <h2 className="text-2xl">Exclusive Products</h2>
-          <div className="flex gap-x-6">
+          <div className="flex flex-wrap justify-end gap-x-2">
             <select
-              className="select"
+              className="select w-full min-[306px]:w-[159px]"
               value={sortBy}
               onChange={handleSortByChanged}
             >

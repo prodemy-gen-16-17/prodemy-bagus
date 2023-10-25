@@ -1,7 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
@@ -11,14 +10,6 @@ import FooterSimple from "../components/layout/FooterSimple";
 
 function Register() {
   const navigate = useNavigate();
-
-  const { isLoggedIn } = useSelector((state) => state.auth);
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/");
-    }
-  }, [isLoggedIn, navigate]);
 
   const [reveal, setReveal] = useState(false);
   function handleReveal() {
@@ -137,7 +128,11 @@ function Register() {
                     }`}
                     {...register("password")}
                   />
-                  <button className="btn bg-base-100" onClick={handleReveal}>
+                  <button
+                    type="button"
+                    className="btn bg-base-100"
+                    onClick={handleReveal}
+                  >
                     {reveal ? (
                       <svg
                         className="h-5 w-6 fill-gray-400"
@@ -180,7 +175,11 @@ function Register() {
                     }`}
                     {...register("confirmPassword")}
                   />
-                  <button className="btn bg-base-100" onClick={handleReveal}>
+                  <button
+                    type="button"
+                    className="btn bg-base-100"
+                    onClick={handleReveal}
+                  >
                     {reveal ? (
                       <svg
                         className="h-5 w-6 fill-gray-400"
@@ -228,7 +227,7 @@ function Register() {
             <div className="divider">or</div>
 
             <div className="card-body grid grid-cols-2 pt-0">
-              <button className="btn bg-base-100">
+              <button type="button" className="btn bg-base-100">
                 <svg viewBox="0 0 24 24" className="h-5 w-5">
                   <path
                     d="M 6.43245 14.0866 L 5.73627 16.6855 L 3.19176 16.7393 C 2.43133 15.3289 2 13.7152 2 12.0003 C 2 10.342 2.40328 8.77829 3.11813 7.40137 H 3.11868 L 5.384 7.81668 L 6.37635 10.0684 C 6.16866 10.6739 6.05545 11.3239 6.05545 12.0003 C 6.05553 12.7344 6.1885 13.4377 6.43245 14.0866 Z"
@@ -249,7 +248,7 @@ function Register() {
                 </svg>
                 Google
               </button>
-              <button className="btn bg-base-100">
+              <button type="button" className="btn bg-base-100">
                 <svg viewBox="0 0 24 24" className="h-5 w-5">
                   <path
                     d="M 15.175 5.32083 H 17.0008 V 2.14083 C 16.6858 2.0975 15.6025 2 14.3408 2 C 8.56417 2 10.1358 8.54167 9.90583 9.5 H 7 V 13.055 H 9.905 V 22 H 13.4667 V 13.0558 H 16.2542 L 16.6967 9.50083 H 13.4658 C 13.6225 7.1475 12.8317 5.32083 15.175 5.32083 Z"

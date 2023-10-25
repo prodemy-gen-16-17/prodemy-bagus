@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 import CartItem from "../components/CartItem";
+import LoadingPage from "../components/LoadingPage";
 import { removeAllItemsAsync as removeAllCartItems } from "../redux/reducers/cartSlice";
 import { addOrder } from "../redux/reducers/orderSlice";
 import idrPriceFormat from "../utils/price";
@@ -25,7 +26,7 @@ function CartEmpty() {
 }
 
 function Cart() {
-  const { isLoading, items, totalAmounts, totalPrice } = useSelector(
+  const { isLoading, items, totalAmounts, subTotalProductPrice } = useSelector(
     (state) => state.cart,
   );
 
@@ -36,8 +37,8 @@ function Cart() {
 
   const navigate = useNavigate();
   function handleOrder() {
-    dispatch(addOrder({ items, totalAmounts, totalPrice }));
-    handleRemoveAllItems();
+    dispatch(addOrder({ items, totalAmounts, subTotalProductPrice }));
+    dispatch(removeAllCartItems());
     navigate("/checkout");
   }
 
@@ -49,13 +50,7 @@ function Cart() {
   });
 
   if (isLoading) {
-    return (
-      <>
-        <div className="flex h-[calc(100vh_-_236px)] items-center justify-center sm:h-[calc(100vh_-_196px)]">
-          <span className="loading loading-dots loading-lg"></span>
-        </div>
-      </>
-    );
+    return <LoadingPage></LoadingPage>;
   }
 
   if (totalAmounts === 0) {
@@ -95,7 +90,7 @@ function Cart() {
         </div>
 
         <div className="w-full lg:grow lg:basis-0">
-          <div className="card sticky top-0 mb-6 shadow-xl">
+          <div className="card sticky top-12 mb-6 shadow-xl">
             <div className="card-body p-6">
               <div className="text-xl font-bold">Details</div>
               <div className="py-4">
@@ -106,11 +101,13 @@ function Cart() {
                       ({totalCartItems})
                     </span>
                   </div>
-                  <div>{idrPriceFormat(totalPrice)}</div>
+                  <div>{idrPriceFormat(subTotalProductPrice)}</div>
                 </div>
                 <div className="flex justify-between pb-4">
                   <div className="font-bold">Total</div>
-                  <div className="font-bold">{idrPriceFormat(totalPrice)}</div>
+                  <div className="font-bold">
+                    {idrPriceFormat(subTotalProductPrice)}
+                  </div>
                 </div>
                 <button
                   type="button"

@@ -15,6 +15,7 @@ import AdminLogin from "./pages/admin/AdminLogin";
 import Cart from "./pages/Cart";
 import Categories from "./pages/Categories";
 import Checkout from "./pages/Checkout";
+import CheckoutOverview from "./pages/CheckoutOverview";
 import Form from "./pages/Form";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -35,8 +36,9 @@ const router = createBrowserRouter(
 
         <Route path="form" element={<Form />} />
 
-        <Route element={<DefaultProtected isAuthorized={true} />}>
+        <Route element={<DefaultProtected />}>
           <Route path="checkout" element={<Checkout />} />
+          <Route path="checkout/overview" element={<CheckoutOverview />} />
         </Route>
       </Route>
 

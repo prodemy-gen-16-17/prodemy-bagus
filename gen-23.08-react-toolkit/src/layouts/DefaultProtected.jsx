@@ -1,12 +1,22 @@
-import PropTypes from "prop-types";
-import { Navigate, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-function DefaultProtected({ isAuthorized }) {
-  return isAuthorized ? <Outlet /> : <Navigate to={"/login"} />;
+import LoadingPage from "../components/LoadingPage";
+
+function DefaultProtected() {
+  const { isLoading, isLoggedIn } = useSelector((state) => state.auth);
+
+  const { pathname } = useLocation();
+
+  if (isLoading) {
+    return <LoadingPage></LoadingPage>;
+  }
+
+  if (!isLoggedIn) {
+    return <Navigate to={"/login"} state={{ from: pathname }} replace />;
+  }
+
+  return <Outlet />;
 }
-
-DefaultProtected.propTypes = {
-  isAuthorized: PropTypes.bool,
-};
 
 export default DefaultProtected;

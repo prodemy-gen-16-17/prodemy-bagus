@@ -5,6 +5,16 @@ const orderSlice = createSlice({
   initialState: {
     items: [],
     totalAmounts: 0,
+    subTotalProductPrice: 0,
+
+    address: "",
+    phone: "",
+    "payment-method": null,
+    "payment-methodId": 0,
+    "shipping-method": null,
+    "shipping-methodId": 0,
+    insurance: false,
+
     totalPrice: 0,
   },
   reducers: {
@@ -18,6 +28,7 @@ const orderSlice = createSlice({
       if (!isItemExist) {
         state.items = [...state.items, payload];
         state.totalAmounts = state.totalAmounts + amounts;
+        state.subTotalProductPrice = state.subTotalProductPrice + subTotal;
         state.totalPrice = state.totalPrice + subTotal;
       } else {
         // onIncrement
@@ -32,21 +43,44 @@ const orderSlice = createSlice({
         );
 
         state.totalAmounts += amounts;
+        state.subTotalProductPrice += subTotal;
         state.totalPrice += subTotal;
       }
     },
     addOrder: (state, { payload }) => {
       state.items = payload.items;
       state.totalAmounts = payload.totalAmounts;
+      state.subTotalProductPrice = payload.subTotalProductPrice;
+      state.totalPrice = payload.subTotalProductPrice;
+    },
+    updateOrder: (state, { payload }) => {
+      state.address = payload.address;
+      state.phone = payload.phone;
+      state["payment-method"] = payload["payment-method"];
+      state["payment-methodId"] = payload["payment-methodId"];
+      state["shipping-method"] = payload["shipping-method"];
+      state["shipping-methodId"] = payload["shipping-methodId"];
+      state.insurance = payload.insurance;
       state.totalPrice = payload.totalPrice;
     },
     removeOrder: (state) => {
       state.items = [];
       state.totalAmounts = 0;
+      state.subTotalProductPrice = 0;
+
+      state.address = "";
+      state.phone = "";
+      state["payment-method"] = null;
+      state["payment-methodId"] = 0;
+      state["shipping-method"] = null;
+      state["shipping-methodId"] = 0;
+      state.insurance = false;
+
       state.totalPrice = 0;
     },
   },
 });
 
-export const { addItem, addOrder, removeOrder } = orderSlice.actions;
+export const { addItem, addOrder, updateOrder, removeOrder } =
+  orderSlice.actions;
 export default orderSlice.reducer;

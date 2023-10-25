@@ -1,29 +1,31 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import {
-  onChange as onChangeItem,
+  onChangeAsync as onChangeItem,
   onDecrementAsync as onDecrementItem,
   onIncrementAsync as onIncrementItem,
   removeItemAsync as removeCartItem,
 } from "../redux/reducers/cartSlice";
 import absoluteRange from "../utils/absoluteRange";
 import idrPriceFormat from "../utils/price";
+import useDebounce from "../utils/useDebounce";
 
 function CartItem({ item }) {
   const { amounts, maxOrder, product, subTotal } = item;
   const { id, name, sku, images, price, minOrder } = product;
 
+  const [itemAmounts, setItemAmounts] = useState(amounts);
+
   const dispatch = useDispatch();
 
-  function handleOnDecrement() {
-    dispatch(onDecrementItem({ id, price }));
-  }
-
-  function handleOnChange(event) {
-    const valueAsNumber = absoluteRange(event.target.value, minOrder, maxOrder);
-
+  // https://www.developerway.com/posts/debouncing-in-react#part3
+  const onChange = () => {
+    console.log("State itemAmounts:", itemAmounts);
+    const valueAsNumber = absoluteRange(itemAmounts, minOrder, maxOrder);
+    console.log("State itemAmounts:", valueAsNumber);
     dispatch(
       onChangeItem({
         id,
@@ -33,6 +35,17 @@ function CartItem({ item }) {
         maxOrder,
       }),
     );
+  };
+
+  const debouncedOnChange = useDebounce(onChange);
+
+  function handleOnChange(event) {
+    debouncedOnChange();
+    setItemAmounts(event.target.value);
+  }
+
+  function handleOnDecrement() {
+    dispatch(onDecrementItem({ id, price }));
   }
 
   function handleOnIncrement() {
